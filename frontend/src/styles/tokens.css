@@ -1,0 +1,98 @@
+/* Tasvir.uz — dizayn tokenlari (tokens.json dan) */
+:root,[data-theme="light"]{
+  --paper:#fbfaf7;
+  --paper-2:#f3f1ea;
+  --card:#ffffff;
+  --ink:#17162b;
+  --ink-muted:#55546b;
+  --line:#e4e1d8;
+  --line-strong:#17162b;
+  --brand:#3d35c6;
+  --brand-strong:#2c2599;
+  --brand-tint:#ecebff;
+  --on-brand:#ffffff;
+  --coral:#ff6b57;
+  --coral-ink:#b93a28;
+  --coral-tint:#ffe7e3;
+  --sun:#ffc93c;
+  --sun-tint:#fff4d1;
+  --mint:#2ec4a0;
+  --mint-ink:#0c7259;
+  --mint-tint:#dcf6ef;
+  --night:#17162b;
+  --night-ink:#f2f1f8;
+  --shadow-card:0 1px 2px rgba(23,22,43,0.06), 0 8px 24px rgba(23,22,43,0.06);
+  --shadow-sticker:4px 4px 0 #17162b;
+  --shadow-lift:0 18px 40px rgba(61,53,198,0.18);
+}
+[data-theme="dark"]{
+  --paper:#12121c;
+  --paper-2:#1a1a28;
+  --card:#222235;
+  --ink:#f2f1f8;
+  --ink-muted:#a9a8bd;
+  --line:#33334b;
+  --line-strong:#f2f1f8;
+  --brand:#a9a4ff;
+  --brand-strong:#c7c3ff;
+  --brand-tint:#28264a;
+  --on-brand:#12121c;
+  --coral:#ff7d6b;
+  --coral-ink:#ff9a8b;
+  --coral-tint:#3a2326;
+  --sun:#ffd25e;
+  --sun-tint:#3a3220;
+  --mint:#3fd8b2;
+  --mint-ink:#6fe4c6;
+  --mint-tint:#1b3530;
+  --night:#0b0b13;
+  --night-ink:#f2f1f8;
+  --shadow-card:0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.3);
+  --shadow-sticker:4px 4px 0 #000000;
+  --shadow-lift:0 18px 40px rgba(0,0,0,0.5);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#12121c;
+  --paper-2:#1a1a28;
+  --card:#222235;
+  --ink:#f2f1f8;
+  --ink-muted:#a9a8bd;
+  --line:#33334b;
+  --line-strong:#f2f1f8;
+  --brand:#a9a4ff;
+  --brand-strong:#c7c3ff;
+  --brand-tint:#28264a;
+  --on-brand:#12121c;
+  --coral:#ff7d6b;
+  --coral-ink:#ff9a8b;
+  --coral-tint:#3a2326;
+  --sun:#ffd25e;
+  --sun-tint:#3a3220;
+  --mint:#3fd8b2;
+  --mint-ink:#6fe4c6;
+  --mint-tint:#1b3530;
+  --night:#0b0b13;
+  --night-ink:#f2f1f8;
+  --shadow-card:0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.3);
+  --shadow-sticker:4px 4px 0 #000000;
+  --shadow-lift:0 18px 40px rgba(0,0,0,0.5);
+}}
+:root{
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-6:24px;
+  --space-8:32px;
+  --space-12:48px;
+  --space-16:64px;
+  --space-24:96px;
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:22px;
+  --radius-xl:32px;
+  --radius-pill:999px;
+  --font-display:"Bricolage Grotesque", "Onest", system-ui, sans-serif;
+  --font-sans:"Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-hand:"Caveat", "Comic Sans MS", cursive;
+}

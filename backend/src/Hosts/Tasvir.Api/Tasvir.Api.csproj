@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Host barcha modullarni yig‘adi (composition root). Yangi modul = yangi 4 ta loyiha + shu yerda ro‘yxatdan o‘tkazish. -->
+    <ProjectReference Include="..\..\Modules\Content\Tasvir.Modules.Content.Application\Tasvir.Modules.Content.Application.csproj" />
+    <ProjectReference Include="..\..\Modules\Content\Tasvir.Modules.Content.Infrastructure\Tasvir.Modules.Content.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Content\Tasvir.Modules.Content.Presentation\Tasvir.Modules.Content.Presentation.csproj" />
+  </ItemGroup>
+</Project>

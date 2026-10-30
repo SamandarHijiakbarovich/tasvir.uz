@@ -1,0 +1,11 @@
+/* next/font yuklagan shriftlarni dizayn tokenlariga ulaymiz */
+:root {
+  --font-display: var(--ff-display), "Onest", system-ui, sans-serif;
+  --font-sans: var(--ff-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-hand: var(--ff-hand), "Comic Sans MS", cursive;
+}
+
+/* Yopishqoq navbar ostida bo‘lim sarlavhasi yashirinib qolmasin */
+html {
+  scroll-padding-top: 88px;
+}

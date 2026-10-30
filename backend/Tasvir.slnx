@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/Tasvir.SharedKernel/Tasvir.SharedKernel.csproj" />
+  </Folder>
+  <Folder Name="/Hosts/">
+    <Project Path="src/Hosts/Tasvir.Api/Tasvir.Api.csproj" />
+    <Project Path="src/Hosts/Tasvir.Gateway/Tasvir.Gateway.csproj" />
+  </Folder>
+  <Folder Name="/Modules/Content/">
+    <Project Path="src/Modules/Content/Tasvir.Modules.Content.Domain/Tasvir.Modules.Content.Domain.csproj" />
+    <Project Path="src/Modules/Content/Tasvir.Modules.Content.Application/Tasvir.Modules.Content.Application.csproj" />
+    <Project Path="src/Modules/Content/Tasvir.Modules.Content.Infrastructure/Tasvir.Modules.Content.Infrastructure.csproj" />
+    <Project Path="src/Modules/Content/Tasvir.Modules.Content.Presentation/Tasvir.Modules.Content.Presentation.csproj" />
+  </Folder>
+</Solution>

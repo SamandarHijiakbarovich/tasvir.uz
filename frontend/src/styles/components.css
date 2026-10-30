@@ -1,0 +1,188 @@
+
+/* Tasvir.uz — komponent stillari. Barcha qiymatlar tokens.css dagi o‘zgaruvchilardan. */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-size:16px;line-height:26px;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%}
+a{color:var(--brand)}
+:focus-visible{outline:3px solid var(--brand);outline-offset:3px;border-radius:6px}
+.tv-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Matn */
+.tv-display{font-family:var(--font-display);font-weight:800;letter-spacing:-.02em;font-size:clamp(40px,6vw,64px);line-height:1.06;margin:0}
+.tv-h2{font-family:var(--font-display);font-weight:800;letter-spacing:-.015em;font-size:clamp(32px,4.2vw,44px);line-height:1.14;margin:0}
+.tv-h3{font-family:var(--font-display);font-weight:700;font-size:22px;line-height:28px;margin:0}
+.tv-lead{font-size:19px;line-height:30px;color:var(--ink-muted);margin:0}
+.tv-muted{color:var(--ink-muted)}
+.tv-label{font-size:13px;line-height:16px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--brand)}
+.tv-hand{font-family:var(--font-hand);font-weight:700;font-size:26px;line-height:1.05;color:var(--coral-ink)}
+.tv-mark{background:linear-gradient(transparent 58%,var(--sun) 58%,var(--sun) 90%,transparent 90%);padding:0 .08em}
+[data-theme="dark"] .tv-mark{background:linear-gradient(transparent 84%,var(--sun) 84%,var(--sun) 97%,transparent 97%)}
+.tv-circled{position:relative;display:inline-block;white-space:nowrap}
+.tv-circled svg{max-width:none;position:absolute;left:-8%;top:-14%;width:116%;height:128%;pointer-events:none;overflow:visible}
+.tv-circled path{fill:none;stroke:var(--coral);stroke-width:3;stroke-linecap:round}
+
+/* Tugma */
+.tv-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;border-radius:var(--radius-md);font:600 16px/20px var(--font-sans);text-decoration:none;cursor:pointer;border:2px solid transparent;transition:transform .15s ease,box-shadow .15s ease,background-color .15s ease;white-space:nowrap}
+.tv-btn-primary{background:var(--brand);color:var(--on-brand);border-color:var(--line-strong);box-shadow:var(--shadow-sticker)}
+.tv-btn-primary:hover{background:var(--brand-strong);transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--line-strong)}
+.tv-btn-primary:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line-strong)}
+.tv-btn-ghost{background:var(--card);color:var(--ink);border-color:var(--line-strong)}
+.tv-btn-ghost:hover{background:var(--brand-tint)}
+.tv-btn-text{background:none;color:var(--brand);padding-inline:6px;min-height:40px}
+.tv-btn-text:hover{text-decoration:underline;text-underline-offset:4px}
+.tv-btn-sm{min-height:40px;padding:8px 16px;font-size:15px}
+.tv-btn-block{width:100%}
+
+/* Badge / stiker */
+.tv-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:var(--radius-pill);font-size:14px;line-height:18px;font-weight:600;background:var(--brand-tint);color:var(--brand)}
+.tv-badge-mint{background:var(--mint-tint);color:var(--mint-ink)}
+.tv-badge-coral{background:var(--coral-tint);color:var(--coral-ink)}
+.tv-sticker{display:inline-block;padding:6px 14px;border-radius:var(--radius-pill);font:700 15px/18px var(--font-sans);color:#17162b;border:2px solid var(--line-strong);box-shadow:3px 3px 0 var(--line-strong);transform:rotate(-4deg)}
+.tv-sticker-sun{background:var(--sun)}.tv-sticker-coral{background:var(--coral)}.tv-sticker-mint{background:var(--mint)}
+
+/* Kartochka */
+.tv-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-card);transition:transform .2s ease,box-shadow .2s ease}
+.tv-card-hover:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.tv-card-outline{border:2px solid var(--line-strong);box-shadow:var(--shadow-sticker)}
+.tv-icon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;margin-bottom:18px}
+.tv-icon svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tv-icon-coral{background:var(--coral-tint);color:var(--coral-ink)}
+.tv-icon-sun{background:var(--sun-tint);color:var(--ink)}
+.tv-icon-mint{background:var(--mint-tint);color:var(--mint-ink)}
+.tv-icon-brand{background:var(--brand-tint);color:var(--brand)}
+
+/* Logo */
+.tv-logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font:800 24px/1 var(--font-display);letter-spacing:-.02em}
+.tv-logo svg{width:36px;height:36px}
+.tv-logo .s{stroke:var(--brand)}
+.tv-logo .uz{color:var(--coral-ink)}
+
+/* Navbar */
+.tv-nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.tv-nav-in{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:24px}
+.tv-nav-links{display:flex;gap:4px;margin:0 auto;padding:0;list-style:none}
+.tv-nav-links a{display:block;padding:8px 12px;border-radius:10px;color:var(--ink);text-decoration:none;font-weight:500}
+.tv-nav-links a:hover{background:var(--brand-tint);color:var(--brand)}
+.tv-nav-act{display:flex;align-items:center;gap:8px}
+.tv-iconbtn{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:none;border:1px solid var(--line);color:var(--ink);cursor:pointer}
+.tv-iconbtn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.tv-burger{display:none}
+@media (max-width:960px){
+  .tv-nav-links,.tv-nav-act .tv-login{display:none}
+  .tv-burger{display:grid}
+  .tv-nav-act{margin-left:auto}
+  .tv-nav.open .tv-nav-links{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--line);padding:12px 16px 20px}
+}
+@media (max-width:520px){.tv-nav-in{padding:10px 16px;gap:12px}.tv-nav-act .tv-btn{display:none}}
+
+/* Bo‘lim */
+.tv-section{padding:96px 24px}
+.tv-wrap{max-width:1200px;margin:0 auto}
+.tv-head{max-width:720px;margin:0 auto 48px;text-align:center;display:grid;gap:14px}
+.tv-alt{background:var(--paper-2)}
+@media (max-width:640px){.tv-section{padding:64px 16px}}
+.tv-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media (max-width:900px){.tv-grid-3{grid-template-columns:1fr}}
+
+/* Qadamlar */
+.tv-step{position:relative}
+.tv-step-n{font:800 15px/1 var(--font-display);width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--paper);margin-bottom:16px}
+.tv-arrow{position:absolute;right:-40px;top:52px;width:56px;height:40px;z-index:2}
+.tv-arrow path{fill:none;stroke:var(--coral);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+@media (max-width:900px){.tv-arrow{display:none}}
+
+/* Oldin / Keyin */
+.tv-ba{position:relative;border-radius:var(--radius-xl);overflow:hidden;border:2px solid var(--line-strong);box-shadow:var(--shadow-sticker);aspect-ratio:16/9;background:var(--card);max-width:960px;margin:0 auto;--pos:50%}
+.tv-ba-pane{position:absolute;inset:0}
+.tv-ba-after{clip-path:inset(0 0 0 var(--pos))}
+.tv-ba-line{position:absolute;top:0;bottom:0;left:var(--pos);width:3px;margin-left:-1.5px;background:var(--line-strong);pointer-events:none}
+.tv-ba-knob{position:absolute;top:50%;left:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:var(--sun);border:2px solid var(--line-strong);display:grid;place-items:center}
+.tv-ba-knob svg{width:22px;height:22px;stroke:#17162b;fill:none;stroke-width:2.5;stroke-linecap:round}
+.tv-ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.tv-ba input:focus-visible ~ .tv-ba-line .tv-ba-knob{outline:3px solid var(--brand);outline-offset:3px}
+.tv-ba-tag{position:absolute;top:16px;z-index:3}
+.tv-ba-tag.l{left:16px}.tv-ba-tag.r{right:16px}
+
+/* Bento */
+.tv-bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(220px,auto);gap:20px}
+.tv-bento .b-wide{grid-column:span 2}
+.tv-bento .b-tall{grid-row:span 2}
+@media (max-width:900px){.tv-bento{grid-template-columns:1fr 1fr}.tv-bento .b-tall{grid-row:auto}}
+@media (max-width:560px){.tv-bento{grid-template-columns:1fr}.tv-bento .b-wide{grid-column:auto}}
+.tv-tile{border-radius:var(--radius-lg);padding:26px;border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:10px;overflow:hidden;position:relative;transition:transform .2s ease,box-shadow .2s ease}
+.tv-tile:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.tv-tile-brand{background:var(--brand);color:var(--on-brand);border-color:var(--brand)}
+.tv-tile-brand .tv-muted{color:var(--on-brand);opacity:.85}
+.tv-tile-sun{background:var(--sun-tint)}
+.tv-tile-mint{background:var(--mint-tint)}
+.tv-tile-coral{background:var(--coral-tint)}
+.tv-tile .viz{margin-top:auto}
+
+/* Shablon kartochkasi */
+.tv-tpl{border-radius:var(--radius-lg);background:var(--card);border:1px solid var(--line);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease;display:flex;flex-direction:column}
+.tv-tpl:hover{transform:translateY(-4px) rotate(-.5deg);box-shadow:var(--shadow-lift)}
+.tv-tpl-art{aspect-ratio:4/3;display:grid;place-items:center;padding:18px;background:var(--paper-2)}
+.tv-tpl-art svg{width:100%;height:100%}
+.tv-tpl-body{padding:16px 18px 18px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tv-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:28px}
+.tv-chip{padding:8px 16px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--card);color:var(--ink);font:500 15px/20px var(--font-sans);cursor:pointer}
+.tv-chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* Natijalar */
+.tv-stat{display:grid;gap:6px;padding:24px;border-radius:var(--radius-lg);background:var(--card);border:1px solid var(--line)}
+.tv-stat b{font:800 56px/1 var(--font-display);letter-spacing:-.02em;color:var(--brand)}
+.tv-chart{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;align-items:end;height:280px;padding:24px 24px 0;border-bottom:2px solid var(--line-strong)}
+.tv-bars{display:flex;gap:10px;align-items:end;justify-content:center;height:100%}
+.tv-bar{width:40px;border-radius:10px 10px 0 0;height:0;transition:height 1.2s cubic-bezier(.2,.8,.2,1)}
+.tv-bar.exp{background:var(--mint)}.tv-bar.ctl{background:var(--line)}
+.tv-bar.empty{height:70%!important;background:repeating-linear-gradient(135deg,transparent 0 6px,var(--line) 6px 8px);border:2px dashed var(--ink-muted);border-bottom:0}
+.tv-legend{display:flex;gap:20px;flex-wrap:wrap;font-size:14px}
+.tv-legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:8px;vertical-align:-2px}
+
+/* Narx */
+.tv-price{display:flex;flex-direction:column;gap:18px;position:relative}
+.tv-price .amt{font:800 40px/1 var(--font-display)}
+.tv-price ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.tv-price li{display:flex;gap:10px;align-items:flex-start}
+.tv-price li svg{flex:none;width:20px;height:20px;margin-top:3px;stroke:var(--mint-ink);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.tv-price.featured{border:2px solid var(--line-strong);box-shadow:var(--shadow-sticker)}
+.tv-price .tv-sticker{position:absolute;top:-16px;right:20px}
+
+/* Sharh */
+.tv-quote{display:flex;flex-direction:column;gap:18px}
+.tv-quote blockquote{margin:0;font-size:17px;line-height:28px}
+.tv-person{display:flex;gap:12px;align-items:center}
+.tv-avatar{width:48px;height:48px;border-radius:50%;background:var(--brand-tint);border:2px dashed var(--brand);display:grid;place-items:center;color:var(--brand);font:700 13px/1 var(--font-sans);flex:none}
+.tv-ph{color:var(--ink-muted);font-style:italic}
+
+/* FAQ */
+.tv-faq{max-width:820px;margin:0 auto;display:grid;gap:12px}
+.tv-faq details{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:0 24px;transition:border-color .2s}
+.tv-faq details[open]{border-color:var(--brand)}
+.tv-faq summary{list-style:none;cursor:pointer;padding:20px 0;font:600 18px/26px var(--font-sans);display:flex;justify-content:space-between;gap:16px;align-items:center}
+.tv-faq summary::-webkit-details-marker{display:none}
+.tv-faq summary::after{content:"+";flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--brand-tint);color:var(--brand);font-size:22px;transition:transform .2s}
+.tv-faq details[open] summary::after{transform:rotate(45deg)}
+.tv-faq details p{margin:0 0 20px;color:var(--ink-muted)}
+
+/* Qorong‘i bloklar */
+.tv-cta{border:1px solid var(--line);background:var(--night);color:var(--night-ink);border-radius:var(--radius-xl);padding:72px 32px;text-align:center;position:relative;overflow:hidden}
+.tv-cta .tv-lead{color:var(--night-ink);opacity:.85}
+.tv-footer{background:var(--night);color:var(--night-ink);padding:64px 24px 32px}
+.tv-footer a{color:var(--night-ink);text-decoration:none;opacity:.85}
+.tv-footer a:hover{opacity:1;text-decoration:underline}
+.tv-footer .tv-logo{color:var(--night-ink)}
+.tv-footer .tv-logo .s{stroke:#a9a4ff}
+.tv-footer .tv-logo .uz{color:#ff9a8b}
+.tv-social{display:flex;gap:10px}
+.tv-social a{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;border:1px solid rgba(242,241,248,.25);opacity:1}
+.tv-social a:hover{background:rgba(242,241,248,.12)}
+.tv-social svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Scroll animatsiyasi */
+.tv-reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.tv-reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .tv-reveal{opacity:1;transform:none;transition:none}
+  *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
+}
