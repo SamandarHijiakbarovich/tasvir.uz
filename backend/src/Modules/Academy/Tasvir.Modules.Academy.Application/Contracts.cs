@@ -8,6 +8,7 @@ public interface IAcademyRepository
 {
     Task<Course?> FindCourseBySlugAsync(string slug, CancellationToken ct);
     Task<Course?> FindCourseByLessonSlugAsync(string lessonSlug, CancellationToken ct);
+    Task<List<Course>> GetCoursesAsync(CancellationToken ct);
     Task<List<LessonProgress>> GetLessonProgressAsync(Guid userId, IReadOnlyCollection<Guid> lessonIds, CancellationToken ct);
     Task<List<StepCompletion>> GetStepCompletionsAsync(Guid userId, IReadOnlyCollection<Guid> stepIds, CancellationToken ct);
     void Add(LessonProgress progress);

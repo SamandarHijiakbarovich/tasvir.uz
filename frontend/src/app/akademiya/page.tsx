@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { startLessonAction } from "@/features/academy/actions";
 import { getCourse } from "@/features/academy/api/academy-api";
@@ -62,6 +63,10 @@ export default async function AcademyPage() {
             <i style={{ width: `${percent}%` }} />
           </div>
         </div>
+
+        <p style={{ margin: 0 }}>
+          <Link href="/akademiya/ishlarim">Mening ishlarim →</Link>
+        </p>
 
         <ol className="tv-lesson-list">
           {course.lessons.map((lesson, index) => (

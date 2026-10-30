@@ -12,7 +12,7 @@ export function Features() {
         <div className="tv-bento">
           <article className="tv-tile tv-tile-brand b-wide tv-reveal">
             <span className="tv-label" style={onBrandLabel}>Akademiya</span>
-            <h3 className="tv-h3">Video kurslar</h3>
+            <h3 className="tv-h3">Amaliy darslar</h3>
             <p className="tv-muted" style={muted0}>
               Infografika, sxema, diagramma va aqliy xarita yaratishni qisqa, amaliy darslarda o‘rganing.
             </p>
@@ -94,7 +94,7 @@ export function Features() {
               </svg>
             </span>
             <h3 className="tv-h3">Sertifikat</h3>
-            <p className="tv-muted" style={muted0}>Kursni yakunlab, malakangizni tasdiqlovchi sertifikat oling.</p>
+            <p className="tv-muted" style={muted0}>Tez orada: kursni yakunlaganingizni tasdiqlovchi sertifikat.</p>
           </article>
 
           <article className="tv-tile tv-tile-mint tv-reveal" style={{ gridColumn: "1/-1" }}>

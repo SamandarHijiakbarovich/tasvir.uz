@@ -35,6 +35,9 @@ export function CourseProgressCard({ course }: { course: Course }) {
         <Link className={`tv-btn ${done ? "tv-btn-primary" : "tv-btn-ghost"}`} href="/akademiya">
           Barcha darslar
         </Link>
+        <Link className="tv-btn tv-btn-ghost" href="/akademiya/ishlarim">
+          Mening ishlarim
+        </Link>
       </div>
     </section>
   );

@@ -56,6 +56,17 @@ public sealed record LessonDto(
     string? NextLessonSlug,
     IReadOnlyList<StepDto> Steps);
 
+/// <summary>"Mening ishlarim": foydalanuvchi amaliy topshiriqlarda yaratgan natijalar.</summary>
+public sealed record MyWorkItemDto(
+    Guid StepId,
+    string LessonSlug,
+    string LessonTitle,
+    string StepTitle,
+    string Mode,
+    string? Text,
+    IReadOnlyList<string>? Items,
+    DateTime CompletedAt);
+
 public sealed record CompleteStepRequest(string? OptionId, string? Text, IReadOnlyList<string>? Items);
 
 public sealed record StepResultDto(

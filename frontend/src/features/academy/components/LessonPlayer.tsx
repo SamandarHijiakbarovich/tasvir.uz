@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Fragment, useEffect, useId, useRef, useState, useTransition } from "react";
 import { completeStepAction, startLessonAction } from "../actions";
 import type { Lesson, LessonStep, PracticeContent, ReadingContent, StepAnswer, StepResult } from "../api/types";
+import { DiagramDownload } from "./DiagramDownload";
 import { ProcessDiagram } from "./ProcessDiagram";
 
 /** Matndagi **qalin** belgisini ko‘rsatadi. Mazmun bazadan keladi, HTML sifatida talqin qilinmaydi. */
@@ -66,7 +67,7 @@ function QuizStep({ step, answer, onChange, readOnly }: AnswerProps) {
   );
 }
 
-function ProcessBuilder({ practice, answer, onChange, readOnly }: AnswerProps & { practice: PracticeContent }) {
+function ProcessBuilder({ step, practice, answer, onChange, readOnly }: AnswerProps & { practice: PracticeContent }) {
   const items = answer.items?.length ? answer.items : Array.from({ length: practice.minItems }, () => "");
   const setItem = (index: number, value: string) => onChange({ items: items.map((item, i) => (i === index ? value : item)) });
 
@@ -112,6 +113,7 @@ function ProcessBuilder({ practice, answer, onChange, readOnly }: AnswerProps & 
       <div className="tv-builder-preview" aria-live="polite">
         <span className="tv-label">Sizning sxemangiz</span>
         <ProcessDiagram items={items} />
+        {readOnly && <DiagramDownload items={items} name={`sxema-${step.id.slice(0, 8)}`} />}
       </div>
     </div>
   );
@@ -190,6 +192,9 @@ function CompletionScreen({ lesson, nextLessonSlug }: { lesson: Lesson; nextLess
         ) : null}
         <Link className="tv-btn tv-btn-ghost" href="/akademiya">
           Kurs sahifasiga qaytish
+        </Link>
+        <Link className="tv-btn tv-btn-ghost" href="/akademiya/ishlarim">
+          Mening ishlarim
         </Link>
       </div>
     </section>

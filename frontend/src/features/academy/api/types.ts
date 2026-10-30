@@ -73,6 +73,17 @@ export type Lesson = {
   steps: LessonStep[];
 };
 
+export type MyWorkItem = {
+  stepId: string;
+  lessonSlug: string;
+  lessonTitle: string;
+  stepTitle: string;
+  mode: "text" | "process";
+  text?: string | null;
+  items?: string[] | null;
+  completedAt: string;
+};
+
 export type StepResult = {
   stepCompleted: boolean;
   isCorrect?: boolean | null;

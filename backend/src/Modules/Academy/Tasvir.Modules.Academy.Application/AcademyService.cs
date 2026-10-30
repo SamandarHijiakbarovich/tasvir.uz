@@ -174,6 +174,38 @@ public sealed class AcademyService(IAcademyRepository repository, TimeProvider c
         return new StepResultDto(true, evaluation.IsCorrect, evaluation.Feedback, lessonCompleted, state.NextLesson()?.Slug);
     }
 
+    public async Task<Result<IReadOnlyList<MyWorkItemDto>>> GetMyWorkAsync(Guid userId, CancellationToken ct)
+    {
+        var courses = await repository.GetCoursesAsync(ct);
+        var steps = courses
+            .SelectMany(c => c.Lessons)
+            .SelectMany(l => l.Steps.Where(s => s.Kind == LessonStepKind.Practice).Select(s => (Lesson: l, Step: s)))
+            .ToList();
+        var completions = await repository.GetStepCompletionsAsync(userId, steps.Select(x => x.Step.Id).ToList(), ct);
+        var byStep = completions.ToDictionary(c => c.StepId);
+
+        var items = new List<MyWorkItemDto>();
+        foreach (var (lesson, step) in steps)
+        {
+            if (!byStep.TryGetValue(step.Id, out var completion) || completion.ResponseJson is null)
+            {
+                continue;
+            }
+
+            var practice = StepContentJson.Deserialize<PracticeContent>(step.ContentJson);
+            // O‘zini tekshirish ro‘yxati ish natijasi emas
+            if (practice.Mode == PracticeModes.Checklist)
+            {
+                continue;
+            }
+
+            var response = StepContentJson.Deserialize<CompleteStepRequest>(completion.ResponseJson);
+            items.Add(new MyWorkItemDto(step.Id, lesson.Slug, lesson.Title, step.Title, practice.Mode, response.Text, response.Items, completion.CompletedAt));
+        }
+
+        return items.OrderByDescending(i => i.CompletedAt).ToList();
+    }
+
     private sealed record Evaluation(bool Passed, bool? IsCorrect = null, string? Feedback = null, string? ResponseJson = null, Error? Error = null);
 
     private static Evaluation Evaluate(LessonStep step, CompleteStepRequest request) => step.Kind switch

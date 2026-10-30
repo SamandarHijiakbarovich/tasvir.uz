@@ -23,6 +23,7 @@ public sealed class AcademyDbContext(DbContextOptions<AcademyDbContext> options)
         modelBuilder.Entity<Course>(course =>
         {
             course.ToTable("courses");
+            course.Property(c => c.Id).ValueGeneratedNever();
             course.Property(c => c.Slug).HasMaxLength(100).IsRequired();
             course.Property(c => c.Title).HasMaxLength(200).IsRequired();
             course.Property(c => c.Description).HasMaxLength(1000).IsRequired();
@@ -34,6 +35,7 @@ public sealed class AcademyDbContext(DbContextOptions<AcademyDbContext> options)
         modelBuilder.Entity<Lesson>(lesson =>
         {
             lesson.ToTable("lessons");
+            lesson.Property(l => l.Id).ValueGeneratedNever();
             lesson.Property(l => l.Slug).HasMaxLength(100).IsRequired();
             lesson.Property(l => l.Title).HasMaxLength(200).IsRequired();
             lesson.Property(l => l.Summary).HasMaxLength(500).IsRequired();
@@ -45,6 +47,7 @@ public sealed class AcademyDbContext(DbContextOptions<AcademyDbContext> options)
         modelBuilder.Entity<LessonStep>(step =>
         {
             step.ToTable("lesson_steps");
+            step.Property(s => s.Id).ValueGeneratedNever();
             step.Property(s => s.Title).HasMaxLength(200).IsRequired();
             step.Property(s => s.Kind).HasConversion<int>();
             step.Property(s => s.ContentJson).IsRequired();
@@ -76,6 +79,8 @@ internal sealed class AcademyRepository(AcademyDbContext db) : IAcademyRepositor
 
     public Task<Course?> FindCourseByLessonSlugAsync(string lessonSlug, CancellationToken ct) =>
         Courses.FirstOrDefaultAsync(c => c.Lessons.Any(l => l.Slug == lessonSlug), ct);
+
+    public Task<List<Course>> GetCoursesAsync(CancellationToken ct) => Courses.ToListAsync(ct);
 
     public Task<List<LessonProgress>> GetLessonProgressAsync(Guid userId, IReadOnlyCollection<Guid> lessonIds, CancellationToken ct) =>
         db.LessonProgress.Where(p => p.UserId == userId && lessonIds.Contains(p.LessonId)).ToListAsync(ct);

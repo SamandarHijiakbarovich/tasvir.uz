@@ -18,6 +18,10 @@ public static class AcademyEndpoints
             ToResponse(await academy.GetCourseAsync(UserId(principal), slug, ct)))
             .WithSummary("Kurs, darslar ro‘yxati va foydalanuvchi progressi");
 
+        group.MapGet("/my-work", async (ClaimsPrincipal principal, AcademyService academy, CancellationToken ct) =>
+            ToResponse(await academy.GetMyWorkAsync(UserId(principal), ct)))
+            .WithSummary("Foydalanuvchi amaliy topshiriqlarda yaratgan ishlar");
+
         group.MapGet("/lessons/{slug}", async (string slug, ClaimsPrincipal principal, AcademyService academy, CancellationToken ct) =>
             ToResponse(await academy.GetLessonAsync(UserId(principal), slug, ct)))
             .WithSummary("Dars bosqichlari (test javoblarisiz)");

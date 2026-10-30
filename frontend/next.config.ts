@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Faqat "next dev" uchun: localhost va 127.0.0.1 alohida cookie ishlatadi, ikki hisobni yonma-yon sinash mumkin
+  allowedDevOrigins: ["127.0.0.1"],
   async headers() {
     return [
       {

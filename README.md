@@ -62,6 +62,11 @@ Ishlab chiqarish sozlamalari: [docs/architecture.md](docs/architecture.md#autent
 
 Kirgandan keyin `/kabinet` yoki `/akademiya` sahifasida "Birinchi darsni boshlash" tugmasi chiqadi.
 Kurs mazmuni `AcademySeeder` da, progress `tasvir-academy.db` da saqlanadi.
+Tuzilgan sxemalar `/akademiya/ishlarim` sahifasidan PNG va SVG ko‘rinishida yuklab olinadi.
+
+## Yordamchi
+
+Har sahifadagi "Savol bering" tugmasi. Oddiy savollarga `KnowledgeBase.cs` asosida javob beradi, tashqi xizmat kerak emas.
 
 ## Testlar
 
@@ -88,6 +93,7 @@ tasvir-uz/
           Tasvir.Modules.Content.Presentation/
         Identity/                              ro‘yxatdan o‘tish, kirish, parol, email
         Academy/                               kurslar, darslar, test, topshiriq, progress
+        Assistant/                             oddiy savollarga javob beruvchi yordamchi
     tests/                                     integratsion testlar
   frontend/                                    Next.js ilova
   docs/                                        arxitektura va dizayn hujjatlari

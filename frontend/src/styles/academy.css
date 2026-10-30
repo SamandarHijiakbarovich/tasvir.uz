@@ -77,6 +77,14 @@
 .tv-builder-add{justify-self:start}
 .tv-builder-preview{display:grid;align-content:start;gap:var(--space-3);padding:var(--space-4);background:var(--paper-2);border-radius:var(--radius-md);min-width:0}
 
+/* Mening ishlarim */
+.tv-work{display:grid;gap:var(--space-4);min-width:0}
+.tv-work h2,.tv-work header p{margin:0}
+.tv-work-text{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.tv-work-empty{display:grid;gap:var(--space-4);justify-items:start}
+.tv-work-empty p{margin:0}
+.tv-download{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2)}
+
 @media (max-width:720px){
   .tv-academy-in{padding-inline:var(--space-4)}
   .tv-example,.tv-builder{grid-template-columns:minmax(0,1fr)}

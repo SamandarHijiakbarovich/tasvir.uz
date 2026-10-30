@@ -4,6 +4,9 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
+using Tasvir.Modules.Academy.Application;
+using Tasvir.Modules.Academy.Infrastructure;
 
 namespace Tasvir.Modules.Academy.Tests;
 
@@ -50,6 +53,7 @@ public sealed class AcademyApiTests(AcademyApiFactory factory) : IClassFixture<A
     private sealed record Lesson(string Status, string? NextLessonSlug, List<Step> Steps);
     private sealed record StepResult(bool StepCompleted, bool? IsCorrect, string? Feedback, bool LessonCompleted, string? NextLessonSlug);
     private sealed record Problem(string Code);
+    private sealed record WorkItem(string LessonSlug, string Mode, string? Text, List<string>? Items);
 
     private readonly HttpClient _client = factory.CreateClient();
 
@@ -116,7 +120,9 @@ public sealed class AcademyApiTests(AcademyApiFactory factory) : IClassFixture<A
         Assert.False(course.HasStarted);
         Assert.Equal(0, course.CompletedLessons);
         Assert.Equal(Lesson1, course.NextLessonSlug);
-        Assert.Equal(["available", "locked", "locked"], course.Lessons.Select(l => l.Status));
+        Assert.Equal(8, course.TotalLessons);
+        Assert.Equal("available", course.Lessons[0].Status);
+        Assert.All(course.Lessons.Skip(1), l => Assert.Equal("locked", l.Status));
     }
 
     [Fact]
@@ -233,7 +239,7 @@ public sealed class AcademyApiTests(AcademyApiFactory factory) : IClassFixture<A
         var course = await Read<Course>(await client.GetAsync($"/api/academy/courses/{CourseSlug}"));
         Assert.Equal(1, course.CompletedLessons);
         Assert.Equal(Lesson2, course.NextLessonSlug);
-        Assert.Equal(["completed", "available", "locked"], course.Lessons.Select(l => l.Status));
+        Assert.Equal(["completed", "available", "locked"], course.Lessons.Take(3).Select(l => l.Status));
 
         var lesson = await Read<Lesson>(await client.GetAsync($"/api/academy/lessons/{Lesson1}"));
         Assert.Equal("completed", lesson.Status);
@@ -260,11 +266,10 @@ public sealed class AcademyApiTests(AcademyApiFactory factory) : IClassFixture<A
 
         var done = await Read<StepResult>(await Complete(client, Lesson3, lesson.Steps[2].Id, new { items = lesson.Steps[2].Practice!.Checklist }));
         Assert.True(done.LessonCompleted);
-        Assert.Null(done.NextLessonSlug);
+        Assert.Equal("aqliy-xarita-va-tushunchalar-xaritasi", done.NextLessonSlug);
 
         var course = await Read<Course>(await client.GetAsync($"/api/academy/courses/{CourseSlug}"));
         Assert.Equal(3, course.CompletedLessons);
-        Assert.Null(course.NextLessonSlug);
     }
 
     [Fact]
@@ -293,6 +298,78 @@ public sealed class AcademyApiTests(AcademyApiFactory factory) : IClassFixture<A
         var course = await Read<Course>(await second.GetAsync($"/api/academy/courses/{CourseSlug}"));
         Assert.Equal(0, course.CompletedLessons);
         Assert.Equal(Lesson1, course.NextLessonSlug);
+    }
+
+    // To‘g‘ri javob seed’dan o‘qiladi: yangi dars qo‘shilsa ham test ishlayveradi
+    private async Task<string> CorrectOption(Guid stepId)
+    {
+        using var scope = factory.Services.CreateScope();
+        var courses = await scope.ServiceProvider.GetRequiredService<IAcademyRepository>().GetCoursesAsync(CancellationToken.None);
+        var step = courses.SelectMany(c => c.Lessons).SelectMany(l => l.Steps).Single(s => s.Id == stepId);
+        return StepContentJson.Deserialize<QuizContent>(step.ContentJson).CorrectOptionId;
+    }
+
+    private async Task FinishEveryLesson(HttpClient client)
+    {
+        var course = await Read<Course>(await client.GetAsync($"/api/academy/courses/{CourseSlug}"));
+        foreach (var summary in course.Lessons)
+        {
+            var lesson = await Read<Lesson>(await client.GetAsync($"/api/academy/lessons/{summary.Slug}"));
+            foreach (var step in lesson.Steps)
+            {
+                object body = step.Kind switch
+                {
+                    "quiz" => new { optionId = await CorrectOption(step.Id) },
+                    "practice" when step.Practice!.Mode == "text" => new { text = $"{summary.Slug} bo‘yicha javobim." },
+                    "practice" when step.Practice!.Mode == "process" => new { items = new[] { "Bir", "Ikki", "Uch" } },
+                    "practice" => new { items = step.Practice!.Checklist },
+                    _ => new { },
+                };
+                var result = await Read<StepResult>(await Complete(client, summary.Slug, step.Id, body));
+                Assert.True(result.StepCompleted, $"{summary.Slug}: {step.Id}");
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Whole_course_can_be_completed()
+    {
+        var client = await SignedInClient();
+
+        await FinishEveryLesson(client);
+
+        var course = await Read<Course>(await client.GetAsync($"/api/academy/courses/{CourseSlug}"));
+        Assert.Equal(8, course.CompletedLessons);
+        Assert.Null(course.NextLessonSlug);
+    }
+
+    [Fact]
+    public async Task Seeding_again_adds_nothing_and_keeps_progress()
+    {
+        var client = await SignedInClient();
+        await FinishLesson(client, Lesson1, Lesson1Answers);
+
+        await factory.Services.InitializeAcademyDatabaseAsync();
+
+        var course = await Read<Course>(await client.GetAsync($"/api/academy/courses/{CourseSlug}"));
+        Assert.Equal(8, course.TotalLessons);
+        Assert.Equal(1, course.CompletedLessons);
+    }
+
+    [Fact]
+    public async Task My_work_lists_only_own_results_without_checklists()
+    {
+        var first = await SignedInClient();
+        var second = await SignedInClient();
+
+        await FinishEveryLesson(first);
+
+        var work = await Read<List<WorkItem>>(await first.GetAsync("/api/academy/my-work"));
+        Assert.Contains(work, w => w.Mode == "process" && w.Items!.SequenceEqual(["Bir", "Ikki", "Uch"]));
+        Assert.Contains(work, w => w.Mode == "text" && w.LessonSlug == Lesson1);
+        Assert.DoesNotContain(work, w => w.Mode == "checklist");
+
+        Assert.Empty(await Read<List<WorkItem>>(await second.GetAsync("/api/academy/my-work")));
     }
 
     [Fact]

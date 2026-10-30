@@ -5,29 +5,39 @@ using Tasvir.Modules.Academy.Domain;
 namespace Tasvir.Modules.Academy.Infrastructure.Persistence;
 
 /// <summary>Birinchi kurs mazmuni. Nazariy asosi: dissertatsiyaning I bobi (ikki kanalli kodlash, kognitiv yuklama, vizual shakllar).</summary>
-internal static class AcademySeeder
+internal static partial class AcademySeeder
 {
     public const string FirstCourseSlug = "vizuallashtirish-asoslari";
 
     public static async Task SeedAsync(AcademyDbContext db, CancellationToken ct)
     {
-        if (await db.Courses.AnyAsync(ct))
+        var course = await db.Courses
+            .Include(c => c.Lessons.OrderBy(l => l.SortOrder))
+            .FirstOrDefaultAsync(c => c.Slug == FirstCourseSlug, ct);
+
+        if (course is null)
         {
-            return;
+            course = new Course(
+                FirstCourseSlug,
+                "Vizuallashtirish asoslari",
+                "O‘quv materialini tushunarli sxemaga aylantirishni qisqa, amaliy darslarda o‘rganing.");
+            db.Courses.Add(course);
         }
 
-        var course = new Course(
-            FirstCourseSlug,
-            "Vizuallashtirish asoslari",
-            "O‘quv materialini tushunarli sxemaga aylantirishni qisqa, amaliy darslarda o‘rganing.");
-
+        // Faqat yetishmayotgan darslar oxiriga qo‘shiladi: mavjud darslar va foydalanuvchilar progressi o‘zgarmaydi
         AddWhyVisualsWork(course);
         AddChoosingTheForm(course);
         AddFirstDiagram(course);
+        AddMaps(course);
+        AddCharts(course);
+        AddInfographic(course);
+        AddDesign(course);
+        AddClassroom(course);
 
-        db.Courses.Add(course);
         await db.SaveChangesAsync(ct);
     }
+
+    private static bool Exists(Course course, string slug) => course.Lessons.Any(l => l.Slug == slug);
 
     private static void Reading(Lesson lesson, string title, ReadingContent content) =>
         lesson.AddStep(LessonStepKind.Reading, title, StepContentJson.Serialize(content));
@@ -40,6 +50,8 @@ internal static class AcademySeeder
 
     private static void AddWhyVisualsWork(Course course)
     {
+        if (Exists(course, "nega-korgazmali-material-ishlaydi")) return;
+
         var lesson = course.AddLesson(
             "nega-korgazmali-material-ishlaydi",
             "Nega ko‘rgazmali material yaxshiroq ishlaydi?",
@@ -95,6 +107,8 @@ internal static class AcademySeeder
 
     private static void AddChoosingTheForm(Course course)
     {
+        if (Exists(course, "mazmunga-mos-shaklni-tanlash")) return;
+
         var lesson = course.AddLesson(
             "mazmunga-mos-shaklni-tanlash",
             "Mazmunga mos shaklni tanlash",
@@ -140,6 +154,8 @@ internal static class AcademySeeder
 
     private static void AddFirstDiagram(Course course)
     {
+        if (Exists(course, "birinchi-sxemangiz")) return;
+
         var lesson = course.AddLesson(
             "birinchi-sxemangiz",
             "Birinchi sxemangiz",

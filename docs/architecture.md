@@ -17,6 +17,7 @@
           │  ├─ Content        │  └────────────────────────────────┘
           │  ├─ Identity       │
           │  ├─ Academy        │
+          │  ├─ Assistant      │
           │  └─ (Studio)       │  :5100
           └─────────┬──────────┘
                     │ har modul o‘z sxemasi / DbContext
@@ -125,8 +126,24 @@ Oqim: kabinet yoki `/akademiya` → "Darsni boshlash" (`POST /api/academy/lesson
   izoh brauzerga javob yuborilgunga qadar chiqmaydi. Noto‘g‘ri javob bosqichni yopmaydi, qayta urinish mumkin.
 - **Progress** `UserId` bo‘yicha saqlanadi va Identity jadvallariga tashqi kalit bilan bog‘lanmaydi: modul chegarasi
   saqlanadi, foydalanuvchi JWT orqali aniqlanadi.
-- **Mazmunni o‘zgartirish:** seeder faqat bo‘sh bazada ishlaydi. Dars matni tahrirlansa, lokalda `tasvir-academy.db` ni
-  o‘chirish kerak; serverda bu progressni yo‘qotadi, shuning uchun migratsiya yoki admin paneli zarur.
+- **Yangi dars qo‘shish:** `AcademySeeder` ga yangi `Add…` metodi yozing. Ishga tushganda yetishmayotgan darslar kurs oxiriga
+  qo‘shiladi, mavjud darslar va progress o‘zgarmaydi.
+- **Mavjud dars matnini o‘zgartirish:** seeder buni yangilamaydi. Lokalda `tasvir-academy.db` ni o‘chirish kerak; serverda bu
+  progressni yo‘qotadi, shuning uchun migratsiya yoki admin paneli zarur.
+- **Mening ishlarim** (`/akademiya/ishlarim`): amaliy topshiriq natijalari. Sxemalar brauzerda SVG va PNG ga aylantiriladi,
+  server fayl saqlamaydi.
+
+## Yordamchi (Assistant moduli)
+
+Saytning hamma sahifasida `ChatWidget` turadi: `POST /api/assistant/ask` (kirish talab qilinmaydi, IP bo‘yicha daqiqasiga 30 ta so‘rov).
+
+- **Qanday ishlaydi:** savol normallashtiriladi (`o‘`, `o'`, `ö` bir xil hisoblanadi), so‘zlar `KnowledgeBase` kalit so‘zlari bilan
+  solishtiriladi. Javob faqat bazadan olinadi; mos kelmasa, bot bilmasligini aytadi. Tashqi xizmat va API kaliti kerak emas.
+- **Bilim qo‘shish:** `KnowledgeBase.cs` ga yozuv qo‘shing va `AssistantTests` ga savol-javob misolini kiriting. Faqat haqiqatan
+  mavjud funksiyalar haqida yozing: mahsulot o‘zgarsa, bu fayl ham yangilanadi.
+- **Maxfiylik:** savollar saqlanmaydi va logga yozilmaydi. Shu sababli javobsiz qolgan savollar statistikasi ham yo‘q.
+- **Til modeliga o‘tish:** `IAnswerProvider` ning yangi amalga oshirilishini `AddAssistantApplication` da ro‘yxatdan o‘tkazing;
+  endpoint va frontend o‘zgarmaydi. Bilim bazasini model uchun manba sifatida ishlatish mumkin.
 
 ## Frontend tuzilmasi (feature-based)
 
@@ -146,6 +163,7 @@ frontend/src/
       actions.ts        Darsni boshlash, bosqichni yakunlash
       api/              Backend chaqiruvlari va turlar
       components/       LessonPlayer, ProcessDiagram, kurs kartasi
+    assistant/          Yordamchi oynasi (ChatWidget) va server action
     (studio/ — keyingi bosqich)
   shared/
     config/             Muhit sozlamalari

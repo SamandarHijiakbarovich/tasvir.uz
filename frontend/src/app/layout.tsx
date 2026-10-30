@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Caveat, Onest } from "next/font/google";
 import "@/styles/tokens.css";
 import "@/styles/components.css";
+import "@/styles/assistant.css";
 import "./globals.css";
+import { ChatWidget } from "@/features/assistant/ChatWidget";
 
 const display = Bricolage_Grotesque({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--ff-display" });
 const sans = Onest({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--ff-sans" });
@@ -31,7 +33,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <ChatWidget />
+      </body>
     </html>
   );
 }
