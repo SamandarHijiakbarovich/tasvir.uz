@@ -14,6 +14,10 @@ public static class AcademyEndpoints
     {
         var group = app.MapGroup("/api/academy").WithTags("Academy").RequireAuthorization();
 
+        group.MapGet("/courses", async (ClaimsPrincipal principal, AcademyService academy, CancellationToken ct) =>
+            ToResponse(await academy.GetCoursesAsync(UserId(principal), ct)))
+            .WithSummary("Barcha kurslar va foydalanuvchi progressi");
+
         group.MapGet("/courses/{slug}", async (string slug, ClaimsPrincipal principal, AcademyService academy, CancellationToken ct) =>
             ToResponse(await academy.GetCourseAsync(UserId(principal), slug, ct)))
             .WithSummary("Kurs, darslar ro‘yxati va foydalanuvchi progressi");

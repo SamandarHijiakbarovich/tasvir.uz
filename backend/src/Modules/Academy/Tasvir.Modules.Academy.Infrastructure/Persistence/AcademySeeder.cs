@@ -35,6 +35,7 @@ internal static partial class AcademySeeder
         AddClassroom(course);
 
         await db.SaveChangesAsync(ct);
+        await SeedMathCourseAsync(db, ct);
     }
 
     private static bool Exists(Course course, string slug) => course.Lessons.Any(l => l.Slug == slug);

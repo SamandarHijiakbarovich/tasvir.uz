@@ -1,3 +1,4 @@
+using System.Globalization;
 using Tasvir.Modules.Academy.Domain;
 using Tasvir.SharedKernel;
 
@@ -17,14 +18,26 @@ public sealed class AcademyService(IAcademyRepository repository, TimeProvider c
 
     private DateTime Now => clock.GetUtcNow().UtcDateTime;
 
+    public async Task<Result<IReadOnlyList<CourseDto>>> GetCoursesAsync(Guid userId, CancellationToken ct)
+    {
+        var courses = await repository.GetCoursesAsync(ct);
+        var result = new List<CourseDto>();
+        foreach (var course in courses)
+        {
+            result.Add(await BuildCourseAsync(userId, course, ct));
+        }
+
+        return result;
+    }
+
     public async Task<Result<CourseDto>> GetCourseAsync(Guid userId, string slug, CancellationToken ct)
     {
         var course = await repository.FindCourseBySlugAsync(slug, ct);
-        if (course is null)
-        {
-            return CourseNotFound;
-        }
+        return course is null ? CourseNotFound : await BuildCourseAsync(userId, course, ct);
+    }
 
+    private async Task<CourseDto> BuildCourseAsync(Guid userId, Course course, CancellationToken ct)
+    {
         var state = await LoadStateAsync(userId, course, ct);
         var lessons = course.Lessons.Select(l => new LessonSummaryDto(
             l.Slug,
@@ -210,11 +223,34 @@ public sealed class AcademyService(IAcademyRepository repository, TimeProvider c
 
     private static Evaluation Evaluate(LessonStep step, CompleteStepRequest request) => step.Kind switch
     {
-        LessonStepKind.Reading => new Evaluation(true),
+        LessonStepKind.Reading or LessonStepKind.Video => new Evaluation(true),
+        LessonStepKind.Exercise => EvaluateExercise(StepContentJson.Deserialize<ExerciseContent>(step.ContentJson), request),
         LessonStepKind.Quiz => EvaluateQuiz(StepContentJson.Deserialize<QuizContent>(step.ContentJson), request),
         LessonStepKind.Practice => EvaluatePractice(StepContentJson.Deserialize<PracticeContent>(step.ContentJson), request),
         _ => throw new InvalidOperationException($"Noma’lum bosqich turi: {step.Kind}"),
     };
+
+    private static Evaluation EvaluateExercise(ExerciseContent exercise, CompleteStepRequest request)
+    {
+        var answer = NormalizeNumber(request.Text);
+        if (answer is null)
+        {
+            return Invalid("Javobni son ko‘rinishida yozing.");
+        }
+
+        return answer == NormalizeNumber(exercise.Answer)
+            ? new Evaluation(true, true, exercise.Explanation, StepContentJson.Serialize(new CompleteStepRequest(null, request.Text!.Trim(), null)))
+            : new Evaluation(false, false, $"Hali to‘g‘ri emas. {exercise.Hint}");
+    }
+
+    /// <summary>"1 200", "1200" va "12,5" kabi yozuvlarni bir xil songa keltiradi. Son bo‘lmasa, null.</summary>
+    private static decimal? NormalizeNumber(string? text)
+    {
+        var cleaned = text?.Replace(" ", string.Empty).Replace(",", ".");
+        return decimal.TryParse(cleaned, NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out var value)
+            ? value
+            : null;
+    }
 
     private static Evaluation EvaluateQuiz(QuizContent quiz, CompleteStepRequest request)
     {
@@ -283,9 +319,12 @@ public sealed class AcademyService(IAcademyRepository repository, TimeProvider c
         return step.Kind switch
         {
             LessonStepKind.Reading => new StepDto(step.Id, "reading", step.Title, isCompleted,
-                StepContentJson.Deserialize<ReadingContent>(step.ContentJson), null, null, saved),
-            LessonStepKind.Quiz => new StepDto(step.Id, "quiz", step.Title, isCompleted, null, ToQuizDto(step), null, saved),
-            LessonStepKind.Practice => new StepDto(step.Id, "practice", step.Title, isCompleted, null, null, ToPracticeDto(step), saved),
+                StepContentJson.Deserialize<ReadingContent>(step.ContentJson), null, null, null, null, saved),
+            LessonStepKind.Quiz => new StepDto(step.Id, "quiz", step.Title, isCompleted, null, ToQuizDto(step), null, null, null, saved),
+            LessonStepKind.Practice => new StepDto(step.Id, "practice", step.Title, isCompleted, null, null, ToPracticeDto(step), null, null, saved),
+            LessonStepKind.Video => new StepDto(step.Id, "video", step.Title, isCompleted, null, null, null,
+                StepContentJson.Deserialize<VideoContent>(step.ContentJson), null, saved),
+            LessonStepKind.Exercise => new StepDto(step.Id, "exercise", step.Title, isCompleted, null, null, null, null, ToExerciseDto(step), saved),
             _ => throw new InvalidOperationException($"Noma’lum bosqich turi: {step.Kind}"),
         };
     }
@@ -295,6 +334,12 @@ public sealed class AcademyService(IAcademyRepository repository, TimeProvider c
     {
         var quiz = StepContentJson.Deserialize<QuizContent>(step.ContentJson);
         return new QuizDto(quiz.Question, quiz.Options.Select(o => new QuizOptionDto(o.Id, o.Text)).ToList());
+    }
+
+    private static ExerciseDto ToExerciseDto(LessonStep step)
+    {
+        var exercise = StepContentJson.Deserialize<ExerciseContent>(step.ContentJson);
+        return new ExerciseDto(exercise.Prompt, exercise.Unit);
     }
 
     private static PracticeDto ToPracticeDto(LessonStep step)

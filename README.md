@@ -60,6 +60,7 @@ Ishlab chiqarish sozlamalari: [docs/architecture.md](docs/architecture.md#autent
 
 ## Akademiya
 
+Ikki kurs bor: "Vizuallashtirish asoslari" va "Boshlang‘ich matematika" (YouTube video + misol va masalalar).
 Kirgandan keyin `/kabinet` yoki `/akademiya` sahifasida "Birinchi darsni boshlash" tugmasi chiqadi.
 Kurs mazmuni `AcademySeeder` da, progress `tasvir-academy.db` da saqlanadi.
 Tuzilgan sxemalar `/akademiya/ishlarim` sahifasidan PNG va SVG ko‘rinishida yuklab olinadi.

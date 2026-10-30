@@ -48,14 +48,27 @@ export type PracticeContent = {
   checklist?: string[] | null;
 };
 
+export type VideoContent = {
+  youtubeId: string;
+  sourceTitle: string;
+  intro: string;
+};
+
+export type ExerciseContent = {
+  prompt: string;
+  unit?: string | null;
+};
+
 export type LessonStep = {
   id: string;
-  kind: "reading" | "quiz" | "practice";
+  kind: "reading" | "quiz" | "practice" | "video" | "exercise";
   title: string;
   isCompleted: boolean;
   reading?: ReadingContent | null;
   quiz?: QuizContent | null;
   practice?: PracticeContent | null;
+  video?: VideoContent | null;
+  exercise?: ExerciseContent | null;
   savedResponse?: StepAnswer | null;
 };
 

@@ -80,7 +80,7 @@ internal sealed class AcademyRepository(AcademyDbContext db) : IAcademyRepositor
     public Task<Course?> FindCourseByLessonSlugAsync(string lessonSlug, CancellationToken ct) =>
         Courses.FirstOrDefaultAsync(c => c.Lessons.Any(l => l.Slug == lessonSlug), ct);
 
-    public Task<List<Course>> GetCoursesAsync(CancellationToken ct) => Courses.ToListAsync(ct);
+    public Task<List<Course>> GetCoursesAsync(CancellationToken ct) => Courses.OrderBy(c => c.Slug).ToListAsync(ct);
 
     public Task<List<LessonProgress>> GetLessonProgressAsync(Guid userId, IReadOnlyCollection<Guid> lessonIds, CancellationToken ct) =>
         db.LessonProgress.Where(p => p.UserId == userId && lessonIds.Contains(p.LessonId)).ToListAsync(ct);

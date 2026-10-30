@@ -31,6 +31,9 @@ public sealed class KnowledgeBaseTests
     [InlineData("Telefonda ishlaydimi", "telefon")]
     [InlineData("salom", "Tasvir.uz yordamchisi")]
     [InlineData("rahmat", "Arziydi")]
+    [InlineData("matematika darslari bormi", "1–4-sinf")]
+    [InlineData("masala ishlash", "1–4-sinf")]
+    [InlineData("video ochilmayapti", "YouTube")]
     [InlineData("sxemani qanday yuklab olaman", "PNG")]
     [InlineData("dars nega yopiq", "ketma-ket")]
     public void Finds_right_answer(string question, string expected)

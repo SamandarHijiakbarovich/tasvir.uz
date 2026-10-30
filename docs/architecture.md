@@ -120,7 +120,11 @@ berilmaydi. Lokal ishlab chiqishda kalit har ishga tushganda yangilanadi: API qa
 Oqim: kabinet yoki `/akademiya` → "Darsni boshlash" (`POST /api/academy/lessons/{slug}/start`) →
 `/akademiya/darslar/{slug}` → bosqichlar → dars yakuni → keyingi dars ochiladi.
 
-- **Bosqich turlari:** o‘qish, test, amaliy topshiriq (matn, jarayon sxemasi, o‘zini tekshirish ro‘yxati).
+- **Bosqich turlari:** o‘qish, test, amaliy topshiriq (matn, jarayon sxemasi, o‘zini tekshirish ro‘yxati), video, mashq
+  (son ko‘rinishidagi javob serverda tekshiriladi, xato bo‘lsa maslahat chiqadi).
+- **Video:** YouTube’dan `youtube-nocookie.com` orqali embed qilinadi, fayl yuklab olinmaydi va o‘zimizda saqlanmaydi. Video
+  o‘chirilsa yoki muallif embed’ni yopsa, ostidagi “YouTube’da ochish” havolasi qoladi. Almashtirish: `AcademyMathCourse.cs`
+  dagi ID ni o‘zgartiring; mavjud bazada `lesson_steps` yozuvi ham yangilanadi (seeder mavjud darsga tegmaydi).
   Mazmun `LessonStep.ContentJson` da, kursning o‘zi hozircha `AcademySeeder` da.
 - **Qoidalar serverda:** darslar va bosqichlar ketma-ket ochiladi. Test javobi serverda tekshiriladi, to‘g‘ri javob va
   izoh brauzerga javob yuborilgunga qadar chiqmaydi. Noto‘g‘ri javob bosqichni yopmaydi, qayta urinish mumkin.

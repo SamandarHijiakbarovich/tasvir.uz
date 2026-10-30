@@ -32,6 +32,8 @@ public sealed record QuizOptionDto(string Id, string Text);
 public sealed record QuizDto(string Question, IReadOnlyList<QuizOptionDto> Options);
 public sealed record PracticeDto(string Mode, string Prompt, string? Placeholder, int MinItems, int MaxItems, IReadOnlyList<string>? Checklist);
 
+public sealed record ExerciseDto(string Prompt, string? Unit);
+
 public sealed record StepDto(
     Guid Id,
     string Kind,
@@ -40,6 +42,8 @@ public sealed record StepDto(
     ReadingContent? Reading,
     QuizDto? Quiz,
     PracticeDto? Practice,
+    VideoContent? Video,
+    ExerciseDto? Exercise,
     /// <summary>Foydalanuvchining saqlangan javobi (dars qayta ochilganda ko‘rsatiladi).</summary>
     CompleteStepRequest? SavedResponse);
 

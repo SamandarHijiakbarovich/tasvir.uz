@@ -2,16 +2,16 @@ import Link from "next/link";
 import { startLessonAction } from "../actions";
 import type { Course } from "../api/types";
 
-/** Kabinetdagi asosiy chaqiruv: birinchi darsni boshlash yoki to‘xtagan joydan davom ettirish. */
-export function CourseProgressCard({ course }: { course: Course }) {
+/** Kurs kartasi: progress, keyingi darsni boshlash yoki davom ettirish. Kabinet va Akademiya sahifalarida ishlatiladi. */
+export function CourseCard({ course }: { course: Course }) {
   const done = !course.nextLessonSlug;
-  const percent = Math.round((course.completedLessons / course.totalLessons) * 100);
+  const percent = course.totalLessons === 0 ? 0 : Math.round((course.completedLessons / course.totalLessons) * 100);
+  const coursePath = `/akademiya/kurslar/${course.slug}`;
 
   return (
-    <section className="tv-card tv-card-outline tv-course-card" aria-labelledby="kurs-t">
+    <section className="tv-card tv-card-outline tv-course-card" aria-labelledby={`kurs-${course.slug}`}>
       <div>
-        <span className="tv-label">Akademiya</span>
-        <h2 className="tv-h3" id="kurs-t">
+        <h2 className="tv-h3" id={`kurs-${course.slug}`}>
           {course.title}
         </h2>
         <p className="tv-muted">{course.description}</p>
@@ -20,7 +20,7 @@ export function CourseProgressCard({ course }: { course: Course }) {
         <span>
           {course.completedLessons} / {course.totalLessons} dars
         </span>
-        <div className="tv-progress" role="progressbar" aria-label="Kurs bo‘yicha natija" aria-valuenow={percent} aria-valuemin={0} aria-valuemax={100}>
+        <div className="tv-progress" role="progressbar" aria-label={`${course.title}: natija`} aria-valuenow={percent} aria-valuemin={0} aria-valuemax={100}>
           <i style={{ width: `${percent}%` }} />
         </div>
       </div>
@@ -32,11 +32,8 @@ export function CourseProgressCard({ course }: { course: Course }) {
             </button>
           </form>
         )}
-        <Link className={`tv-btn ${done ? "tv-btn-primary" : "tv-btn-ghost"}`} href="/akademiya">
+        <Link className={`tv-btn ${done ? "tv-btn-primary" : "tv-btn-ghost"}`} href={coursePath}>
           Barcha darslar
-        </Link>
-        <Link className="tv-btn tv-btn-ghost" href="/akademiya/ishlarim">
-          Mening ishlarim
         </Link>
       </div>
     </section>

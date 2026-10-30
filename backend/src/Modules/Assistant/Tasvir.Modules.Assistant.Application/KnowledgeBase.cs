@@ -115,7 +115,7 @@ internal static class KnowledgeBase
             new AssistantLink("Akademiyaga o‘tish", "/akademiya")),
 
         new("Nechta dars bor?",
-            "“Vizuallashtirish asoslari” kursida 8 ta dars bor. Har biri taxminan 10–15 daqiqa davom etadi.",
+            "Ikkita kurs bor: “Vizuallashtirish asoslari” (8 ta dars) va “Boshlang‘ich matematika” (7 ta dars). Darslar taxminan 10–20 daqiqa davom etadi.",
             ["nechta", "davomiylik"], ["dars", "kurs", "akademiya"],
             new AssistantLink("Darslar ro‘yxati", "/akademiya")),
 
@@ -123,6 +123,16 @@ internal static class KnowledgeBase
             "Vizual materialning ilmiy asoslari, mazmunga mos shaklni tanlash, sxema, aqliy xarita, diagramma va infografika tuzish, rang va shrift, materialni darsga olib kirish.",
             ["akademiya", "kurs", "orgatiladi", "darslar"], ["nima"],
             new AssistantLink("Darslar ro‘yxati", "/akademiya")),
+
+        new("Matematika darslari bormi?",
+            "Ha, “Boshlang‘ich matematika” kursida 1–4-sinf mavzulari bor: YouTube’dagi video darsni ko‘rasiz, keyin misol va masalalarni ishlaysiz. Javob darhol tekshiriladi, xato bo‘lsa maslahat chiqadi.",
+            ["matematika", "misol", "masala"], ["dars"],
+            new AssistantLink("Kurslarni ko‘rish", "/akademiya")),
+
+        new("Video ochilmayapti",
+            "Video YouTube orqali ko‘rsatiladi. Ochilmasa, internetni tekshiring yoki video ostidagi “YouTube’da ochish” havolasini bosing. Keyin mashqlarni davom ettirishingiz mumkin.",
+            ["video", "yotub", "youtube", "ochilmayapti"], [],
+            new AssistantLink("Kurslarni ko‘rish", "/akademiya")),
 
         new("Telefonda ishlaydimi?",
             "Ha, sayt telefon, planshet va kompyuterda ishlaydi. Alohida ilova kerak emas.",

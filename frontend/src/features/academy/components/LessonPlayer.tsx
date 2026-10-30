@@ -6,6 +6,7 @@ import { completeStepAction, startLessonAction } from "../actions";
 import type { Lesson, LessonStep, PracticeContent, ReadingContent, StepAnswer, StepResult } from "../api/types";
 import { DiagramDownload } from "./DiagramDownload";
 import { ProcessDiagram } from "./ProcessDiagram";
+import { VideoStep } from "./VideoStep";
 
 /** Matndagi **qalin** belgisini ko‘rsatadi. Mazmun bazadan keladi, HTML sifatida talqin qilinmaydi. */
 function RichText({ text }: { text: string }) {
@@ -168,6 +169,35 @@ function PracticeStep({ step, answer, onChange, readOnly }: AnswerProps) {
   );
 }
 
+function ExerciseStep({ step, answer, onChange, onSubmit, readOnly }: AnswerProps & { onSubmit: () => void }) {
+  const id = useId();
+  const exercise = step.exercise!;
+
+  return (
+    <div className="tv-step-body">
+      <p className="tv-exercise-prompt">{exercise.prompt}</p>
+      <div className="tv-field tv-exercise-answer">
+        <label htmlFor={id}>Javobingiz</label>
+        <div>
+          <input
+            id={id}
+            inputMode="decimal"
+            autoComplete="off"
+            maxLength={20}
+            disabled={readOnly}
+            value={answer.text ?? ""}
+            onChange={(e) => onChange({ text: e.target.value })}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && answer.text?.trim()) onSubmit();
+            }}
+          />
+          {exercise.unit && <span>{exercise.unit}</span>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function CompletionScreen({ lesson, nextLessonSlug }: { lesson: Lesson; nextLessonSlug: string | null }) {
   const courseDone = !nextLessonSlug;
 
@@ -190,7 +220,7 @@ function CompletionScreen({ lesson, nextLessonSlug }: { lesson: Lesson; nextLess
             </button>
           </form>
         ) : null}
-        <Link className="tv-btn tv-btn-ghost" href="/akademiya">
+        <Link className="tv-btn tv-btn-ghost" href={`/akademiya/kurslar/${lesson.courseSlug}`}>
           Kurs sahifasiga qaytish
         </Link>
         <Link className="tv-btn tv-btn-ghost" href="/akademiya/ishlarim">
@@ -267,7 +297,7 @@ export function LessonPlayer({ lesson }: { lesson: Lesson }) {
         setCompleted((prev) => new Set(prev).add(step.id));
       }
 
-      if (step.kind === "quiz" && result.feedback) {
+      if ((step.kind === "quiz" || step.kind === "exercise") && result.feedback) {
         // Test izohini o‘qib olish uchun keyingi bosqichga o‘zi o‘tmaydi
         setFeedback({ stepId: step.id, correct: Boolean(result.isCorrect), text: result.feedback });
         return;
@@ -292,11 +322,13 @@ export function LessonPlayer({ lesson }: { lesson: Lesson }) {
     ? index === lesson.steps.length - 1
       ? "Yakunlash"
       : "Davom etish"
-    : step.kind === "quiz"
+    : step.kind === "quiz" || step.kind === "exercise"
       ? "Javobni tekshirish"
-      : step.kind === "reading"
-        ? "Tushundim, davom etamiz"
-        : "Saqlash va davom etish";
+      : step.kind === "video"
+        ? "Ko‘rdim, mashqqa o‘taman"
+        : step.kind === "reading"
+          ? "Tushundim, davom etamiz"
+          : "Saqlash va davom etish";
 
   return (
     <div className="tv-lesson">
@@ -322,6 +354,8 @@ export function LessonPlayer({ lesson }: { lesson: Lesson }) {
         </h2>
 
         {step.kind === "reading" && step.reading && <ReadingStep content={step.reading} />}
+        {step.kind === "video" && step.video && <VideoStep content={step.video} />}
+        {step.kind === "exercise" && <ExerciseStep step={step} answer={answer} onChange={onAnswer} onSubmit={submit} readOnly={isStepDone} />}
         {step.kind === "quiz" && <QuizStep step={step} answer={answer} onChange={onAnswer} readOnly={isStepDone} />}
         {step.kind === "practice" && <PracticeStep step={step} answer={answer} onChange={onAnswer} readOnly={isStepDone} />}
 
@@ -345,7 +379,7 @@ export function LessonPlayer({ lesson }: { lesson: Lesson }) {
           <button
             className="tv-btn tv-btn-primary"
             type="button"
-            disabled={pending || (step.kind === "quiz" && !isStepDone && !answer.optionId)}
+            disabled={pending || (!isStepDone && ((step.kind === "quiz" && !answer.optionId) || (step.kind === "exercise" && !answer.text?.trim())))}
             aria-busy={pending}
             onClick={isStepDone ? () => advance() : submit}
           >

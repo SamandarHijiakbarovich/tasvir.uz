@@ -53,6 +53,7 @@ public sealed class AcademyApiTests(AcademyApiFactory factory) : IClassFixture<A
     private sealed record Lesson(string Status, string? NextLessonSlug, List<Step> Steps);
     private sealed record StepResult(bool StepCompleted, bool? IsCorrect, string? Feedback, bool LessonCompleted, string? NextLessonSlug);
     private sealed record Problem(string Code);
+    private sealed record CourseWithSlug(string Slug, int CompletedLessons, int TotalLessons);
     private sealed record WorkItem(string LessonSlug, string Mode, string? Text, List<string>? Items);
 
     private readonly HttpClient _client = factory.CreateClient();
@@ -370,6 +371,110 @@ public sealed class AcademyApiTests(AcademyApiFactory factory) : IClassFixture<A
         Assert.DoesNotContain(work, w => w.Mode == "checklist");
 
         Assert.Empty(await Read<List<WorkItem>>(await second.GetAsync("/api/academy/my-work")));
+    }
+
+    private const string MathCourse = "boshlangich-matematika";
+    private const string MathLesson1 = "ayirish-hadlari";
+
+    [Fact]
+    public async Task Courses_list_contains_both_courses_with_own_progress()
+    {
+        var client = await SignedInClient();
+        await FinishLesson(client, Lesson1, Lesson1Answers);
+
+        var courses = await Read<List<CourseWithSlug>>(await client.GetAsync("/api/academy/courses"));
+
+        Assert.Equal(2, courses.Count);
+        Assert.Equal(1, courses.Single(c => c.Slug == CourseSlug).CompletedLessons);
+        Assert.Equal(0, courses.Single(c => c.Slug == MathCourse).CompletedLessons);
+        Assert.Equal(7, courses.Single(c => c.Slug == MathCourse).TotalLessons);
+    }
+
+    [Fact]
+    public async Task Math_lesson_starts_with_video_and_hides_answers()
+    {
+        var client = await SignedInClient();
+
+        var raw = await client.GetStringAsync($"/api/academy/lessons/{MathLesson1}");
+        var lesson = JsonSerializer.Deserialize<Lesson>(raw, Json)!;
+
+        Assert.Equal("video", lesson.Steps[0].Kind);
+        Assert.Equal("RM3JmJPRlow", JsonDocument.Parse(raw).RootElement.GetProperty("steps")[0].GetProperty("video").GetProperty("youtubeId").GetString());
+        Assert.Equal(["exercise"], lesson.Steps.Skip(1).Select(s => s.Kind).Distinct());
+        Assert.DoesNotContain("\"answer\"", raw);
+        Assert.DoesNotContain("\"hint\"", raw);
+        Assert.DoesNotContain("\"explanation\"", raw);
+    }
+
+    [Theory]
+    [InlineData("5", true)]
+    [InlineData(" 5 ", true)]
+    [InlineData("5,0", true)]
+    [InlineData("6", false)]
+    public async Task Exercise_answer_is_checked_on_server(string answer, bool correct)
+    {
+        var client = await SignedInClient();
+        var lesson = await Read<Lesson>(await client.GetAsync($"/api/academy/lessons/{MathLesson1}"));
+        await Complete(client, MathLesson1, lesson.Steps[0].Id, new { });
+
+        var result = await Read<StepResult>(await Complete(client, MathLesson1, lesson.Steps[1].Id, new { text = answer }));
+
+        Assert.Equal(correct, result.StepCompleted);
+        Assert.Equal(correct, result.IsCorrect);
+        Assert.False(string.IsNullOrEmpty(result.Feedback));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("besh")]
+    public async Task Exercise_rejects_non_numeric_answer(string answer)
+    {
+        var client = await SignedInClient();
+        var lesson = await Read<Lesson>(await client.GetAsync($"/api/academy/lessons/{MathLesson1}"));
+        await Complete(client, MathLesson1, lesson.Steps[0].Id, new { });
+
+        var response = await Complete(client, MathLesson1, lesson.Steps[1].Id, new { text = answer });
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Exercise_cannot_be_skipped_before_video()
+    {
+        var client = await SignedInClient();
+        var lesson = await Read<Lesson>(await client.GetAsync($"/api/academy/lessons/{MathLesson1}"));
+
+        var response = await Complete(client, MathLesson1, lesson.Steps[1].Id, new { text = "5" });
+
+        Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Whole_math_course_can_be_completed_and_stored_answers_are_valid_numbers()
+    {
+        var client = await SignedInClient();
+        var course = await Read<Course>(await client.GetAsync($"/api/academy/courses/{MathCourse}"));
+
+        using var scope = factory.Services.CreateScope();
+        var all = await scope.ServiceProvider.GetRequiredService<IAcademyRepository>().GetCoursesAsync(CancellationToken.None);
+        var steps = all.SelectMany(c => c.Lessons).SelectMany(l => l.Steps).ToDictionary(s => s.Id);
+
+        foreach (var summary in course.Lessons)
+        {
+            var lesson = await Read<Lesson>(await client.GetAsync($"/api/academy/lessons/{summary.Slug}"));
+            foreach (var step in lesson.Steps)
+            {
+                object body = step.Kind == "exercise"
+                    ? new { text = StepContentJson.Deserialize<ExerciseContent>(steps[step.Id].ContentJson).Answer }
+                    : new { };
+                var result = await Read<StepResult>(await Complete(client, summary.Slug, step.Id, body));
+                Assert.True(result.StepCompleted, summary.Slug);
+            }
+        }
+
+        var done = await Read<Course>(await client.GetAsync($"/api/academy/courses/{MathCourse}"));
+        Assert.Equal(7, done.CompletedLessons);
+        Assert.Null(done.NextLessonSlug);
     }
 
     [Fact]

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { getCourse } from "@/features/academy/api/academy-api";
-import { CourseProgressCard } from "@/features/academy/components/CourseProgressCard";
+import Link from "next/link";
+import { getCourses } from "@/features/academy/api/academy-api";
+import { CourseCard } from "@/features/academy/components/CourseCard";
 import { logoutAction } from "@/features/auth/actions";
 import { ChangePasswordForm, ResendConfirmationForm } from "@/features/auth/components/forms";
 import { getCurrentUser } from "@/features/auth/lib/identity-api";
@@ -18,7 +19,7 @@ export default async function CabinetPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/kirish?keyin=/kabinet");
 
-  const course = await getCourse();
+  const courses = await getCourses();
 
   // Backend vaqtni UTC da yuboradi
   const createdAt = new Date(/Z$/.test(user.createdAt) ? user.createdAt : `${user.createdAt}Z`);
@@ -51,7 +52,11 @@ export default async function CabinetPage() {
           </div>
         )}
 
-        {course.ok && <CourseProgressCard course={course.data} />}
+        {courses.ok && courses.data.map((course) => <CourseCard key={course.slug} course={course} />)}
+
+        <p style={{ margin: 0 }}>
+          <Link href="/akademiya/ishlarim">Mening ishlarim →</Link>
+        </p>
 
         <div className="tv-cabinet-grid">
           <section className="tv-card" aria-labelledby="profil-t">

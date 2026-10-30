@@ -40,7 +40,7 @@ export default async function LessonPage({ params }: Props) {
       <main className="tv-academy-in">
         <div>
           <p className="tv-breadcrumb">
-            <Link href="/akademiya">{lesson.courseTitle}</Link> · {lesson.position}-dars / {lesson.totalLessons}
+            <Link href={`/akademiya/kurslar/${lesson.courseSlug}`}>{lesson.courseTitle}</Link> · {lesson.position}-dars / {lesson.totalLessons}
           </p>
           <h1 className="tv-h2" style={{ marginTop: 8 }}>
             {lesson.title}

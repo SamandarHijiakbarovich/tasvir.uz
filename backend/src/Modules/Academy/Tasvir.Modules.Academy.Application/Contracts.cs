@@ -24,6 +24,12 @@ public sealed record ReadingContent(IReadOnlyList<string> Paragraphs, string? Ca
 public sealed record QuizOption(string Id, string Text);
 public sealed record QuizContent(string Question, IReadOnlyList<QuizOption> Options, string CorrectOptionId, string Explanation, string WrongHint);
 
+/// <summary>YouTube embed. Video muallifga tegishli: faqat ID saqlanadi, fayl yuklab olinmaydi.</summary>
+public sealed record VideoContent(string YoutubeId, string SourceTitle, string Intro);
+
+/// <summary>Misol yoki masala. Javob son ko‘rinishida serverda tekshiriladi va brauzerga chiqmaydi.</summary>
+public sealed record ExerciseContent(string Prompt, string Answer, string? Unit, string Hint, string Explanation);
+
 public static class PracticeModes
 {
     public const string Text = "text";

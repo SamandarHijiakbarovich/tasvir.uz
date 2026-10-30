@@ -64,6 +64,8 @@ public enum LessonStepKind
     Reading = 1,
     Quiz = 2,
     Practice = 3,
+    Video = 4,
+    Exercise = 5,
 }
 
 /// <summary>Dars bosqichi. Mazmuni turiga qarab JSON ko‘rinishida saqlanadi (Application qatlamidagi modellar).</summary>
