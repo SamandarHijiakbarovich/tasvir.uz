@@ -5,7 +5,7 @@ const columns = [
     title: "Platforma",
     links: [
       { href: "#", label: "Akademiya" },
-      { href: "#", label: "Studiya" },
+      { href: "/studiya", label: "Studiya" },
       { href: "#", label: "Shablonlar" },
       { href: "#narxlar", label: "Narxlar" },
     ],

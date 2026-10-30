@@ -52,10 +52,27 @@ export default async function CabinetPage() {
           </div>
         )}
 
+        <section className="tv-card tv-card-outline tv-course-card" aria-labelledby="studiya-t">
+          <div>
+            <h2 className="tv-h3" id="studiya-t">
+              Studiya
+            </h2>
+            <p className="tv-muted">Ertangi darsingiz uchun sxema, jadval yoki infografika yarating va uni darsda ko‘rsating.</p>
+          </div>
+          <div className="tv-lesson-actions">
+            <Link className="tv-btn tv-btn-primary" href="/studiya/yangi">
+              Yangi material +
+            </Link>
+            <Link className="tv-btn tv-btn-ghost" href="/studiya">
+              Materiallarim
+            </Link>
+          </div>
+        </section>
+
         {courses.ok && courses.data.map((course) => <CourseCard key={course.slug} course={course} />)}
 
         <p style={{ margin: 0 }}>
-          <Link href="/akademiya/ishlarim">Mening ishlarim →</Link>
+          <Link href="/akademiya/ishlarim">Darslardagi ishlarim →</Link>
         </p>
 
         <div className="tv-cabinet-grid">
@@ -84,9 +101,6 @@ export default async function CabinetPage() {
               Tez orada
             </h2>
             <ul className="tv-soon">
-              <li>
-                Studiya <span className="tv-chip-soon">Ishlab chiqilmoqda</span>
-              </li>
               <li>
                 Sertifikat <span className="tv-chip-soon">Ishlab chiqilmoqda</span>
               </li>

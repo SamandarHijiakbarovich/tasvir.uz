@@ -11,6 +11,9 @@ using Tasvir.Modules.Content.Presentation;
 using Tasvir.Modules.Identity.Application;
 using Tasvir.Modules.Identity.Infrastructure;
 using Tasvir.Modules.Identity.Presentation;
+using Tasvir.Modules.Studio.Application;
+using Tasvir.Modules.Studio.Infrastructure;
+using Tasvir.Modules.Studio.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +45,9 @@ builder.Services
     .AddAcademyApplication()
     .AddAcademyInfrastructure(builder.Configuration);
 builder.Services
+    .AddStudioApplication()
+    .AddStudioInfrastructure(builder.Configuration);
+builder.Services
     .AddAssistantApplication()
     .AddAssistantPresentation(builder.Configuration);
 
@@ -59,6 +65,7 @@ if (app.Environment.IsDevelopment())
 await app.Services.InitializeContentDatabaseAsync();
 await app.Services.InitializeIdentityDatabaseAsync();
 await app.Services.InitializeAcademyDatabaseAsync();
+await app.Services.InitializeStudioDatabaseAsync();
 
 app.UseRateLimiter();
 app.UseAuthentication();
@@ -68,6 +75,7 @@ app.MapHealthChecks("/health");
 app.MapContentEndpoints();
 app.MapIdentityEndpoints();
 app.MapAcademyEndpoints();
+app.MapStudioEndpoints();
 app.MapAssistantEndpoints();
 
 app.Run();

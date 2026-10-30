@@ -47,7 +47,7 @@ internal static class KnowledgeBase
             ["kimsan", "robot", "bot", "yordamchi"], ["sen", "siz"]),
 
         new(WhatIs,
-            "Tasvir.uz o‘qituvchilarga o‘quv materialini sxema, infografika, diagramma va aqliy xarita ko‘rinishiga keltirishni o‘rgatadigan platforma. Hozir Akademiya kursi ishlaydi, Studiya ishlab chiqilmoqda.",
+            "Tasvir.uz o‘qituvchilarga o‘quv materialini sxema, infografika, diagramma va aqliy xarita ko‘rinishiga keltirishni o‘rgatadigan platforma. Akademiya o‘rgatadi, Studiya esa tayyor shablonlardan material yaratadi.",
             ["tasvir"], ["nima", "haqida", "platforma", "sayt"],
             new AssistantLink("Akademiyaga o‘tish", "/akademiya"),
             [HowStart, Price]),
@@ -88,13 +88,18 @@ internal static class KnowledgeBase
             "Sertifikat hozircha ishlab chiqilmoqda. Kursdagi natijalaringiz saqlanadi.",
             ["sertifikat", "guvohnoma", "diplom"], []),
 
-        new("Studiya qachon ishlaydi?",
-            "Studiya hozircha ishlab chiqilmoqda, aniq sana yo‘q. Hozirdan darslardagi jarayon sxemasini tuzib, uni yuklab olishingiz mumkin.",
-            ["studiya", "shablon"], ["qachon"],
-            new AssistantLink("Mening ishlarim", "/akademiya/ishlarim")),
+        new("Studiya nima?",
+            "Studiyada shablon tanlab, o‘z mavzuingiz bo‘yicha blok-sxema, vaqt chizig‘i, aqliy xarita, qiyosiy jadval yoki infografika yaratasiz. Material saqlanadi, PNG, SVG yoki PDF qilib olinadi va darsda bosqichma-bosqich ko‘rsatiladi.",
+            ["studiya", "shablon", "material", "yaratish"], ["qachon"],
+            new AssistantLink("Studiyaga o‘tish", "/studiya")),
+
+        new("Materialni darsda qanday ko‘rsataman?",
+            "Materialni ochib “Darsda ko‘rsatish” tugmasini bosing. O‘ng strelka yoki bo‘sh joy tugmasi keyingi elementni ochadi, chap strelka orqaga qaytaradi, F to‘liq ekran qiladi.",
+            ["korsatish", "doska", "ekran", "proyektor"], ["darsda"],
+            new AssistantLink("Materiallarim", "/studiya")),
 
         new("Sxemamni qanday yuklab olaman?",
-            "“Mening ishlarim” sahifasiga o‘ting. U yerda darslarda tuzgan sxemalaringizni PNG yoki SVG ko‘rinishida yuklab olasiz.",
+            "Studiyadagi materialni ochib, “PNG”, “SVG” yoki “Chop etish / PDF” tugmasini bosing. Darslarda tuzgan sxemalar esa “Mening ishlarim” sahifasida.",
             ["yukla", "saqla", "png", "svg", "ishlarim", "skachat"], ["sxema"],
             new AssistantLink("Mening ishlarim", "/akademiya/ishlarim")),
 

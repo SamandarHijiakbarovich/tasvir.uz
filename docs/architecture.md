@@ -18,7 +18,8 @@
           │  ├─ Identity       │
           │  ├─ Academy        │
           │  ├─ Assistant      │
-          │  └─ (Studio)       │  :5100
+          │  ├─ Studio         │
+          │                    │  :5100
           └─────────┬──────────┘
                     │ har modul o‘z sxemasi / DbContext
               ┌─────▼─────┐
@@ -137,6 +138,19 @@ Oqim: kabinet yoki `/akademiya` → "Darsni boshlash" (`POST /api/academy/lesson
 - **Mening ishlarim** (`/akademiya/ishlarim`): amaliy topshiriq natijalari. Sxemalar brauzerda SVG va PNG ga aylantiriladi,
   server fayl saqlamaydi.
 
+## Studiya (Studio moduli)
+
+O‘qituvchi shablon tanlaydi, namunani o‘z mavzusiga moslaydi, saqlaydi, yuklab oladi va darsda ko‘rsatadi.
+
+- **Shablonlar:** blok-sxema, vaqt chizig‘i, aqliy xarita, qiyosiy jadval, infografika (`features/studio/lib/templates.ts`).
+  Har biri mazmundagi bog‘liqlik turiga bog‘langan: bu 2-darsdagi metodikaning o‘zi. Yangi shablon uchun: `templates.ts` ga ta’rif,
+  `render.ts` ga chizish funksiyasi, `StudioService.Templates` ga cheklovlar.
+- **Chizish:** `render.ts` materialni brauzerga bog‘liq bo‘lmagan SVG matniga aylantiradi. Ko‘rish, eksport va darsda ko‘rsatish bitta
+  funksiyadan foydalanadi. Matn escape qilinadi va rasm `<img>` orqali ko‘rsatiladi, shuning uchun foydalanuvchi matni kod sifatida ishlamaydi.
+- **Egalik:** har bir so‘rov JWT dagi foydalanuvchi bilan cheklanadi; boshqaning materiali 404 qaytaradi.
+- **Cheklovlar:** PDF brauzerning chop etish oynasi orqali olinadi. Bir vaqtda ikki oynadan tahrirlansa, oxirgi saqlangani qoladi.
+  Sxemani erkin chizish, rasm qo‘shish va o‘quvchilarga havola bilan ulashish hali yo‘q.
+
 ## Yordamchi (Assistant moduli)
 
 Saytning hamma sahifasida `ChatWidget` turadi: `POST /api/assistant/ask` (kirish talab qilinmaydi, IP bo‘yicha daqiqasiga 30 ta so‘rov).
@@ -168,7 +182,10 @@ frontend/src/
       api/              Backend chaqiruvlari va turlar
       components/       LessonPlayer, ProcessDiagram, kurs kartasi
     assistant/          Yordamchi oynasi (ChatWidget) va server action
-    (studio/ — keyingi bosqich)
+    studio/
+      actions.ts        Yaratish, saqlash, nusxa olish, o‘chirish
+      lib/              Shablonlar va SVG chizuvchi
+      components/       Muharrir, darsda ko‘rsatish
   shared/
     config/             Muhit sozlamalari
     lib/                HTTP klient, umumiy hook’lar
@@ -182,6 +199,6 @@ Serverda render qilinadi (SEO), interaktiv qismlar (`"use client"`) kichik kompo
 ## Keyingi qadamlar
 
 - **Academy moduli**: video darslar, qolgan modullar mazmuni, admin paneli, sertifikat.
-- **Studio moduli**: shablonlar va foydalanuvchi ishlari; shablonlar galereyasi API dan keladi.
+- **Studio moduli**: o‘quvchilarga havola bilan ulashish, rasm qo‘shish, landing’dagi shablonlar galereyasini ulash.
 - EF Core migratsiyalari (hozir `EnsureCreated`), PostgreSQL, Docker va CI/CD.
 - Testlar: Identity uchun integration testlar bor (`backend/tests`); Content moduli va frontend uchun testlar qo‘shish.

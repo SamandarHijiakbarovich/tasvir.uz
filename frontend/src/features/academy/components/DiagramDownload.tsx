@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { downloadBlob, downloadSvgAsPng } from "@/shared/lib/download";
 
 const WIDTH = 640;
 const BOX_X = 40;
@@ -62,35 +63,6 @@ export function buildDiagramSvg(items: string[]): { svg: string; width: number; 
   return { svg, width: WIDTH, height };
 }
 
-function save(blob: Blob, fileName: string) {
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = fileName;
-  link.click();
-  URL.revokeObjectURL(url);
-}
-
-function downloadPng(svg: string, width: number, height: number, fileName: string): Promise<void> {
-  const SCALE = 2;
-  return new Promise((resolve, reject) => {
-    const image = new Image();
-    image.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = width * SCALE;
-      canvas.height = height * SCALE;
-      canvas.getContext("2d")!.drawImage(image, 0, 0, canvas.width, canvas.height);
-      canvas.toBlob((blob) => {
-        if (!blob) return reject(new Error("PNG yaratilmadi"));
-        save(blob, fileName);
-        resolve();
-      }, "image/png");
-    };
-    image.onerror = () => reject(new Error("Rasm yuklanmadi"));
-    image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-  });
-}
-
 export function DiagramDownload({ items, name = "sxema" }: { items: string[]; name?: string }) {
   const [error, setError] = useState(false);
   const filled = items.map((i) => i.trim()).filter(Boolean);
@@ -105,7 +77,7 @@ export function DiagramDownload({ items, name = "sxema" }: { items: string[]; na
         type="button"
         onClick={() => {
           setError(false);
-          downloadPng(svg, width, height, `${name}.png`).catch(() => setError(true));
+          downloadSvgAsPng(svg, width, height, `${name}.png`).catch(() => setError(true));
         }}
       >
         PNG yuklab olish
@@ -113,7 +85,7 @@ export function DiagramDownload({ items, name = "sxema" }: { items: string[]; na
       <button
         className="tv-btn tv-btn-ghost tv-btn-sm"
         type="button"
-        onClick={() => save(new Blob([svg], { type: "image/svg+xml" }), `${name}.svg`)}
+        onClick={() => downloadBlob(new Blob([svg], { type: "image/svg+xml" }), `${name}.svg`)}
       >
         SVG yuklab olish
       </button>

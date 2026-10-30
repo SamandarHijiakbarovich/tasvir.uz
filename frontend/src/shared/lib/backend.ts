@@ -17,7 +17,7 @@ const UNAVAILABLE = "Xizmat vaqtincha ishlamayapti. Birozdan so‘ng qayta urini
 const SESSION_EXPIRED = "Sessiya tugagan. Qayta kiring.";
 
 type RequestOptions = {
-  method?: "GET" | "POST";
+  method?: "GET" | "POST" | "PUT" | "DELETE";
   body?: unknown;
   accessToken?: string;
 };
