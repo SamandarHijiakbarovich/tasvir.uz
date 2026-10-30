@@ -27,7 +27,8 @@ public sealed class KnowledgeBaseTests
     [InlineData("Ikki kanalli kodlash nima?", "Paivio")]
     [InlineData("kognitiv yuklama haqida ayt", "Sveller")]
     [InlineData("Sertifikat beriladimi", "ishlab chiqilmoqda")]
-    [InlineData("Studiya qachon ishga tushadi", "ishlab chiqilmoqda")]
+    [InlineData("Studiya nima", "shablon")]
+    [InlineData("materialni darsda doskada qanday korsataman", "strelka")]
     [InlineData("Telefonda ishlaydimi", "telefon")]
     [InlineData("salom", "Tasvir.uz yordamchisi")]
     [InlineData("rahmat", "Arziydi")]
@@ -99,6 +100,7 @@ public sealed class AssistantApiFactory : WebApplicationFactory<Program>
         builder.UseSetting("ConnectionStrings:Content", $"Data Source={Path.Combine(_dir, "content.db")};Pooling=False");
         builder.UseSetting("ConnectionStrings:Identity", $"Data Source={Path.Combine(_dir, "identity.db")};Pooling=False");
         builder.UseSetting("ConnectionStrings:Academy", $"Data Source={Path.Combine(_dir, "academy.db")};Pooling=False");
+        builder.UseSetting("ConnectionStrings:Studio", $"Data Source={Path.Combine(_dir, "studio.db")};Pooling=False");
         builder.UseSetting("Assistant:RateLimit:PermitPerMinute", PermitPerMinute.ToString());
     }
 

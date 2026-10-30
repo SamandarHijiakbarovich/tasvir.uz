@@ -65,6 +65,11 @@ Kirgandan keyin `/kabinet` yoki `/akademiya` sahifasida "Birinchi darsni boshlas
 Kurs mazmuni `AcademySeeder` da, progress `tasvir-academy.db` da saqlanadi.
 Tuzilgan sxemalar `/akademiya/ishlarim` sahifasidan PNG va SVG ko‘rinishida yuklab olinadi.
 
+## Studiya
+
+`/studiya`: shablondan material yaratish, saqlash, PNG/SVG/PDF eksport va darsda bosqichma-bosqich ko‘rsatish
+(strelkalar yoki bo‘sh joy, F bilan to‘liq ekran). Materiallar `tasvir-studio.db` da saqlanadi.
+
 ## Yordamchi
 
 Har sahifadagi "Savol bering" tugmasi. Oddiy savollarga `KnowledgeBase.cs` asosida javob beradi, tashqi xizmat kerak emas.
@@ -95,6 +100,7 @@ tasvir-uz/
         Identity/                              ro‘yxatdan o‘tish, kirish, parol, email
         Academy/                               kurslar, darslar, test, topshiriq, progress
         Assistant/                             oddiy savollarga javob beruvchi yordamchi
+        Studio/                                o‘qituvchi materiallari
     tests/                                     integratsion testlar
   frontend/                                    Next.js ilova
   docs/                                        arxitektura va dizayn hujjatlari
