@@ -6,7 +6,7 @@ const groups = [
     title: "Maktab va kollej o‘qituvchilari",
     sub: null,
     points: ["Dars materialini tez va chiroyli tayyorlash", "O‘quvchilar diqqatini ushlab turish", "Malakani tasdiqlovchi sertifikat"],
-    cta: { href: "#boshlash", text: "Bepul boshlash →" },
+    cta: { href: "/royxatdan-otish", text: "Bepul boshlash →" },
     icon: (
       <>
         <rect x="3" y="4" width="18" height="12" rx="2" />
@@ -19,7 +19,7 @@ const groups = [
     title: "Pedagogika OTM talabalari",
     sub: "Bo‘lajak o‘qituvchilar uchun",
     points: ["Amaliyot va bitiruv ishlari uchun vizual materiallar", "Kasbiy ko‘nikmani o‘qish davridayoq egallash", "Portfolio uchun ishlar to‘plami"],
-    cta: { href: "#boshlash", text: "Talaba sifatida boshlash →" },
+    cta: { href: "/royxatdan-otish", text: "Talaba sifatida boshlash →" },
     icon: (
       <>
         <path d="M2 9l10-5 10 5-10 5z" />

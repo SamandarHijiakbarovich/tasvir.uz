@@ -12,4 +12,13 @@
     <Project Path="src/Modules/Content/Tasvir.Modules.Content.Infrastructure/Tasvir.Modules.Content.Infrastructure.csproj" />
     <Project Path="src/Modules/Content/Tasvir.Modules.Content.Presentation/Tasvir.Modules.Content.Presentation.csproj" />
   </Folder>
+  <Folder Name="/Modules/Identity/">
+    <Project Path="src/Modules/Identity/Tasvir.Modules.Identity.Domain/Tasvir.Modules.Identity.Domain.csproj" />
+    <Project Path="src/Modules/Identity/Tasvir.Modules.Identity.Application/Tasvir.Modules.Identity.Application.csproj" />
+    <Project Path="src/Modules/Identity/Tasvir.Modules.Identity.Infrastructure/Tasvir.Modules.Identity.Infrastructure.csproj" />
+    <Project Path="src/Modules/Identity/Tasvir.Modules.Identity.Presentation/Tasvir.Modules.Identity.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="tests/Tasvir.Modules.Identity.Tests/Tasvir.Modules.Identity.Tests.csproj" />
+  </Folder>
 </Solution>

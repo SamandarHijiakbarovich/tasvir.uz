@@ -1,0 +1,88 @@
+/* Tasvir.uz — kirish, ro‘yxatdan o‘tish va kabinet sahifalari. Barcha qiymatlar tokens.css dan. */
+
+/* Sahifa tuzilmasi */
+.tv-auth{min-height:100dvh;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);background:var(--paper)}
+.tv-auth-aside{display:flex;flex-direction:column;justify-content:center;gap:var(--space-6);padding:var(--space-12);background:var(--night);color:var(--night-ink)}
+.tv-auth-aside .tv-hand{margin:0;color:var(--sun)}
+.tv-auth-slogan{margin:0;font-family:var(--font-display);font-weight:800;letter-spacing:-.015em;font-size:clamp(32px,3.4vw,44px);line-height:1.14}
+.tv-auth-visual{display:flex;align-items:center;gap:var(--space-4);margin-top:var(--space-4)}
+.tv-auth-text{display:grid;gap:10px;width:112px;padding:var(--space-4);border:2px solid var(--night-ink);border-radius:var(--radius-md)}
+.tv-auth-text i{display:block;height:6px;border-radius:3px;background:var(--night-ink);opacity:.55}
+.tv-auth-text i:nth-child(2){width:80%}
+.tv-auth-text i:nth-child(4){width:60%}
+.tv-auth-visual svg{width:48px;flex:none;fill:none;stroke:var(--coral);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.tv-auth-diagram{display:grid;justify-items:center;gap:var(--space-4)}
+.tv-auth-diagram b{display:block;width:40px;height:40px;border-radius:50%;background:var(--sun);border:2px solid var(--night-ink)}
+.tv-auth-diagram span{display:flex;gap:var(--space-4)}
+.tv-auth-diagram span b{background:var(--mint)}
+.tv-auth-diagram span b:last-child{background:var(--coral)}
+
+.tv-auth-main{display:flex;flex-direction:column;padding:var(--space-6);min-width:0}
+.tv-auth-top{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4)}
+.tv-auth-card{width:100%;max-width:440px;margin:auto;padding-block:var(--space-8)}
+.tv-auth-card .tv-h2{font-size:clamp(30px,3.4vw,38px)}
+.tv-auth-lead{margin:var(--space-2) 0 0}
+.tv-auth-foot{margin:var(--space-6) 0 0;text-align:center;color:var(--ink-muted)}
+.tv-auth-foot a,.tv-form-row a{font-weight:600}
+
+/* Forma */
+.tv-form{display:grid;gap:var(--space-4);margin-top:var(--space-6)}
+.tv-field{display:grid;gap:6px;min-width:0}
+.tv-field label{font-weight:600;font-size:15px;line-height:20px}
+.tv-field input{width:100%;min-height:48px;padding:10px 14px;font:400 16px/24px var(--font-sans);color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:var(--radius-md);transition:border-color .15s ease}
+.tv-field input::placeholder{color:var(--ink-muted);opacity:.75}
+.tv-field input:hover{border-color:var(--ink-muted)}
+.tv-field input:focus-visible{outline:3px solid var(--brand);outline-offset:1px;border-color:var(--brand);border-radius:var(--radius-md)}
+.tv-field input[aria-invalid="true"]{border-color:var(--coral-ink)}
+.tv-field-hint{margin:0;font-size:14px;line-height:20px;color:var(--ink-muted)}
+.tv-field-error{margin:0;font-size:14px;line-height:20px;font-weight:500;color:var(--coral-ink)}
+
+.tv-password{position:relative}
+.tv-password input{padding-right:52px}
+.tv-password button{position:absolute;top:2px;right:2px;width:44px;height:44px;display:grid;place-items:center;background:none;border:0;border-radius:var(--radius-md);color:var(--ink-muted);cursor:pointer}
+.tv-password button:hover{color:var(--ink)}
+.tv-password svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.tv-strength{display:flex;align-items:center;gap:var(--space-3);font-size:14px;line-height:20px;color:var(--ink-muted)}
+.tv-strength-bars{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;flex:1;max-width:160px}
+.tv-strength-bars i{height:6px;border-radius:3px;background:var(--line)}
+.tv-strength[data-level="1"] i:nth-child(-n+1){background:var(--coral)}
+.tv-strength[data-level="2"] i:nth-child(-n+2){background:var(--sun)}
+.tv-strength[data-level="3"] i:nth-child(-n+3),.tv-strength[data-level="4"] i{background:var(--mint)}
+
+.tv-form-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-2) var(--space-4);font-size:15px}
+.tv-check{display:inline-flex;align-items:center;gap:var(--space-2);min-height:44px;cursor:pointer}
+.tv-check input{width:20px;height:20px;margin:0;accent-color:var(--brand)}
+
+.tv-form-msg{margin:0;padding:12px 14px;border-radius:var(--radius-md);font-size:15px;line-height:22px}
+.tv-form-msg.err{background:var(--coral-tint);color:var(--coral-ink)}
+.tv-form-msg.ok{background:var(--mint-tint);color:var(--mint-ink)}
+.tv-form button[disabled]{opacity:.7;cursor:progress;transform:none}
+
+/* Kabinet */
+.tv-cabinet{min-height:100dvh;background:var(--paper)}
+.tv-cabinet-in{max-width:880px;margin:0 auto;padding:var(--space-8) var(--space-6) var(--space-16);display:grid;gap:var(--space-6)}
+.tv-cabinet-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-6)}
+.tv-cabinet .tv-card{min-width:0}
+.tv-cabinet-wide{grid-column:1/-1}
+.tv-banner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-3) var(--space-6);padding:var(--space-4) var(--space-6);background:var(--sun-tint);border:2px solid var(--line-strong);border-radius:var(--radius-lg)}
+.tv-banner p{margin:0}
+.tv-banner-action .tv-form-msg{background:none;padding:0}
+.tv-profile{margin:var(--space-4) 0 0;display:grid;gap:var(--space-3)}
+.tv-profile div{min-width:0}
+.tv-profile dt{font-size:14px;line-height:20px;color:var(--ink-muted)}
+.tv-profile dd{margin:0;font-weight:600;overflow-wrap:anywhere}
+.tv-soon{margin:var(--space-3) 0 0;padding:0;list-style:none;display:grid;gap:var(--space-3)}
+.tv-soon li{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-2);font-weight:600}
+.tv-soon .tv-chip-soon{font-size:13px;line-height:20px;font-weight:600;padding:2px 10px;border-radius:var(--radius-pill);background:var(--brand-tint);color:var(--brand)}
+
+/* Telefon va planshet */
+@media (max-width:960px){
+  .tv-auth{grid-template-columns:minmax(0,1fr)}
+  .tv-auth-aside{display:none}
+  .tv-auth-main{padding:var(--space-4)}
+}
+@media (max-width:720px){
+  .tv-cabinet-grid{grid-template-columns:minmax(0,1fr)}
+  .tv-cabinet-in{padding-inline:var(--space-4)}
+}
