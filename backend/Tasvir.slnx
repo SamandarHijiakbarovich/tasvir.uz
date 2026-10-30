@@ -18,7 +18,14 @@
     <Project Path="src/Modules/Identity/Tasvir.Modules.Identity.Infrastructure/Tasvir.Modules.Identity.Infrastructure.csproj" />
     <Project Path="src/Modules/Identity/Tasvir.Modules.Identity.Presentation/Tasvir.Modules.Identity.Presentation.csproj" />
   </Folder>
+  <Folder Name="/Modules/Academy/">
+    <Project Path="src/Modules/Academy/Tasvir.Modules.Academy.Domain/Tasvir.Modules.Academy.Domain.csproj" />
+    <Project Path="src/Modules/Academy/Tasvir.Modules.Academy.Application/Tasvir.Modules.Academy.Application.csproj" />
+    <Project Path="src/Modules/Academy/Tasvir.Modules.Academy.Infrastructure/Tasvir.Modules.Academy.Infrastructure.csproj" />
+    <Project Path="src/Modules/Academy/Tasvir.Modules.Academy.Presentation/Tasvir.Modules.Academy.Presentation.csproj" />
+  </Folder>
   <Folder Name="/Tests/">
+    <Project Path="tests/Tasvir.Modules.Academy.Tests/Tasvir.Modules.Academy.Tests.csproj" />
     <Project Path="tests/Tasvir.Modules.Identity.Tests/Tasvir.Modules.Identity.Tests.csproj" />
   </Folder>
 </Solution>

@@ -2,13 +2,16 @@ import { NextResponse, type NextRequest } from "next/server";
 import { serverEnv } from "@/shared/config/env";
 import { ACCESS_COOKIE, REFRESH_COOKIE, applySession, clearSession, type AuthSession } from "@/features/auth/lib/session-cookies";
 
-const PROTECTED_PREFIXES = ["/kabinet"];
+const PROTECTED_PREFIXES = ["/kabinet", "/akademiya"];
 
 function isProtected(pathname: string) {
   return PROTECTED_PREFIXES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
 }
 
 function redirectToLogin(request: NextRequest) {
+  // Server action HTML yo‘naltirishni tushunmaydi va brauzerda xato beradi: u 401 ni o‘zi qayta ishlaydi
+  if (request.headers.has("next-action")) return NextResponse.next();
+
   const url = new URL("/kirish", request.url);
   url.searchParams.set("keyin", request.nextUrl.pathname + request.nextUrl.search);
   return NextResponse.redirect(url);

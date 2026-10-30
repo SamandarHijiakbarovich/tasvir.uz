@@ -16,7 +16,7 @@
           │  modulli monolit   │  │  masalan: AI infografika       │
           │  ├─ Content        │  └────────────────────────────────┘
           │  ├─ Identity       │
-          │  ├─ (Academy)      │
+          │  ├─ Academy        │
           │  └─ (Studio)       │  :5100
           └─────────┬──────────┘
                     │ har modul o‘z sxemasi / DbContext
@@ -114,6 +114,20 @@ Qolgan ishlar: EF Core migratsiyalari, muddati o‘tgan tokenlarni davriy tozala
 Boshqa tildagi servislar JWT’ni tekshirishi kerak bo‘lganda HS256 dan RS256 ga o‘tiladi, shunda servislarga maxfiy kalit
 berilmaydi. Lokal ishlab chiqishda kalit har ishga tushganda yangilanadi: API qayta ishga tushsa, qayta kirish kerak bo‘ladi.
 
+## Akademiya (Academy moduli)
+
+Oqim: kabinet yoki `/akademiya` → "Darsni boshlash" (`POST /api/academy/lessons/{slug}/start`) →
+`/akademiya/darslar/{slug}` → bosqichlar → dars yakuni → keyingi dars ochiladi.
+
+- **Bosqich turlari:** o‘qish, test, amaliy topshiriq (matn, jarayon sxemasi, o‘zini tekshirish ro‘yxati).
+  Mazmun `LessonStep.ContentJson` da, kursning o‘zi hozircha `AcademySeeder` da.
+- **Qoidalar serverda:** darslar va bosqichlar ketma-ket ochiladi. Test javobi serverda tekshiriladi, to‘g‘ri javob va
+  izoh brauzerga javob yuborilgunga qadar chiqmaydi. Noto‘g‘ri javob bosqichni yopmaydi, qayta urinish mumkin.
+- **Progress** `UserId` bo‘yicha saqlanadi va Identity jadvallariga tashqi kalit bilan bog‘lanmaydi: modul chegarasi
+  saqlanadi, foydalanuvchi JWT orqali aniqlanadi.
+- **Mazmunni o‘zgartirish:** seeder faqat bo‘sh bazada ishlaydi. Dars matni tahrirlansa, lokalda `tasvir-academy.db` ni
+  o‘chirish kerak; serverda bu progressni yo‘qotadi, shuning uchun migratsiya yoki admin paneli zarur.
+
 ## Frontend tuzilmasi (feature-based)
 
 ```
@@ -128,7 +142,11 @@ frontend/src/
       actions.ts        Server action’lar (ro‘yxatdan o‘tish, kirish, parol…)
       lib/              Identity API klienti, sessiya cookie’lari
       components/       Formalar, AuthShell
-    (academy/, studio/ — keyingi bosqichlar)
+    academy/
+      actions.ts        Darsni boshlash, bosqichni yakunlash
+      api/              Backend chaqiruvlari va turlar
+      components/       LessonPlayer, ProcessDiagram, kurs kartasi
+    (studio/ — keyingi bosqich)
   shared/
     config/             Muhit sozlamalari
     lib/                HTTP klient, umumiy hook’lar
@@ -141,7 +159,7 @@ Serverda render qilinadi (SEO), interaktiv qismlar (`"use client"`) kichik kompo
 
 ## Keyingi qadamlar
 
-- **Academy moduli**: kurslar, darslar, topshiriqlar, progress, sertifikat.
+- **Academy moduli**: video darslar, qolgan modullar mazmuni, admin paneli, sertifikat.
 - **Studio moduli**: shablonlar va foydalanuvchi ishlari; shablonlar galereyasi API dan keladi.
 - EF Core migratsiyalari (hozir `EnsureCreated`), PostgreSQL, Docker va CI/CD.
 - Testlar: Identity uchun integration testlar bor (`backend/tests`); Content moduli va frontend uchun testlar qo‘shish.

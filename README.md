@@ -58,6 +58,11 @@ Lokal ishlab chiqishda xatlar yuborilmaydi: tasdiqlash va parol tiklash havolala
 `[DEV EMAIL]` belgisi bilan chiqadi. Foydalanuvchilar `tasvir-identity.db` faylida saqlanadi.
 Ishlab chiqarish sozlamalari: [docs/architecture.md](docs/architecture.md#autentifikatsiya-identity-moduli).
 
+## Akademiya
+
+Kirgandan keyin `/kabinet` yoki `/akademiya` sahifasida "Birinchi darsni boshlash" tugmasi chiqadi.
+Kurs mazmuni `AcademySeeder` da, progress `tasvir-academy.db` da saqlanadi.
+
 ## Testlar
 
 ```bash
@@ -82,6 +87,7 @@ tasvir-uz/
           Tasvir.Modules.Content.Infrastructure/
           Tasvir.Modules.Content.Presentation/
         Identity/                              ro‘yxatdan o‘tish, kirish, parol, email
+        Academy/                               kurslar, darslar, test, topshiriq, progress
     tests/                                     integratsion testlar
   frontend/                                    Next.js ilova
   docs/                                        arxitektura va dizayn hujjatlari
