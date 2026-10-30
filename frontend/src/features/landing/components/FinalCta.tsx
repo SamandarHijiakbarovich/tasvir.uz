@@ -21,7 +21,7 @@ export function FinalCta() {
               Birinchi vizual darsingizni bugun yarating
             </h2>
             <p className="tv-lead">Ro‘yxatdan o‘ting va Akademiyaning birinchi darsini bepul boshlang.</p>
-            <a className="tv-btn tv-btn-primary" href="#royxat" style={ctaButton}>
+            <a className="tv-btn tv-btn-primary" href="/royxatdan-otish" style={ctaButton}>
               Bepul boshlash →
             </a>
           </div>

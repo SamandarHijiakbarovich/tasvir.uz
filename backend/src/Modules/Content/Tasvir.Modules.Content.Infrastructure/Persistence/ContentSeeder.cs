@@ -38,11 +38,11 @@ internal static class ContentSeeder
             new PricingPlan(
                 "Bepul", "Platformani sinab ko‘rish uchun", 0m, "so‘m",
                 ["Akademiyadan kirish darslari", "Studiyada asosiy shablonlar", "Hamjamiyatga kirish"],
-                isFeatured: false, "Bepul boshlash", "#boshlash", 1),
+                isFeatured: false, "Bepul boshlash", "/royxatdan-otish", 1),
             new PricingPlan(
                 "Pro", "O‘qituvchi uchun", null, "so‘m / oy",
                 ["Barcha kurslar va amaliy topshiriqlar", "Barcha shablonlar", "Sertifikat", "Progress kuzatuvi"],
-                isFeatured: true, "Pro ni tanlash", "#pro", 2),
+                isFeatured: true, "Pro ni tanlash", "/royxatdan-otish", 2),
             new PricingPlan(
                 "Tashkilot", "Maktab, kollej va OTM uchun", null, "so‘m",
                 ["Pro dagi barcha imkoniyatlar", "O‘qituvchilar jamoasi uchun hisob", "Jamoa progressini kuzatish"],

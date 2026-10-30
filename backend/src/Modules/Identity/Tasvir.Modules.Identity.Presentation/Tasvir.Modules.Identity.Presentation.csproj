@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tasvir.Modules.Identity.Application\Tasvir.Modules.Identity.Application.csproj" />
+  </ItemGroup>
+</Project>

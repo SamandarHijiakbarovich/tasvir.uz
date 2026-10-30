@@ -7,5 +7,8 @@
     <ProjectReference Include="..\..\Modules\Content\Tasvir.Modules.Content.Application\Tasvir.Modules.Content.Application.csproj" />
     <ProjectReference Include="..\..\Modules\Content\Tasvir.Modules.Content.Infrastructure\Tasvir.Modules.Content.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Modules\Content\Tasvir.Modules.Content.Presentation\Tasvir.Modules.Content.Presentation.csproj" />
+    <ProjectReference Include="..\..\Modules\Identity\Tasvir.Modules.Identity.Application\Tasvir.Modules.Identity.Application.csproj" />
+    <ProjectReference Include="..\..\Modules\Identity\Tasvir.Modules.Identity.Infrastructure\Tasvir.Modules.Identity.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Identity\Tasvir.Modules.Identity.Presentation\Tasvir.Modules.Identity.Presentation.csproj" />
   </ItemGroup>
 </Project>

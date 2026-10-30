@@ -27,7 +27,7 @@ export function Hero() {
             o‘rgatadi — va buni bir necha bosishda bajarishga yordam beradi.
           </p>
           <div className="hero-cta">
-            <a className="tv-btn tv-btn-primary" href="#boshlash">
+            <a className="tv-btn tv-btn-primary" href="/royxatdan-otish">
               Bepul boshlash <ArrowRightIcon />
             </a>
             <a className="tv-btn tv-btn-ghost" href="#demo">

@@ -50,6 +50,20 @@ npm run dev
 
 Sayt: http://localhost:3000
 
+## Ro‘yxatdan o‘tish va kirish
+
+Sahifalar: `/royxatdan-otish`, `/kirish`, `/parolni-tiklash`, `/kabinet`.
+
+Lokal ishlab chiqishda xatlar yuborilmaydi: tasdiqlash va parol tiklash havolalari API terminaliga
+`[DEV EMAIL]` belgisi bilan chiqadi. Foydalanuvchilar `tasvir-identity.db` faylida saqlanadi.
+Ishlab chiqarish sozlamalari: [docs/architecture.md](docs/architecture.md#autentifikatsiya-identity-moduli).
+
+## Testlar
+
+```bash
+dotnet test backend/Tasvir.slnx
+```
+
 ## Loyiha tuzilmasi
 
 ```
@@ -67,6 +81,8 @@ tasvir-uz/
           Tasvir.Modules.Content.Application/
           Tasvir.Modules.Content.Infrastructure/
           Tasvir.Modules.Content.Presentation/
+        Identity/                              ro‘yxatdan o‘tish, kirish, parol, email
+    tests/                                     integratsion testlar
   frontend/                                    Next.js ilova
   docs/                                        arxitektura va dizayn hujjatlari
 ```
