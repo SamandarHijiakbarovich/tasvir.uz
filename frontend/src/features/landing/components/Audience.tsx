@@ -5,7 +5,7 @@ const groups = [
     tone: "brand",
     title: "Maktab va kollej o‘qituvchilari",
     sub: null,
-    points: ["Dars materialini tez va chiroyli tayyorlash", "O‘quvchilar diqqatini ushlab turish", "Malakani tasdiqlovchi sertifikat"],
+    points: ["Dars materialini tez va chiroyli tayyorlash", "O‘quvchilar diqqatini ushlab turish", "O‘z ishlaringiz saqlanadigan portfolio"],
     cta: { href: "/royxatdan-otish", text: "Bepul boshlash →" },
     icon: (
       <>

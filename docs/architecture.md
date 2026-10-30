@@ -16,7 +16,8 @@
           │  modulli monolit   │  │  masalan: AI infografika       │
           │  ├─ Content        │  └────────────────────────────────┘
           │  ├─ Identity       │
-          │  ├─ (Academy)      │
+          │  ├─ Academy        │
+          │  ├─ Assistant      │
           │  └─ (Studio)       │  :5100
           └─────────┬──────────┘
                     │ har modul o‘z sxemasi / DbContext
@@ -114,6 +115,40 @@ Qolgan ishlar: EF Core migratsiyalari, muddati o‘tgan tokenlarni davriy tozala
 Boshqa tildagi servislar JWT’ni tekshirishi kerak bo‘lganda HS256 dan RS256 ga o‘tiladi, shunda servislarga maxfiy kalit
 berilmaydi. Lokal ishlab chiqishda kalit har ishga tushganda yangilanadi: API qayta ishga tushsa, qayta kirish kerak bo‘ladi.
 
+## Akademiya (Academy moduli)
+
+Oqim: kabinet yoki `/akademiya` → "Darsni boshlash" (`POST /api/academy/lessons/{slug}/start`) →
+`/akademiya/darslar/{slug}` → bosqichlar → dars yakuni → keyingi dars ochiladi.
+
+- **Bosqich turlari:** o‘qish, test, amaliy topshiriq (matn, jarayon sxemasi, o‘zini tekshirish ro‘yxati), video, mashq
+  (son ko‘rinishidagi javob serverda tekshiriladi, xato bo‘lsa maslahat chiqadi).
+- **Video:** YouTube’dan `youtube-nocookie.com` orqali embed qilinadi, fayl yuklab olinmaydi va o‘zimizda saqlanmaydi. Video
+  o‘chirilsa yoki muallif embed’ni yopsa, ostidagi “YouTube’da ochish” havolasi qoladi. Almashtirish: `AcademyMathCourse.cs`
+  dagi ID ni o‘zgartiring; mavjud bazada `lesson_steps` yozuvi ham yangilanadi (seeder mavjud darsga tegmaydi).
+  Mazmun `LessonStep.ContentJson` da, kursning o‘zi hozircha `AcademySeeder` da.
+- **Qoidalar serverda:** darslar va bosqichlar ketma-ket ochiladi. Test javobi serverda tekshiriladi, to‘g‘ri javob va
+  izoh brauzerga javob yuborilgunga qadar chiqmaydi. Noto‘g‘ri javob bosqichni yopmaydi, qayta urinish mumkin.
+- **Progress** `UserId` bo‘yicha saqlanadi va Identity jadvallariga tashqi kalit bilan bog‘lanmaydi: modul chegarasi
+  saqlanadi, foydalanuvchi JWT orqali aniqlanadi.
+- **Yangi dars qo‘shish:** `AcademySeeder` ga yangi `Add…` metodi yozing. Ishga tushganda yetishmayotgan darslar kurs oxiriga
+  qo‘shiladi, mavjud darslar va progress o‘zgarmaydi.
+- **Mavjud dars matnini o‘zgartirish:** seeder buni yangilamaydi. Lokalda `tasvir-academy.db` ni o‘chirish kerak; serverda bu
+  progressni yo‘qotadi, shuning uchun migratsiya yoki admin paneli zarur.
+- **Mening ishlarim** (`/akademiya/ishlarim`): amaliy topshiriq natijalari. Sxemalar brauzerda SVG va PNG ga aylantiriladi,
+  server fayl saqlamaydi.
+
+## Yordamchi (Assistant moduli)
+
+Saytning hamma sahifasida `ChatWidget` turadi: `POST /api/assistant/ask` (kirish talab qilinmaydi, IP bo‘yicha daqiqasiga 30 ta so‘rov).
+
+- **Qanday ishlaydi:** savol normallashtiriladi (`o‘`, `o'`, `ö` bir xil hisoblanadi), so‘zlar `KnowledgeBase` kalit so‘zlari bilan
+  solishtiriladi. Javob faqat bazadan olinadi; mos kelmasa, bot bilmasligini aytadi. Tashqi xizmat va API kaliti kerak emas.
+- **Bilim qo‘shish:** `KnowledgeBase.cs` ga yozuv qo‘shing va `AssistantTests` ga savol-javob misolini kiriting. Faqat haqiqatan
+  mavjud funksiyalar haqida yozing: mahsulot o‘zgarsa, bu fayl ham yangilanadi.
+- **Maxfiylik:** savollar saqlanmaydi va logga yozilmaydi. Shu sababli javobsiz qolgan savollar statistikasi ham yo‘q.
+- **Til modeliga o‘tish:** `IAnswerProvider` ning yangi amalga oshirilishini `AddAssistantApplication` da ro‘yxatdan o‘tkazing;
+  endpoint va frontend o‘zgarmaydi. Bilim bazasini model uchun manba sifatida ishlatish mumkin.
+
 ## Frontend tuzilmasi (feature-based)
 
 ```
@@ -128,7 +163,12 @@ frontend/src/
       actions.ts        Server action’lar (ro‘yxatdan o‘tish, kirish, parol…)
       lib/              Identity API klienti, sessiya cookie’lari
       components/       Formalar, AuthShell
-    (academy/, studio/ — keyingi bosqichlar)
+    academy/
+      actions.ts        Darsni boshlash, bosqichni yakunlash
+      api/              Backend chaqiruvlari va turlar
+      components/       LessonPlayer, ProcessDiagram, kurs kartasi
+    assistant/          Yordamchi oynasi (ChatWidget) va server action
+    (studio/ — keyingi bosqich)
   shared/
     config/             Muhit sozlamalari
     lib/                HTTP klient, umumiy hook’lar
@@ -141,7 +181,7 @@ Serverda render qilinadi (SEO), interaktiv qismlar (`"use client"`) kichik kompo
 
 ## Keyingi qadamlar
 
-- **Academy moduli**: kurslar, darslar, topshiriqlar, progress, sertifikat.
+- **Academy moduli**: video darslar, qolgan modullar mazmuni, admin paneli, sertifikat.
 - **Studio moduli**: shablonlar va foydalanuvchi ishlari; shablonlar galereyasi API dan keladi.
 - EF Core migratsiyalari (hozir `EnsureCreated`), PostgreSQL, Docker va CI/CD.
 - Testlar: Identity uchun integration testlar bor (`backend/tests`); Content moduli va frontend uchun testlar qo‘shish.

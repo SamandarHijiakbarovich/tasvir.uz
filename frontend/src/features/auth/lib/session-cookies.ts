@@ -1,7 +1,8 @@
-import { SESSION_FLAG_COOKIE } from "@/shared/config/session";
+import { ACCESS_COOKIE, SESSION_FLAG_COOKIE } from "@/shared/config/session";
+
+export { ACCESS_COOKIE };
 
 /** Sessiya cookie’lari. Fayl proxy va server kodida ishlatiladi, shuning uchun next/headers’ga bog‘lanmagan. */
-export const ACCESS_COOKIE = "tasvir_at";
 export const REFRESH_COOKIE = "tasvir_rt";
 
 export type AuthUser = {

@@ -64,7 +64,7 @@ internal static class ContentSeeder
             new FaqItem("Qaysi fanlar uchun mos?",
                 "Galereyada matematika, biologiya, tarix, informatika va ona tili bo‘yicha namunalar bor. Metodika har qanday fan mavzusini vizual shaklga keltirishga yo‘naltirilgan.", 3),
             new FaqItem("Sertifikat beriladimi?",
-                "Ha, Akademiya kursini yakunlaganingizdan so‘ng sertifikat olasiz.", 4),
+                "Sertifikat hozircha ishlab chiqilmoqda. Kursdagi natijalaringiz saqlanadi, sertifikat ishga tushgach e’lon qilamiz.", 4),
             new FaqItem("Platformaning ilmiy asosi nimada?",
                 "Metodika pedagogika fanlari bo‘yicha dissertatsiya tadqiqoti doirasida ishlab chiqilgan va tajriba-sinovdan o‘tkazilgan. Batafsil — “Tadqiqot” sahifasida.", 5),
             new FaqItem("Maktab yoki OTM uchun alohida tarif bormi?",

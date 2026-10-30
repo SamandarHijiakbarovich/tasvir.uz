@@ -1,0 +1,105 @@
+/* Tasvir.uz — Akademiya: kurs sahifasi va dars pleyeri. Barcha qiymatlar tokens.css dan. */
+
+.tv-academy{min-height:100dvh;background:var(--paper)}
+.tv-academy-in{max-width:800px;margin:0 auto;padding:var(--space-8) var(--space-6) var(--space-16);display:grid;gap:var(--space-6);min-width:0}
+.tv-academy-link{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--space-2);font-weight:600;text-decoration:none}
+.tv-academy-link:hover{text-decoration:underline;text-underline-offset:4px}
+.tv-breadcrumb{margin:0;font-size:15px;color:var(--ink-muted)}
+
+/* Progress */
+.tv-progress{height:10px;border-radius:var(--radius-pill);background:var(--paper-2);border:1px solid var(--line);overflow:hidden;flex:1;min-width:80px}
+.tv-progress i{display:block;height:100%;background:var(--mint);transition:width .3s ease}
+.tv-lesson-progress{display:flex;align-items:center;gap:var(--space-4);font-size:15px;font-weight:600;white-space:nowrap}
+
+/* Kabinetdagi kurs kartasi */
+.tv-course-card{display:grid;gap:var(--space-4);min-width:0}
+.tv-course-card .tv-h3{margin-top:var(--space-2)}
+.tv-course-card p{margin:var(--space-2) 0 0}
+
+/* Darslar ro‘yxati */
+.tv-lesson-list{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-4)}
+.tv-lesson-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:var(--space-4);padding:var(--space-6)}
+.tv-lesson-item h2{margin:0}
+.tv-lesson-item p{margin:var(--space-1) 0 0}
+.tv-lesson-item.locked{background:var(--paper-2);box-shadow:none}
+.tv-lesson-meta{font-size:14px;line-height:20px;color:var(--ink-muted)}
+.tv-lesson-num{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;font-weight:700;background:var(--brand-tint);color:var(--brand)}
+.tv-lesson-item.completed .tv-lesson-num{background:var(--mint-tint);color:var(--mint-ink)}
+.tv-lesson-num svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* Dars pleyeri */
+.tv-lesson{display:grid;gap:var(--space-4);min-width:0}
+.tv-lesson-card{display:grid;gap:var(--space-4);min-width:0}
+.tv-lesson-card h2:focus,.tv-lesson-done h2:focus{outline:none}
+.tv-step-body{display:grid;gap:var(--space-4);min-width:0}
+.tv-step-body p{margin:0}
+.tv-lesson-actions{display:flex;flex-wrap:wrap;gap:var(--space-3);justify-content:flex-end;align-items:center}
+.tv-course-card .tv-lesson-actions{justify-content:flex-start}
+.tv-lesson-done{display:grid;gap:var(--space-4);justify-items:start}
+.tv-lesson-done p{margin:0}
+.tv-lesson-done .tv-lesson-actions{justify-content:flex-start}
+.tv-lesson button[disabled]{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
+
+.tv-callout{padding:var(--space-4);background:var(--sun-tint);border-radius:var(--radius-md);font-weight:500}
+
+.tv-example{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-4)}
+.tv-example-side{display:grid;align-content:start;gap:var(--space-3);padding:var(--space-4);background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-md);min-width:0}
+
+/* Test va belgilash bandlari */
+.tv-quiz{border:0;margin:0;padding:0;display:grid;gap:var(--space-3);min-width:0}
+.tv-quiz legend{padding:0;margin-bottom:var(--space-3);font-weight:600;font-size:18px;line-height:26px}
+.tv-option{display:flex;align-items:flex-start;gap:var(--space-3);min-height:48px;padding:12px 14px;background:var(--card);border:2px solid var(--line);border-radius:var(--radius-md);cursor:pointer;transition:border-color .15s ease,background-color .15s ease}
+.tv-option:hover{border-color:var(--ink-muted)}
+.tv-option.on{border-color:var(--brand);background:var(--brand-tint)}
+.tv-option input{width:20px;height:20px;margin:3px 0 0;flex:none;accent-color:var(--brand)}
+.tv-quiz[disabled] .tv-option{cursor:default}
+
+/* Matnli javob */
+.tv-field textarea{width:100%;padding:10px 14px;font:400 16px/24px var(--font-sans);color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:var(--radius-md);resize:vertical}
+.tv-field textarea::placeholder{color:var(--ink-muted);opacity:.75}
+.tv-field textarea:focus-visible{outline:3px solid var(--brand);outline-offset:1px;border-color:var(--brand);border-radius:var(--radius-md)}
+
+/* Sxema */
+.tv-diagram{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-6)}
+.tv-diagram li{position:relative;display:inline-flex;align-items:center;gap:var(--space-2);padding:8px 14px;background:var(--card);border:2px solid var(--line-strong);border-radius:var(--radius-md);font-weight:600;line-height:22px;overflow-wrap:anywhere;min-width:0}
+.tv-diagram li.first{background:var(--sun);color:#17162b;border-color:#17162b}
+.tv-diagram li.first .tv-diagram-num{background:#17162b;color:#ffffff}
+.tv-diagram li:not(:last-child)::after{content:"↓";position:absolute;left:24px;top:100%;line-height:var(--space-6);color:var(--coral-ink);font-weight:700}
+.tv-diagram-num{display:inline-grid;place-items:center;width:24px;height:24px;flex:none;border-radius:50%;background:var(--brand-tint);color:var(--brand);font-size:13px;font-weight:700}
+.tv-diagram-empty{margin:0;color:var(--ink-muted);font-size:15px}
+
+.tv-builder{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-6)}
+.tv-builder-fields{display:grid;align-content:start;gap:var(--space-3);min-width:0}
+.tv-builder-row{display:flex;align-items:center;gap:var(--space-2);min-width:0}
+.tv-builder-row input{flex:1;min-width:0;min-height:48px;padding:10px 14px;font:400 16px/24px var(--font-sans);color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:var(--radius-md)}
+.tv-builder-row input:focus-visible{outline:3px solid var(--brand);outline-offset:1px;border-color:var(--brand);border-radius:var(--radius-md)}
+.tv-builder-remove{flex:none}
+.tv-builder-add{justify-self:start}
+.tv-builder-preview{display:grid;align-content:start;gap:var(--space-3);padding:var(--space-4);background:var(--paper-2);border-radius:var(--radius-md);min-width:0}
+
+/* Video va mashq */
+.tv-video{position:relative;aspect-ratio:16/9;border-radius:var(--radius-md);overflow:hidden;background:var(--night);border:1px solid var(--line)}
+.tv-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.tv-video-source{font-size:14px;line-height:20px;color:var(--ink-muted);overflow-wrap:anywhere}
+.tv-exercise-prompt{font-size:20px;line-height:30px;font-weight:600}
+.tv-exercise-answer>div{display:flex;align-items:center;gap:var(--space-3)}
+.tv-exercise-answer input{max-width:200px;font-size:20px;font-weight:600}
+
+/* Mening ishlarim */
+.tv-work{display:grid;gap:var(--space-4);min-width:0}
+.tv-work h2,.tv-work header p{margin:0}
+.tv-work-text{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.tv-work-empty{display:grid;gap:var(--space-4);justify-items:start}
+.tv-work-empty p{margin:0}
+.tv-download{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2)}
+
+@media (max-width:720px){
+  .tv-academy-in{padding-inline:var(--space-4)}
+  .tv-example,.tv-builder{grid-template-columns:minmax(0,1fr)}
+  .tv-lesson-item{grid-template-columns:auto minmax(0,1fr);padding:var(--space-4)}
+  .tv-lesson-item>:last-child{grid-column:1/-1}
+  .tv-lesson-actions .tv-btn{flex:1 1 auto}
+  .tv-lesson-actions form{flex:1 1 auto}
+  .tv-lesson-actions form .tv-btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){.tv-progress i{transition:none}}

@@ -1,5 +1,10 @@
 using System.Net;
 using Microsoft.AspNetCore.HttpOverrides;
+using Tasvir.Modules.Academy.Application;
+using Tasvir.Modules.Academy.Infrastructure;
+using Tasvir.Modules.Academy.Presentation;
+using Tasvir.Modules.Assistant.Application;
+using Tasvir.Modules.Assistant.Presentation;
 using Tasvir.Modules.Content.Application;
 using Tasvir.Modules.Content.Infrastructure;
 using Tasvir.Modules.Content.Presentation;
@@ -33,6 +38,12 @@ builder.Services
     .AddIdentityApplication()
     .AddIdentityInfrastructure(builder.Configuration, builder.Environment)
     .AddIdentityPresentation(builder.Configuration);
+builder.Services
+    .AddAcademyApplication()
+    .AddAcademyInfrastructure(builder.Configuration);
+builder.Services
+    .AddAssistantApplication()
+    .AddAssistantPresentation(builder.Configuration);
 
 var app = builder.Build();
 
@@ -47,6 +58,7 @@ if (app.Environment.IsDevelopment())
 
 await app.Services.InitializeContentDatabaseAsync();
 await app.Services.InitializeIdentityDatabaseAsync();
+await app.Services.InitializeAcademyDatabaseAsync();
 
 app.UseRateLimiter();
 app.UseAuthentication();
@@ -55,6 +67,8 @@ app.UseAuthorization();
 app.MapHealthChecks("/health");
 app.MapContentEndpoints();
 app.MapIdentityEndpoints();
+app.MapAcademyEndpoints();
+app.MapAssistantEndpoints();
 
 app.Run();
 

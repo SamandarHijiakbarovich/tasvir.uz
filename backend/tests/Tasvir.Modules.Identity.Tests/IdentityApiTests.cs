@@ -46,6 +46,7 @@ public sealed class IdentityApiFactory : WebApplicationFactory<Program>
         builder.UseEnvironment("Testing");
         builder.UseSetting("ConnectionStrings:Content", $"Data Source={Path.Combine(_dir, "content.db")};Pooling=False");
         builder.UseSetting("ConnectionStrings:Identity", $"Data Source={Path.Combine(_dir, "identity.db")};Pooling=False");
+        builder.UseSetting("ConnectionStrings:Academy", $"Data Source={Path.Combine(_dir, "academy.db")};Pooling=False");
         builder.UseSetting("Identity:RateLimit:PermitPerMinute", PermitPerMinute.ToString());
         builder.ConfigureServices(services =>
         {

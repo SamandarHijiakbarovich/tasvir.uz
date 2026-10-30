@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import Link from "next/link";
+import { getCourses } from "@/features/academy/api/academy-api";
+import { CourseCard } from "@/features/academy/components/CourseCard";
 import { logoutAction } from "@/features/auth/actions";
 import { ChangePasswordForm, ResendConfirmationForm } from "@/features/auth/components/forms";
 import { getCurrentUser } from "@/features/auth/lib/identity-api";
 import { Logo } from "@/shared/ui/Logo";
 import { ThemeToggle } from "@/shared/ui/ThemeToggle";
 import "@/styles/auth.css";
+import "@/styles/academy.css";
 
 export const metadata: Metadata = { title: "Kabinet — Tasvir.uz", robots: { index: false, follow: false } };
 
@@ -14,6 +18,8 @@ const dateFormat = new Intl.DateTimeFormat("uz-UZ", { dateStyle: "long", timeZon
 export default async function CabinetPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/kirish?keyin=/kabinet");
+
+  const courses = await getCourses();
 
   // Backend vaqtni UTC da yuboradi
   const createdAt = new Date(/Z$/.test(user.createdAt) ? user.createdAt : `${user.createdAt}Z`);
@@ -46,6 +52,12 @@ export default async function CabinetPage() {
           </div>
         )}
 
+        {courses.ok && courses.data.map((course) => <CourseCard key={course.slug} course={course} />)}
+
+        <p style={{ margin: 0 }}>
+          <Link href="/akademiya/ishlarim">Mening ishlarim →</Link>
+        </p>
+
         <div className="tv-cabinet-grid">
           <section className="tv-card" aria-labelledby="profil-t">
             <h2 className="tv-h3" id="profil-t">
@@ -76,7 +88,7 @@ export default async function CabinetPage() {
                 Studiya <span className="tv-chip-soon">Ishlab chiqilmoqda</span>
               </li>
               <li>
-                Akademiya <span className="tv-chip-soon">Ishlab chiqilmoqda</span>
+                Sertifikat <span className="tv-chip-soon">Ishlab chiqilmoqda</span>
               </li>
             </ul>
           </section>

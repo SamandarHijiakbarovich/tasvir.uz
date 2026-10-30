@@ -5,7 +5,7 @@ const steps = [
     badge: "Akademiya",
     badgeClass: "tv-badge",
     title: "O‘rgan",
-    text: "Vizual o‘quv material yaratishni bosqichma-bosqich o‘rgatuvchi video kurslar va amaliy topshiriqlar.",
+    text: "Vizual o‘quv material yaratishni bosqichma-bosqich o‘rgatuvchi qisqa darslar, video va amaliy topshiriqlar.",
     viz: (
       <>
         <rect x="20" y="10" width="120" height="74" rx="12" className="v-card v-line" style={{ strokeWidth: 2 }} />
