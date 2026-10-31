@@ -104,6 +104,11 @@ public static class IdentityEndpoints
             .RequireRateLimiting(AuthRateLimit)
             .WithSummary("Tasdiqlash xatini qayta yuborish");
 
+        group.MapPost("/privacy/accept", async (ClaimsPrincipal principal, AuthService auth, CancellationToken ct) =>
+            ToResponse(await auth.AcceptPrivacyAsync(UserId(principal), ct)))
+            .RequireAuthorization()
+            .WithSummary("Maxfiylik siyosatiga rozilik (eski hisoblar uchun)");
+
         return app;
     }
 

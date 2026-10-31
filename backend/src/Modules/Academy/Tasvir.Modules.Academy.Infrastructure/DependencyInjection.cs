@@ -44,6 +44,22 @@ public static class DependencyInjection
 
         // TODO: ishlab chiqarishga chiqishdan oldin EnsureCreated o‘rniga EF Core migratsiyalariga o‘tish.
         await db.Database.EnsureCreatedAsync(cancellationToken);
+
+        // EnsureCreated mavjud bazaga jadval qo‘shmaydi: lokal bazalardagi progress saqlanib qolsin
+        if (db.Database.IsSqlite())
+        {
+            await db.Database.ExecuteSqlRawAsync("""
+                CREATE TABLE IF NOT EXISTS step_attempts (
+                    Id TEXT NOT NULL CONSTRAINT PK_step_attempts PRIMARY KEY,
+                    UserId TEXT NOT NULL,
+                    StepId TEXT NOT NULL,
+                    Answer TEXT NOT NULL,
+                    IsCorrect INTEGER NOT NULL,
+                    AttemptedAt TEXT NOT NULL);
+                CREATE INDEX IF NOT EXISTS IX_step_attempts_UserId_StepId ON step_attempts (UserId, StepId);
+                """, cancellationToken);
+        }
+
         await AcademySeeder.SeedAsync(db, cancellationToken);
     }
 }

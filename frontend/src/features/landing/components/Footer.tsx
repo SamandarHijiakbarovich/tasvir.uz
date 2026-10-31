@@ -15,7 +15,7 @@ const columns = [
     links: [
       { href: "#tadqiqot", label: "Tadqiqot" },
       { href: "#", label: "Biz haqimizda" },
-      { href: "#", label: "Maxfiylik siyosati" },
+      { href: "/maxfiylik", label: "Maxfiylik siyosati" },
       { href: "#", label: "Foydalanish shartlari" },
     ],
   },

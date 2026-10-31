@@ -21,6 +21,7 @@ public sealed class AcademyApiFactory : WebApplicationFactory<Program>
         builder.UseSetting("ConnectionStrings:Identity", $"Data Source={Path.Combine(_dir, "identity.db")};Pooling=False");
         builder.UseSetting("ConnectionStrings:Academy", $"Data Source={Path.Combine(_dir, "academy.db")};Pooling=False");
         builder.UseSetting("ConnectionStrings:Studio", $"Data Source={Path.Combine(_dir, "studio.db")};Pooling=False");
+        builder.UseSetting("ConnectionStrings:Classroom", $"Data Source={Path.Combine(_dir, "classroom.db")};Pooling=False");
         builder.UseSetting("Identity:RateLimit:PermitPerMinute", "10000");
     }
 
@@ -68,6 +69,7 @@ public sealed class AcademyApiTests(AcademyApiFactory factory) : IClassFixture<A
             fullName = "Test O‘qituvchi",
             email = $"talaba-{Guid.NewGuid():N}@example.com",
             password = "Yaxshi-parol-2026",
+            acceptPrivacy = true,
         });
         var session = (await response.Content.ReadFromJsonAsync<Session>(Json))!;
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.AccessToken);

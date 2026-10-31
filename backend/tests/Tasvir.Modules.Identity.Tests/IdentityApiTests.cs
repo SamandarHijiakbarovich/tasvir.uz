@@ -48,6 +48,7 @@ public sealed class IdentityApiFactory : WebApplicationFactory<Program>
         builder.UseSetting("ConnectionStrings:Identity", $"Data Source={Path.Combine(_dir, "identity.db")};Pooling=False");
         builder.UseSetting("ConnectionStrings:Academy", $"Data Source={Path.Combine(_dir, "academy.db")};Pooling=False");
         builder.UseSetting("ConnectionStrings:Studio", $"Data Source={Path.Combine(_dir, "studio.db")};Pooling=False");
+        builder.UseSetting("ConnectionStrings:Classroom", $"Data Source={Path.Combine(_dir, "classroom.db")};Pooling=False");
         builder.UseSetting("Identity:RateLimit:PermitPerMinute", PermitPerMinute.ToString());
         builder.ConfigureServices(services =>
         {
@@ -99,7 +100,7 @@ public sealed class IdentityApiTests : IClassFixture<IdentityApiFactory>
 
     private async Task<SessionBody> Register(string email, string password = Password)
     {
-        var response = await Post("register", new { fullName = "Test O‘qituvchi", email, password });
+        var response = await Post("register", new { fullName = "Test O‘qituvchi", email, password, acceptPrivacy = true });
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
         return (await response.Content.ReadFromJsonAsync<SessionBody>(Json))!;
     }
@@ -136,7 +137,7 @@ public sealed class IdentityApiTests : IClassFixture<IdentityApiFactory>
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         var problem = await Problem(response);
         Assert.Equal("validation_failed", problem.Code);
-        Assert.Equal(["email", "fullName", "password"], problem.Errors!.Keys.Order());
+        Assert.Equal(["acceptPrivacy", "email", "fullName", "password"], problem.Errors!.Keys.Order());
     }
 
     [Theory]
@@ -144,7 +145,7 @@ public sealed class IdentityApiTests : IClassFixture<IdentityApiFactory>
     [InlineData("aaaaaaaaaa")]
     public async Task Register_rejects_weak_passwords(string password)
     {
-        var response = await Post("register", new { fullName = "Test Foydalanuvchi", email = NewEmail(), password });
+        var response = await Post("register", new { fullName = "Test Foydalanuvchi", email = NewEmail(), password, acceptPrivacy = true });
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         Assert.Contains("password", (await Problem(response)).Errors!.Keys);
@@ -156,7 +157,7 @@ public sealed class IdentityApiTests : IClassFixture<IdentityApiFactory>
         var email = NewEmail();
         await Register(email);
 
-        var response = await Post("register", new { fullName = "Boshqa Odam", email = email.ToUpperInvariant(), password = Password });
+        var response = await Post("register", new { fullName = "Boshqa Odam", email = email.ToUpperInvariant(), password = Password, acceptPrivacy = true });
 
         Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
         Assert.Equal("email_taken", (await Problem(response)).Code);

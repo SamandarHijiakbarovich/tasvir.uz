@@ -96,6 +96,18 @@ public static class DependencyInjection
 
         // TODO: ishlab chiqarishga chiqishdan oldin EnsureCreated o‘rniga EF Core migratsiyalariga o‘tish.
         await db.Database.EnsureCreatedAsync(cancellationToken);
+
+        // EnsureCreated mavjud jadvalga ustun qo‘shmaydi: lokal bazalardagi hisoblar yo‘qolmasin
+        if (db.Database.IsSqlite())
+        {
+            var columns = await db.Database
+                .SqlQueryRaw<string>("SELECT name AS Value FROM pragma_table_info('users')")
+                .ToListAsync(cancellationToken);
+            if (!columns.Contains("PrivacyAcceptedAt"))
+            {
+                await db.Database.ExecuteSqlRawAsync("ALTER TABLE users ADD COLUMN PrivacyAcceptedAt TEXT NULL", cancellationToken);
+            }
+        }
     }
 
     private static string ResolveSigningKey(string configured, IHostEnvironment environment)

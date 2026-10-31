@@ -1,0 +1,80 @@
+/* Tasvir.uz — guruhlar: o‘qituvchi paneli, baholash va so‘rovnoma. Barcha qiymatlar tokens.css dan. */
+
+.tv-group-section{display:grid;gap:var(--space-4);min-width:0}
+.tv-panel{display:grid;gap:var(--space-4);min-width:0}
+.tv-panel-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-3)}
+
+/* Guruh kodi */
+.tv-code-card{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-4)}
+.tv-join-code{margin:4px 0 0;font:700 32px/40px var(--font-display);letter-spacing:.12em;overflow-wrap:anywhere}
+
+/* Jadval */
+.tv-table-wrap{overflow-x:auto;min-width:0}
+.tv-table-wrap:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.tv-table{width:100%;border-collapse:collapse;font-size:15px;line-height:22px}
+.tv-table th,.tv-table td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.tv-table thead th{font-size:13px;line-height:18px;font-weight:600;color:var(--ink-muted);white-space:nowrap}
+.tv-table tbody th{font-weight:600;white-space:nowrap}
+.tv-table .tv-btn-text{padding:0;min-height:0;font-size:14px}
+.tv-mini-progress{display:block;width:90px;height:6px;margin-bottom:4px;border-radius:3px;background:var(--line);overflow:hidden}
+.tv-mini-progress i{display:block;height:100%;background:var(--mint)}
+.tv-chip-soon,.tv-chip-warn{display:inline-block;font-size:13px;line-height:20px;font-weight:600;padding:2px 10px;border-radius:var(--radius-pill);white-space:nowrap}
+.tv-chip-soon{background:var(--brand-tint);color:var(--brand)}
+.tv-chip-warn{background:var(--coral-tint);color:var(--coral-ink)}
+
+/* Test tahlili */
+.tv-item-list{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-6)}
+.tv-item{display:grid;gap:var(--space-2);padding-top:var(--space-4);border-top:1px solid var(--line);min-width:0}
+.tv-item p{margin:0}
+.tv-item-q{margin:0;font:600 17px/24px var(--font-sans);overflow-wrap:anywhere}
+.tv-item-stats{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2) var(--space-4);font-size:14px;line-height:20px;color:var(--ink-muted)}
+.tv-option-bars{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-2);font-size:14px;line-height:20px}
+.tv-option-bars li{display:grid;grid-template-columns:minmax(0,1fr) minmax(80px,180px) 56px;gap:var(--space-3);align-items:center}
+.tv-option-bars li>span:last-child{text-align:right;font-weight:600}
+.tv-survey-bars li{grid-template-columns:minmax(0,1fr) minmax(80px,180px) 64px}
+.tv-bar{display:block;height:10px;border-radius:5px;background:var(--paper-2);overflow:hidden}
+.tv-bar i{display:block;height:100%;background:var(--coral)}
+.tv-bar i.ok{background:var(--mint)}
+.tv-comments{margin:0;padding:0;list-style:none;display:grid;gap:var(--space-2)}
+.tv-comments li{padding:10px 14px;background:var(--paper-2);border-radius:var(--radius-md);overflow-wrap:anywhere}
+
+/* Baholash va so‘rovnoma */
+.tv-review-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--space-6);align-items:start}
+.tv-rubric-row{border:0;margin:0;padding:0;display:grid;gap:6px;min-width:0}
+.tv-rubric-row legend{padding:0;font-weight:600;font-size:15px;line-height:22px}
+.tv-rubric-row .tv-field-hint{margin:0 0 4px}
+.tv-score{display:flex;gap:var(--space-2)}
+.tv-score label{display:grid;place-items:center;width:44px;height:44px;border:2px solid var(--line);border-radius:var(--radius-md);font-weight:600;cursor:pointer}
+.tv-score label.on{border-color:var(--brand);background:var(--brand-tint);color:var(--brand)}
+.tv-score label:has(input:focus-visible){outline:3px solid var(--brand);outline-offset:2px}
+.tv-score input{position:absolute;opacity:0;width:1px;height:1px}
+.tv-rubric-total{margin:0;font-size:17px;line-height:24px}
+.tv-score-list{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-2)}
+.tv-score-list li{display:flex;justify-content:space-between;gap:var(--space-3);padding-bottom:var(--space-2);border-bottom:1px solid var(--line)}
+.tv-review-comment{margin:0;padding:12px 14px;background:var(--paper-2);border-radius:var(--radius-md);overflow-wrap:anywhere}
+.tv-likert{display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-4)}
+.tv-likert label{display:inline-flex;align-items:center;gap:var(--space-2);min-height:44px;font-size:15px;cursor:pointer}
+.tv-likert input{width:20px;height:20px;margin:0;accent-color:var(--brand)}
+.tv-select,.tv-textarea{width:100%;font:400 16px/24px var(--font-sans);color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:var(--radius-md);padding:10px 14px}
+.tv-select{min-height:48px}
+.tv-textarea{resize:vertical}
+.tv-select:focus-visible,.tv-textarea:focus-visible{outline:3px solid var(--brand);outline-offset:1px;border-color:var(--brand)}
+.tv-submission-list{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-3)}
+.tv-submission-list li{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-2) var(--space-4);padding-bottom:var(--space-3);border-bottom:1px solid var(--line)}
+.tv-submission-list p{margin:2px 0 0}
+
+/* Maxfiylik siyosati */
+.tv-legal{min-height:100dvh;background:var(--paper)}
+.tv-legal-in{max-width:760px;margin:0 auto;padding:var(--space-8) var(--space-6) var(--space-16);display:grid;gap:var(--space-4)}
+.tv-legal-in p,.tv-legal-in ul{margin:0}
+.tv-legal-in ul{padding-left:22px;display:grid;gap:var(--space-2)}
+.tv-legal-in h2{margin:var(--space-4) 0 0}
+
+@media (max-width:900px){
+  .tv-review-grid{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:720px){
+  .tv-legal-in{padding-inline:var(--space-4)}
+  .tv-option-bars li,.tv-survey-bars li{grid-template-columns:minmax(0,1fr) 56px}
+  .tv-option-bars .tv-bar{grid-column:1/-1;grid-row:2}
+}

@@ -5,6 +5,10 @@ using Tasvir.Modules.Academy.Infrastructure;
 using Tasvir.Modules.Academy.Presentation;
 using Tasvir.Modules.Assistant.Application;
 using Tasvir.Modules.Assistant.Presentation;
+using Tasvir.Api;
+using Tasvir.Modules.Classroom.Application;
+using Tasvir.Modules.Classroom.Infrastructure;
+using Tasvir.Modules.Classroom.Presentation;
 using Tasvir.Modules.Content.Application;
 using Tasvir.Modules.Content.Infrastructure;
 using Tasvir.Modules.Content.Presentation;
@@ -50,6 +54,11 @@ builder.Services
 builder.Services
     .AddAssistantApplication()
     .AddAssistantPresentation(builder.Configuration);
+builder.Services
+    .AddClassroomApplication()
+    .AddClassroomInfrastructure(builder.Configuration)
+    .AddClassroomPresentation(builder.Configuration)
+    .AddClassroomAdapters();
 
 var app = builder.Build();
 
@@ -66,6 +75,7 @@ await app.Services.InitializeContentDatabaseAsync();
 await app.Services.InitializeIdentityDatabaseAsync();
 await app.Services.InitializeAcademyDatabaseAsync();
 await app.Services.InitializeStudioDatabaseAsync();
+await app.Services.InitializeClassroomDatabaseAsync();
 
 app.UseRateLimiter();
 app.UseAuthentication();
@@ -77,6 +87,7 @@ app.MapIdentityEndpoints();
 app.MapAcademyEndpoints();
 app.MapStudioEndpoints();
 app.MapAssistantEndpoints();
+app.MapClassroomEndpoints();
 
 app.Run();
 

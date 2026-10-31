@@ -12,9 +12,9 @@ export function Results({ results }: { results: ResultsData }) {
       <div className="tv-wrap">
         <SectionHead
           id="res-t"
-          label="Ilmiy isbot"
+          label="Tadqiqot"
           title="Tajriba-sinov natijalari"
-          lead="Metodika tajriba va nazorat guruhlarida sinovdan o‘tkazilgan. Natijalar tadqiqot ma’lumotlari asosida shu yerda ko‘rsatiladi."
+          lead="Metodika tajriba va nazorat guruhlarida sinovdan o‘tkaziladi. Natijalar tajriba yakunlangach shu yerda e’lon qilinadi."
         />
         <div className="res">
           <div className="tv-card tv-reveal">
