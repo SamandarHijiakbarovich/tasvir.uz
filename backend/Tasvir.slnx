@@ -34,7 +34,14 @@
     <Project Path="src/Modules/Studio/Tasvir.Modules.Studio.Infrastructure/Tasvir.Modules.Studio.Infrastructure.csproj" />
     <Project Path="src/Modules/Studio/Tasvir.Modules.Studio.Presentation/Tasvir.Modules.Studio.Presentation.csproj" />
   </Folder>
+  <Folder Name="/Modules/Classroom/">
+    <Project Path="src/Modules/Classroom/Tasvir.Modules.Classroom.Domain/Tasvir.Modules.Classroom.Domain.csproj" />
+    <Project Path="src/Modules/Classroom/Tasvir.Modules.Classroom.Application/Tasvir.Modules.Classroom.Application.csproj" />
+    <Project Path="src/Modules/Classroom/Tasvir.Modules.Classroom.Infrastructure/Tasvir.Modules.Classroom.Infrastructure.csproj" />
+    <Project Path="src/Modules/Classroom/Tasvir.Modules.Classroom.Presentation/Tasvir.Modules.Classroom.Presentation.csproj" />
+  </Folder>
   <Folder Name="/Tests/">
+    <Project Path="tests/Tasvir.Modules.Classroom.Tests/Tasvir.Modules.Classroom.Tests.csproj" />
     <Project Path="tests/Tasvir.Modules.Studio.Tests/Tasvir.Modules.Studio.Tests.csproj" />
     <Project Path="tests/Tasvir.Modules.Assistant.Tests/Tasvir.Modules.Assistant.Tests.csproj" />
     <Project Path="tests/Tasvir.Modules.Academy.Tests/Tasvir.Modules.Academy.Tests.csproj" />

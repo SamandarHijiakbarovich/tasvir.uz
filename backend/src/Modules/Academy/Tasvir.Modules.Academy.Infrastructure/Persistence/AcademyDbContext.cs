@@ -11,6 +11,7 @@ public sealed class AcademyDbContext(DbContextOptions<AcademyDbContext> options)
     public DbSet<Course> Courses => Set<Course>();
     public DbSet<LessonProgress> LessonProgress => Set<LessonProgress>();
     public DbSet<StepCompletion> StepCompletions => Set<StepCompletion>();
+    public DbSet<StepAttempt> StepAttempts => Set<StepAttempt>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -64,6 +65,13 @@ public sealed class AcademyDbContext(DbContextOptions<AcademyDbContext> options)
             completion.ToTable("step_completions");
             completion.HasIndex(c => new { c.UserId, c.StepId }).IsUnique();
         });
+
+        modelBuilder.Entity<StepAttempt>(attempt =>
+        {
+            attempt.ToTable("step_attempts");
+            attempt.Property(a => a.Answer).HasMaxLength(StepAttempt.MaxAnswerLength).IsRequired();
+            attempt.HasIndex(a => new { a.UserId, a.StepId });
+        });
     }
 }
 
@@ -91,6 +99,14 @@ internal sealed class AcademyRepository(AcademyDbContext db) : IAcademyRepositor
     public void Add(LessonProgress progress) => db.LessonProgress.Add(progress);
 
     public void Add(StepCompletion completion) => db.StepCompletions.Add(completion);
+
+    public void Add(StepAttempt attempt) => db.StepAttempts.Add(attempt);
+
+    public Task<List<StepCompletion>> GetCompletionsOfUsersAsync(IReadOnlyCollection<Guid> userIds, CancellationToken ct) =>
+        db.StepCompletions.AsNoTracking().Where(c => userIds.Contains(c.UserId)).ToListAsync(ct);
+
+    public Task<List<StepAttempt>> GetAttemptsOfUsersAsync(IReadOnlyCollection<Guid> userIds, CancellationToken ct) =>
+        db.StepAttempts.AsNoTracking().Where(a => userIds.Contains(a.UserId)).ToListAsync(ct);
 
     public async Task<bool> TrySaveChangesAsync(CancellationToken ct)
     {

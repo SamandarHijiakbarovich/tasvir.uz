@@ -14,11 +14,11 @@ export function Research() {
           <div style={{ display: "grid", gap: 16, justifyItems: "start" }}>
             <span className="tv-label">Tadqiqot haqida</span>
             <h2 className="tv-h2" id="tad-t">
-              Intuitsiya emas — isbotlangan metodika
+              Intuitsiya emas — ilmiy asoslangan metodika
             </h2>
             <p className="tv-lead">
               Tasvir.uz pedagogika fanlari bo‘yicha dissertatsiya tadqiqoti asosida ishlab chiqilgan. Vizual o‘quv
-              materiallarini yaratish va darsda qo‘llash metodikasi tajriba-sinovdan o‘tkazilgan.
+              materiallarini yaratish va darsda qo‘llash metodikasi tajriba-sinovdan o‘tkazilmoqda.
             </p>
             <a className="tv-btn tv-btn-ghost" href="#tadqiqot-sahifa">
               Tadqiqot bilan tanishish →

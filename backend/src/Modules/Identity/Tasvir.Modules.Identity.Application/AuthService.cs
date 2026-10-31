@@ -43,12 +43,18 @@ public sealed class AuthService(
             fields["password"] = passwordError;
         }
 
+        if (!request.AcceptPrivacy)
+        {
+            fields["acceptPrivacy"] = "Hisob ochish uchun maxfiylik siyosatiga rozilik bering.";
+        }
+
         if (fields.Count > 0)
         {
             return Validation.Invalid(fields);
         }
 
         var user = new User(fullName, request.Email!, passwords.Hash(request.Password!), Now);
+        user.AcceptPrivacy(Now);
 
         if (!await repository.TryAddUserAsync(user, ct))
         {
@@ -146,6 +152,19 @@ public sealed class AuthService(
     {
         var user = await repository.FindUserByIdAsync(userId, ct);
         return user is null ? InvalidSession : ToDto(user);
+    }
+
+    public async Task<Result<UserDto>> AcceptPrivacyAsync(Guid userId, CancellationToken ct)
+    {
+        var user = await repository.FindUserByIdAsync(userId, ct);
+        if (user is null)
+        {
+            return InvalidSession;
+        }
+
+        user.AcceptPrivacy(Now);
+        await repository.SaveChangesAsync(ct);
+        return ToDto(user);
     }
 
     public async Task<Result<UserDto>> ConfirmEmailAsync(ConfirmEmailRequest request, CancellationToken ct)
@@ -323,5 +342,5 @@ public sealed class AuthService(
     }
 
     private static UserDto ToDto(User user) =>
-        new(user.Id, user.FullName, user.Email, user.EmailConfirmedAt is not null, user.CreatedAt);
+        new(user.Id, user.FullName, user.Email, user.EmailConfirmedAt is not null, user.CreatedAt, user.PrivacyAcceptedAt);
 }

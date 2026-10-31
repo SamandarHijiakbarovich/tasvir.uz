@@ -18,5 +18,8 @@
     <ProjectReference Include="..\..\Modules\Studio\Tasvir.Modules.Studio.Application\Tasvir.Modules.Studio.Application.csproj" />
     <ProjectReference Include="..\..\Modules\Studio\Tasvir.Modules.Studio.Infrastructure\Tasvir.Modules.Studio.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Modules\Studio\Tasvir.Modules.Studio.Presentation\Tasvir.Modules.Studio.Presentation.csproj" />
+    <ProjectReference Include="..\..\Modules\Classroom\Tasvir.Modules.Classroom.Application\Tasvir.Modules.Classroom.Application.csproj" />
+    <ProjectReference Include="..\..\Modules\Classroom\Tasvir.Modules.Classroom.Infrastructure\Tasvir.Modules.Classroom.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Classroom\Tasvir.Modules.Classroom.Presentation\Tasvir.Modules.Classroom.Presentation.csproj" />
   </ItemGroup>
 </Project>

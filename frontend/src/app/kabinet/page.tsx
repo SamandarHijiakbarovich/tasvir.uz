@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getCourses } from "@/features/academy/api/academy-api";
 import { CourseCard } from "@/features/academy/components/CourseCard";
-import { logoutAction } from "@/features/auth/actions";
+import { acceptPrivacyAction, logoutAction } from "@/features/auth/actions";
 import { ChangePasswordForm, ResendConfirmationForm } from "@/features/auth/components/forms";
 import { getCurrentUser } from "@/features/auth/lib/identity-api";
 import { Logo } from "@/shared/ui/Logo";
@@ -52,6 +52,19 @@ export default async function CabinetPage() {
           </div>
         )}
 
+        {!user.privacyAcceptedAt && (
+          <div className="tv-banner">
+            <p>
+              <strong>Maxfiylik siyosati qo‘shildi.</strong> <Link href="/maxfiylik">O‘qib chiqing</Link> va rozilik bildiring.
+            </p>
+            <form action={acceptPrivacyAction}>
+              <button className="tv-btn tv-btn-primary tv-btn-sm" type="submit">
+                Tanishdim, roziman
+              </button>
+            </form>
+          </div>
+        )}
+
         <section className="tv-card tv-card-outline tv-course-card" aria-labelledby="studiya-t">
           <div>
             <h2 className="tv-h3" id="studiya-t">
@@ -65,6 +78,20 @@ export default async function CabinetPage() {
             </Link>
             <Link className="tv-btn tv-btn-ghost" href="/studiya">
               Materiallarim
+            </Link>
+          </div>
+        </section>
+
+        <section className="tv-card tv-card-outline tv-course-card" aria-labelledby="guruhlar-t">
+          <div>
+            <h2 className="tv-h3" id="guruhlar-t">
+              Guruhlar
+            </h2>
+            <p className="tv-muted">Talabalaringiz uchun guruh yarating, ishlarini baholang va natijalarini kuzating. Kodingiz bo‘lsa, guruhga qo‘shiling.</p>
+          </div>
+          <div className="tv-lesson-actions">
+            <Link className="tv-btn tv-btn-primary" href="/guruhlar">
+              Guruhlarga o‘tish
             </Link>
           </div>
         </section>

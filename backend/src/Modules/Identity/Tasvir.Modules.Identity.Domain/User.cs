@@ -16,6 +16,8 @@ public sealed class User : Entity
     public DateTime? LockoutEndsAt { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? LastLoginAt { get; private set; }
+    /// <summary>Maxfiylik siyosatiga rozilik vaqti. Eski hisoblarda bo‘sh: kabinetda so‘raladi.</summary>
+    public DateTime? PrivacyAcceptedAt { get; private set; }
 
     private User() { }
 
@@ -50,6 +52,8 @@ public sealed class User : Entity
     }
 
     public void ConfirmEmail(DateTime now) => EmailConfirmedAt ??= now;
+
+    public void AcceptPrivacy(DateTime now) => PrivacyAcceptedAt ??= now;
 
     public void SetPassword(string passwordHash)
     {

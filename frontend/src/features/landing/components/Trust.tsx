@@ -15,7 +15,7 @@ export function Trust({ partners }: { partners: Partner[] }) {
             Ilmiy tadqiqot asosida ishlab chiqilgan
             <br />
             <span className="tv-muted" style={{ fontWeight: 400, fontSize: 14 }}>
-              Pedagogika fanlari bo‘yicha dissertatsiya · tajriba-sinovdan o‘tgan
+              Pedagogika fanlari bo‘yicha dissertatsiya tadqiqoti doirasida
             </span>
           </span>
         </div>

@@ -1,7 +1,9 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { authedRequest } from "@/shared/lib/backend";
 import { identityRequest, type ApiFailure } from "./lib/identity-api";
 import {
   ACCESS_COOKIE,
@@ -18,7 +20,7 @@ export type FormState = {
   success?: boolean;
   fields?: Record<string, string>;
   /** Xatodan keyin formada qoladigan qiymatlar. Parollar hech qachon qaytarilmaydi. */
-  values?: { fullName?: string; email?: string };
+  values?: { fullName?: string; email?: string; acceptPrivacy?: boolean };
 };
 
 const text = (form: FormData, name: string) => {
@@ -34,7 +36,7 @@ const failed = (failure: ApiFailure, values?: FormState["values"]): FormState =>
 });
 
 export async function registerAction(_: FormState, form: FormData): Promise<FormState> {
-  const values = { fullName: text(form, "fullName"), email: text(form, "email") };
+  const values = { fullName: text(form, "fullName"), email: text(form, "email"), acceptPrivacy: form.get("acceptPrivacy") === "on" };
 
   const result = await identityRequest<AuthSession>("register", {
     body: { ...values, password: text(form, "password") },
@@ -61,6 +63,13 @@ export async function loginAction(_: FormState, form: FormData): Promise<FormSta
 
   applySession(await cookies(), result.data);
   redirect(safeNextPath(text(form, "keyin")));
+}
+
+/** Rozilik joriy etilishidan oldin ochilgan hisoblar uchun. */
+export async function acceptPrivacyAction(): Promise<void> {
+  const result = await authedRequest("/api/identity/privacy/accept");
+  if (!result.ok && result.status === 401) redirect("/kirish?keyin=/kabinet");
+  revalidatePath("/kabinet");
 }
 
 export async function logoutAction(): Promise<void> {

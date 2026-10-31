@@ -11,6 +11,7 @@ export type AuthUser = {
   email: string;
   emailConfirmed: boolean;
   createdAt: string;
+  privacyAcceptedAt?: string | null;
 };
 
 export type AuthSession = {

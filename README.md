@@ -70,6 +70,16 @@ Tuzilgan sxemalar `/akademiya/ishlarim` sahifasidan PNG va SVG ko‘rinishida yu
 `/studiya`: shablondan material yaratish, saqlash, PNG/SVG/PDF eksport va darsda bosqichma-bosqich ko‘rsatish
 (strelkalar yoki bo‘sh joy, F bilan to‘liq ekran). Materiallar `tasvir-studio.db` da saqlanadi.
 
+## Guruhlar
+
+`/guruhlar`: guruh yaratgan kishi uning o‘qituvchisi, kod bilan qo‘shilgan kishi talabasi. Talaba Studiyadagi materialini topshiradi,
+o‘qituvchi uni dissertatsiyadagi 1.4-jadval mezonlari (8 mezon, 0–3 ball) bo‘yicha baholaydi. O‘qituvchi panelida progress, test savollari
+tahlili (qiyinlik va farqlash indeksi) va so‘rovnoma natijalari bor, ular Excel uchun CSV ko‘rinishida yuklab olinadi.
+Ma’lumotlar `tasvir-classroom.db` da saqlanadi.
+
+Maxfiylik siyosati `/maxfiylik` sahifasida: rozilik ro‘yxatdan o‘tishda, natijalarni o‘qituvchiga ko‘rsatish roziligi guruhga qo‘shilishda so‘raladi.
+Sahifadagi aloqa ma’lumotlari va huquqiy matnni ishga tushirishdan oldin to‘ldirib, yurist bilan tekshirish kerak.
+
 ## Yordamchi
 
 Har sahifadagi "Savol bering" tugmasi. Oddiy savollarga `KnowledgeBase.cs` asosida javob beradi, tashqi xizmat kerak emas.

@@ -25,6 +25,32 @@ public sealed class LessonProgress : Entity
     public void Complete(DateTime now) => CompletedAt ??= now;
 }
 
+/// <summary>
+/// Test yoki mashqqa har bir urinish (xatosi bilan). Bosqich yakunlanishidan farqli o‘laroq, xato javoblar ham
+/// yoziladi: test savollari sifatini tahlil qilish (item-analiz) birinchi urinishlarga tayanadi.
+/// </summary>
+public sealed class StepAttempt : Entity
+{
+    public const int MaxAnswerLength = 40;
+
+    public Guid UserId { get; private set; }
+    public Guid StepId { get; private set; }
+    public string Answer { get; private set; } = string.Empty;
+    public bool IsCorrect { get; private set; }
+    public DateTime AttemptedAt { get; private set; }
+
+    private StepAttempt() { }
+
+    public StepAttempt(Guid userId, Guid stepId, string answer, bool isCorrect, DateTime now)
+    {
+        UserId = userId;
+        StepId = stepId;
+        Answer = answer.Length > MaxAnswerLength ? answer[..MaxAnswerLength] : answer;
+        IsCorrect = isCorrect;
+        AttemptedAt = now;
+    }
+}
+
 public sealed class StepCompletion : Entity
 {
     public Guid UserId { get; private set; }

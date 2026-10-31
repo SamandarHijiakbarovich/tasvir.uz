@@ -159,12 +159,18 @@ public sealed class AcademyService(IAcademyRepository repository, TimeProvider c
             return error;
         }
 
+        var now = Now;
+        if (evaluation.IsCorrect is { } isCorrect)
+        {
+            repository.Add(new StepAttempt(userId, step.Id, (request.OptionId ?? request.Text ?? string.Empty).Trim(), isCorrect, now));
+        }
+
         if (!evaluation.Passed)
         {
+            await repository.TrySaveChangesAsync(ct);
             return new StepResultDto(false, evaluation.IsCorrect, evaluation.Feedback, false, null);
         }
 
-        var now = Now;
         if (!state.Progress.TryGetValue(lesson.Id, out var progress))
         {
             progress = new LessonProgress(userId, lesson.Id, now);

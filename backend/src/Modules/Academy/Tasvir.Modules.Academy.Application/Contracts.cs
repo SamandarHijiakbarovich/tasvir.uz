@@ -13,6 +13,9 @@ public interface IAcademyRepository
     Task<List<StepCompletion>> GetStepCompletionsAsync(Guid userId, IReadOnlyCollection<Guid> stepIds, CancellationToken ct);
     void Add(LessonProgress progress);
     void Add(StepCompletion completion);
+    void Add(StepAttempt attempt);
+    Task<List<StepCompletion>> GetCompletionsOfUsersAsync(IReadOnlyCollection<Guid> userIds, CancellationToken ct);
+    Task<List<StepAttempt>> GetAttemptsOfUsersAsync(IReadOnlyCollection<Guid> userIds, CancellationToken ct);
     /// <summary>Saqlaydi. Ikki so‘rov bir vaqtda bir xil yozuvni qo‘shsa (ikki marta bosish), false qaytaradi.</summary>
     Task<bool> TrySaveChangesAsync(CancellationToken ct);
 }
@@ -59,6 +62,7 @@ public static class DependencyInjection
     public static IServiceCollection AddAcademyApplication(this IServiceCollection services)
     {
         services.AddScoped<AcademyService>();
+        services.AddScoped<AcademyInsightsService>();
         return services;
     }
 }

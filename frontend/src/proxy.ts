@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { serverEnv } from "@/shared/config/env";
 import { ACCESS_COOKIE, REFRESH_COOKIE, applySession, clearSession, type AuthSession } from "@/features/auth/lib/session-cookies";
 
-const PROTECTED_PREFIXES = ["/kabinet", "/akademiya", "/studiya"];
+const PROTECTED_PREFIXES = ["/kabinet", "/akademiya", "/studiya", "/guruhlar"];
 
 function isProtected(pathname: string) {
   return PROTECTED_PREFIXES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));

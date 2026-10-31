@@ -101,6 +101,7 @@ public sealed class AssistantApiFactory : WebApplicationFactory<Program>
         builder.UseSetting("ConnectionStrings:Identity", $"Data Source={Path.Combine(_dir, "identity.db")};Pooling=False");
         builder.UseSetting("ConnectionStrings:Academy", $"Data Source={Path.Combine(_dir, "academy.db")};Pooling=False");
         builder.UseSetting("ConnectionStrings:Studio", $"Data Source={Path.Combine(_dir, "studio.db")};Pooling=False");
+        builder.UseSetting("ConnectionStrings:Classroom", $"Data Source={Path.Combine(_dir, "classroom.db")};Pooling=False");
         builder.UseSetting("Assistant:RateLimit:PermitPerMinute", PermitPerMinute.ToString());
     }
 

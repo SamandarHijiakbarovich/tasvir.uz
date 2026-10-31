@@ -47,6 +47,18 @@ export function RegisterForm({ next }: { next?: string }) {
         required
       />
       <PasswordField label="Parol" name="password" autoComplete="new-password" hint={PASSWORD_HINT} error={state.fields?.password} showStrength required />
+      <div className="tv-field">
+        <label className="tv-check tv-check-top">
+          <input type="checkbox" name="acceptPrivacy" defaultChecked={state.values?.acceptPrivacy} aria-invalid={state.fields?.acceptPrivacy ? true : undefined} />
+          <span>
+            <Link href="/maxfiylik" target="_blank">
+              Maxfiylik siyosati
+            </Link>{" "}
+            bilan tanishdim va shaxsiy ma’lumotlarim shu asosda qayta ishlanishiga roziman.
+          </span>
+        </label>
+        {state.fields?.acceptPrivacy && <p className="tv-field-error">{state.fields.acceptPrivacy}</p>}
+      </div>
       <SubmitButton pendingText="Hisob yaratilmoqda…">Hisob yaratish</SubmitButton>
     </form>
   );

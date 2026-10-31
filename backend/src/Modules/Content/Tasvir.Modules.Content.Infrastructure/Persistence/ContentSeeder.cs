@@ -9,10 +9,20 @@ namespace Tasvir.Modules.Content.Infrastructure.Persistence;
 /// </summary>
 internal static class ContentSeeder
 {
+    private const string ScientificBasisQuestion = "Platformaning ilmiy asosi nimada?";
+    private const string ScientificBasisAnswer = "Metodika pedagogika fanlari bo‘yicha dissertatsiya tadqiqoti doirasida ishlab chiqilgan. Tajriba-sinov natijalari yakunlangach e’lon qilinadi.";
+    private const string AcademyVsStudioQuestion = "Akademiya va Studiyaning farqi nimada?";
+    private const string AcademyVsStudioAnswer = "Akademiya — o‘rgatadi: kurslar va amaliy topshiriqlar. Studiya — yaratadi: tayyor shablon asosida mavzuingizni infografika yoki sxemaga aylantiradi.";
+
     public static async Task SeedAsync(ContentDbContext db, CancellationToken cancellationToken)
     {
         if (await db.PricingPlans.AnyAsync(cancellationToken))
         {
+            // Mavjud bazalardagi tasdiqlanmagan da’volarni ham tuzatadi: tajriba-sinov hali o‘tkazilmagan, sertifikat hali yo‘q
+            await db.FaqItems.Where(f => f.Question == ScientificBasisQuestion)
+                .ExecuteUpdateAsync(s => s.SetProperty(f => f.Answer, ScientificBasisAnswer), cancellationToken);
+            await db.FaqItems.Where(f => f.Question == AcademyVsStudioQuestion)
+                .ExecuteUpdateAsync(s => s.SetProperty(f => f.Answer, AcademyVsStudioAnswer), cancellationToken);
             return;
         }
 
@@ -59,14 +69,14 @@ internal static class ContentSeeder
         db.FaqItems.AddRange(
             new FaqItem("Foydalanish uchun dizayn ko‘nikmasi kerakmi?",
                 "Yo‘q. Akademiya kurslari vizual material yaratishni noldan, bosqichma-bosqich o‘rgatadi. Studiyadagi tayyor shablonlar esa ishni yanada osonlashtiradi.", 1),
-            new FaqItem("Akademiya va Studiyaning farqi nimada?",
-                "Akademiya — o‘rgatadi: kurslar, amaliy topshiriqlar va sertifikat. Studiya — yaratadi: tayyor shablon asosida mavzuingizni infografika yoki sxemaga aylantiradi.", 2),
+            new FaqItem(AcademyVsStudioQuestion,
+                AcademyVsStudioAnswer, 2),
             new FaqItem("Qaysi fanlar uchun mos?",
                 "Galereyada matematika, biologiya, tarix, informatika va ona tili bo‘yicha namunalar bor. Metodika har qanday fan mavzusini vizual shaklga keltirishga yo‘naltirilgan.", 3),
             new FaqItem("Sertifikat beriladimi?",
                 "Sertifikat hozircha ishlab chiqilmoqda. Kursdagi natijalaringiz saqlanadi, sertifikat ishga tushgach e’lon qilamiz.", 4),
-            new FaqItem("Platformaning ilmiy asosi nimada?",
-                "Metodika pedagogika fanlari bo‘yicha dissertatsiya tadqiqoti doirasida ishlab chiqilgan va tajriba-sinovdan o‘tkazilgan. Batafsil — “Tadqiqot” sahifasida.", 5),
+            new FaqItem(ScientificBasisQuestion,
+                ScientificBasisAnswer, 5),
             new FaqItem("Maktab yoki OTM uchun alohida tarif bormi?",
                 "Ha, “Tashkilot” tarifi ta’lim muassasalari uchun mo‘ljallangan. Shartlar bo‘yicha biz bilan bog‘laning.", 6));
 
