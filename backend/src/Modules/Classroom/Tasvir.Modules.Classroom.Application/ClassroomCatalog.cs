@@ -3,7 +3,7 @@ namespace Tasvir.Modules.Classroom.Application;
 public sealed record RubricCriterion(string Key, string Title, string Description);
 public sealed record SurveyQuestion(string Key, string Text);
 
-/// <summary>Baholash vositalari. Rubrika dissertatsiyadagi 1.4-jadval mezonlari bilan bir xil: ularni birga o‘zgartiring.</summary>
+/// <summary>Baholash vositalari. Rubrika dissertatsiyadagi 2.1.2-jadval mezonlari bilan bir xil: ularni birga o‘zgartiring.</summary>
 public static class ClassroomCatalog
 {
     public const int MaxCriterionScore = 3;
