@@ -73,7 +73,7 @@ Tuzilgan sxemalar `/akademiya/ishlarim` sahifasidan PNG va SVG ko‘rinishida yu
 ## Guruhlar
 
 `/guruhlar`: guruh yaratgan kishi uning o‘qituvchisi, kod bilan qo‘shilgan kishi talabasi. Talaba Studiyadagi materialini topshiradi,
-o‘qituvchi uni dissertatsiyadagi 1.4-jadval mezonlari (8 mezon, 0–3 ball) bo‘yicha baholaydi. O‘qituvchi panelida progress, test savollari
+o‘qituvchi uni dissertatsiyadagi 2.1.2-jadval mezonlari (8 mezon, 0–3 ball) bo‘yicha baholaydi. O‘qituvchi panelida progress, test savollari
 tahlili (qiyinlik va farqlash indeksi) va so‘rovnoma natijalari bor, ular Excel uchun CSV ko‘rinishida yuklab olinadi.
 Ma’lumotlar `tasvir-classroom.db` da saqlanadi.
 

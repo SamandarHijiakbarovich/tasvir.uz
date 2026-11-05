@@ -9,6 +9,7 @@ import { ThemeToggle } from "@/shared/ui/ThemeToggle";
 const links = [
   { href: "#imkoniyatlar", label: "Imkoniyatlar" },
   { href: "#qanday", label: "Qanday ishlaydi" },
+  { href: "/vositalar", label: "Vositalar" },
   { href: "#narxlar", label: "Narxlar" },
   { href: "#tadqiqot", label: "Tadqiqot" },
 ];

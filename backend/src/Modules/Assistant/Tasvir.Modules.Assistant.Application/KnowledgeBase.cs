@@ -29,6 +29,8 @@ internal static class KnowledgeBase
     private const string Infographic = "Infografika nima?";
     private const string MindMap = "Aqliy xarita nima?";
     private const string LessonLocked = "Dars nega yopiq?";
+    private const string Visualization = "Vizualizatsiya nima?";
+    private const string Tools = "Qanday dasturlar bor?";
 
     public static readonly IReadOnlyList<string> DefaultSuggestions = [WhatIs, HowStart, WhichShape, ForgotPassword];
 
@@ -201,6 +203,55 @@ internal static class KnowledgeBase
         new("Qaysi rang va shriftni tanlay?",
             "Ikki-uch rang yetarli, har biri ma’no bildirsin. Bir-ikki o‘qilishi oson shrift ishlating. Fon bilan matn orasida kontrast bo‘lsin. Axborotni faqat rang bilan bildirmang.",
             ["rang", "shrift", "dizayn", "kontrast"], []),
+
+        new(Visualization,
+            "Vizualizatsiya axborotni ko‘z bilan idrok etiladigan shaklga keltirish: matn, son va tushunchalar orasidagi bog‘liqlik sxema, diagramma, jadval yoki xaritada ko‘rsatiladi. Dasturda vizualizatsiya qilganda bu ishni dastur osonlashtiradi: shablon beradi, ma’lumotdan diagrammani o‘zi chizadi, materialni saqlash va darsda ko‘rsatishga yordam beradi. Qaysi shakl kerakligini esa o‘qituvchi hal qiladi.",
+            ["vizualizats"], ["vizuallashtirish", "nima", "dastur"],
+            new AssistantLink("Vositalar sahifasi", "/vositalar"),
+            [Tools, WhichShape]),
+
+        new("Canva nima?",
+            "Canva onlayn grafik dizayn xizmati: tayyor shablonlardan infografika, plakat, slayd va ish varag‘i yasaladi. Bepul tarifi bor. U har qanday dizayn uchun universal vosita, Tasvir.uz Studiyasi esa mazmunga mos shaklni tanlashga yo‘naltiradi.",
+            ["canva"], [],
+            new AssistantLink("Vositalar sahifasi", "/vositalar"),
+            [Tools]),
+
+        new("GeoGebra nima?",
+            "GeoGebra va Desmos matematika uchun bepul dasturlar: formula yozilsa grafik chiziladi, parametrni o‘zgartirib chizma qanday o‘zgarishini kuzatish mumkin. GeoGebrada geometrik yasash va 3D shakllar ham bor.",
+            ["geogebra", "desmos"], [],
+            new AssistantLink("Matematika vositalari", "/vositalar?fan=matematika"),
+            [Tools]),
+
+        new("Power BI va Tableau nima?",
+            "Bular ma’lumotlarni tahlil qilib, interaktiv diagramma va hisobotlar (dashboard) yaratadigan dasturlar. Oddiyroq diagramma uchun Excel yetarli. Power BI Desktop va Tableau Public bepul, lekin Tableau Public’dagi ishlar ochiq e’lon qilinadi.",
+            ["tableau", "powerbi", "excel", "dashboard"], ["power", "bi"],
+            new AssistantLink("Vositalar sahifasi", "/vositalar"),
+            ["Qaysi diagramma kerak?"]),
+
+        new("Simulyatsiya uchun qaysi dastur?",
+            "Fizika, kimyo va biologiya uchun PhET interaktiv simulyatsiyalari bepul: o‘quvchi hodisani o‘zi boshqarib kuzatadi. Matematikada GeoGebra shunday ishlaydi.",
+            ["phet", "simulyats", "laboratoriya"], [],
+            new AssistantLink("Vositalar sahifasi", "/vositalar"),
+            [Tools]),
+
+        new("Taqdimot uchun qaysi dastur?",
+            "PowerPoint va Prezi taqdimot dasturlari. Tasvir.uz Studiyasidagi materialni ham “Darsda ko‘rsatish” rejimida bosqichma-bosqich ochib ko‘rsatish mumkin.",
+            ["powerpoint", "prezi", "taqdimot", "slayd"], [],
+            new AssistantLink("Vositalar sahifasi", "/vositalar"),
+            [Tools]),
+
+        new("AR va VR bormi?",
+            "Tasvir.uz hozir sxema, jadval va infografika kabi tekis (2D) shakllar bilan ishlaydi, AR va VR yo‘q. 3D va VR uchun CoSpaces Edu, Tinkercad va BioDigital Human kabi vositalar bor, ular “Vositalar” sahifasida.",
+            ["vr", "virtual", "3d", "augmented"], ["ar"],
+            new AssistantLink("Vositalar sahifasi", "/vositalar"),
+            [Tools]),
+
+        // Ro‘yxat oxirida: aniq dastur nomi bor savolda teng ball bo‘lsa, o‘sha dasturning javobi tanlanadi
+        new(Tools,
+            "Vizuallashtirish uchun ko‘plab dasturlar bor: infografika va dizayn uchun Canva, diagramma uchun Excel, Power BI va Tableau, sxema va aqliy xarita uchun draw.io, Miro va XMind, matematika uchun GeoGebra va Desmos, tabiiy fanlar uchun PhET simulyatsiyalari. Har birining vazifasi va qaysi fanga mosligi “Vositalar” sahifasida yozilgan.",
+            ["dasturlar", "vositalar", "programma"], ["dastur", "vosita", "boshqa", "qanday"],
+            new AssistantLink("Vositalar sahifasi", "/vositalar"),
+            ["Canva nima?", "GeoGebra nima?"]),
 
         new("Sun’iy intellektdan foydalansam bo‘ladimi?",
             "Ha, tez tayyorlash uchun foydali. Lekin u xato qilishi mumkin: ilmiy to‘g‘rilikni va o‘quvchilarga mosligini har doim o‘zingiz tekshiring.",

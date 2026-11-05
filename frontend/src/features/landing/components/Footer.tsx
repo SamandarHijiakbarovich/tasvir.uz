@@ -7,6 +7,7 @@ const columns = [
       { href: "#", label: "Akademiya" },
       { href: "/studiya", label: "Studiya" },
       { href: "#", label: "Shablonlar" },
+      { href: "/vositalar", label: "Vizuallashtirish dasturlari" },
       { href: "#narxlar", label: "Narxlar" },
     ],
   },
