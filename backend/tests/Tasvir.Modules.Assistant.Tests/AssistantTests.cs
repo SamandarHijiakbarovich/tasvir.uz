@@ -37,6 +37,18 @@ public sealed class KnowledgeBaseTests
     [InlineData("video ochilmayapti", "YouTube")]
     [InlineData("sxemani qanday yuklab olaman", "PNG")]
     [InlineData("dars nega yopiq", "ketma-ket")]
+    [InlineData("Vizualizatsiya nima?", "ko‘z bilan")]
+    [InlineData("dasturda vizualizatsiya nima o'zi", "ko‘z bilan")]
+    [InlineData("vizuallashtirish nima", "ko‘z bilan")]
+    [InlineData("qanday dasturlar bor", "Canva")]
+    [InlineData("boshqa vositalar haqida ayting", "Canva")]
+    [InlineData("canva nima qiladi", "grafik dizayn")]
+    [InlineData("GeoGebra qanday dastur", "parametrni")]
+    [InlineData("power bi nima", "dashboard")]
+    [InlineData("phet simulyatsiyalari", "PhET")]
+    [InlineData("powerpoint yoki prezi", "taqdimot")]
+    [InlineData("VR bormi", "AR va VR yo‘q")]
+    [InlineData("Vizuallashtirish asoslari kursi nima", "ilmiy asoslari")]
     public void Finds_right_answer(string question, string expected)
     {
         var answer = _provider.Answer(question);

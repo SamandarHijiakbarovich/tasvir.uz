@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Tasvir.Modules.Content.Application.Landing;
+using Tasvir.Modules.Content.Application.Tools;
 
 namespace Tasvir.Modules.Content.Presentation;
 
@@ -20,6 +21,14 @@ public static class ContentEndpoints
             })
             .WithName("GetLandingContent")
             .WithSummary("Landing sahifa uchun dinamik ma’lumotlar (narxlar, FAQ, sharhlar, natijalar, hamkorlar)");
+
+        group.MapGet("/tools", (HttpContext http) =>
+            {
+                http.Response.Headers.CacheControl = "public, max-age=3600";
+                return TypedResults.Ok(ToolCatalog.Value);
+            })
+            .WithName("GetToolCatalog")
+            .WithSummary("Vizuallashtirish dasturlari katalogi: toifalar, shakllar, fanlar va vositalar");
 
         return app;
     }

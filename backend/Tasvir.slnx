@@ -42,6 +42,7 @@
   </Folder>
   <Folder Name="/Tests/">
     <Project Path="tests/Tasvir.Modules.Classroom.Tests/Tasvir.Modules.Classroom.Tests.csproj" />
+    <Project Path="tests/Tasvir.Modules.Content.Tests/Tasvir.Modules.Content.Tests.csproj" />
     <Project Path="tests/Tasvir.Modules.Studio.Tests/Tasvir.Modules.Studio.Tests.csproj" />
     <Project Path="tests/Tasvir.Modules.Assistant.Tests/Tasvir.Modules.Assistant.Tests.csproj" />
     <Project Path="tests/Tasvir.Modules.Academy.Tests/Tasvir.Modules.Academy.Tests.csproj" />

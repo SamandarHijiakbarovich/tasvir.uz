@@ -1,0 +1,54 @@
+/* Tasvir.uz — vizuallashtirish dasturlari katalogi (/vositalar). Barcha qiymatlar tokens.css dan. */
+
+.tv-tools-in{max-width:1120px;margin:0 auto;padding:var(--space-8) var(--space-6) var(--space-16);display:grid;gap:var(--space-12)}
+.tv-tools-section{display:grid;gap:var(--space-4);min-width:0}
+.tv-tools-note{margin:0}
+
+/* Vizualizatsiya nima */
+.tv-tools-what{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:var(--space-8);align-items:start}
+.tv-tools-prose{display:grid;gap:var(--space-3)}
+.tv-tools-prose p,.tv-tools-prose ul{margin:0}
+.tv-tools-prose ul{padding-left:22px;display:grid;gap:var(--space-1)}
+.tv-tools-demo{margin:0;display:grid;gap:var(--space-2)}
+.tv-tools-demo p{margin:0 0 var(--space-2)}
+.tv-tools-cycle{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-6) var(--space-8);counter-reset:step}
+.tv-tools-cycle li{position:relative;padding:10px 12px;border:2px solid var(--line-strong);border-radius:var(--radius-md);background:var(--mint-tint);font-weight:600;text-align:center}
+.tv-tools-cycle li:nth-child(2){background:var(--sun-tint)}
+.tv-tools-cycle li:nth-child(3){background:var(--brand-tint)}
+.tv-tools-cycle li:nth-child(4){background:var(--coral-tint)}
+/* Aylanma tartib: 1 → 2 (o‘ngga), 2 → 3 (pastga), 3 → 4 (chapga), 4 → 1 (yuqoriga) */
+.tv-tools-cycle li::after{position:absolute;color:var(--ink-muted);font-weight:700;line-height:1}
+.tv-tools-cycle li:nth-child(1)::after{content:"→";right:calc(-1 * var(--space-6));top:50%;transform:translateY(-50%)}
+.tv-tools-cycle li:nth-child(2)::after{content:"↓";bottom:calc(-1 * var(--space-6));left:50%;transform:translateX(-50%)}
+.tv-tools-cycle li:nth-child(3){order:4}
+.tv-tools-cycle li:nth-child(4){order:3}
+.tv-tools-cycle li:nth-child(3)::after{content:"←";left:calc(-1 * var(--space-6));top:50%;transform:translateY(-50%)}
+.tv-tools-cycle li:nth-child(4)::after{content:"↑";top:calc(-1 * var(--space-6));left:50%;transform:translateX(-50%)}
+
+/* Katalog */
+.tv-tools-group{display:grid;gap:var(--space-3)}
+.tv-tools-group-t{margin:var(--space-4) 0 0;font-size:18px;line-height:24px}
+.tv-tools-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--space-4)}
+.tv-tool{display:grid;gap:var(--space-3);align-content:start;padding:var(--space-6)}
+.tv-tool p{margin:0;font-size:15px;line-height:22px}
+.tv-tool-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-2)}
+.tv-tool-name{margin:0;font-family:var(--font-display);font-size:19px;line-height:24px}
+.tv-tool-access{font-size:13px;line-height:20px;font-weight:600;padding:2px 10px;border-radius:var(--radius-pill);white-space:nowrap}
+.tv-tool-access.free{background:var(--mint-tint);color:var(--mint-ink)}
+.tv-tool-access.freemium{background:var(--sun-tint);color:var(--ink)}
+.tv-tool-access.paid{background:var(--coral-tint);color:var(--coral-ink)}
+.tv-tool-facts{margin:0;display:grid;gap:var(--space-1);font-size:14px;line-height:20px}
+.tv-tool-facts div{display:grid;grid-template-columns:88px minmax(0,1fr);gap:var(--space-2)}
+.tv-tool-facts dt{color:var(--ink-muted)}
+.tv-tool-facts dd{margin:0}
+.tv-tool-link{justify-self:start;font-weight:600}
+
+.tv-tools-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-4)}
+
+@media (max-width:860px){
+  .tv-tools-what{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:720px){
+  .tv-tools-in{padding-inline:var(--space-4);gap:var(--space-8)}
+  .tv-tools-grid{grid-template-columns:minmax(0,1fr)}
+}
