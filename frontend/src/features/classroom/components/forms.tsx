@@ -217,10 +217,12 @@ export function DiagnosticTestForm({ groupId, test }: { groupId: string; test: D
         </p>
       )}
       <ol className="tv-diag-list">
-        {test.questions.map((question) => (
+        {test.questions.map((question, index) => (
           <li key={question.key}>
             <fieldset className="tv-rubric-row">
-              <legend>{question.text}</legend>
+              <legend>
+                {index + 1}. {question.text}
+              </legend>
               <div className="tv-diag-options">
                 {question.options.map((option) => (
                   <label key={option.id}>
