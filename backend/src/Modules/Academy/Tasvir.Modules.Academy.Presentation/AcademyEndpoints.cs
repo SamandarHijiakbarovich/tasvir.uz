@@ -16,28 +16,28 @@ public static class AcademyEndpoints
 
         group.MapGet("/courses", async (ClaimsPrincipal principal, AcademyService academy, CancellationToken ct) =>
             ToResponse(await academy.GetCoursesAsync(UserId(principal), ct)))
-            .WithSummary("Barcha kurslar va foydalanuvchi progressi");
+            .WithSummary("Barça kurslar va foydalanuvçi progressi");
 
         group.MapGet("/courses/{slug}", async (string slug, ClaimsPrincipal principal, AcademyService academy, CancellationToken ct) =>
             ToResponse(await academy.GetCourseAsync(UserId(principal), slug, ct)))
-            .WithSummary("Kurs, darslar ro‘yxati va foydalanuvchi progressi");
+            .WithSummary("Kurs, darslar röyxati va foydalanuvçi progressi");
 
         group.MapGet("/my-work", async (ClaimsPrincipal principal, AcademyService academy, CancellationToken ct) =>
             ToResponse(await academy.GetMyWorkAsync(UserId(principal), ct)))
-            .WithSummary("Foydalanuvchi amaliy topshiriqlarda yaratgan ishlar");
+            .WithSummary("Foydalanuvçi amaliy topşiriqlarda yaratgan işlar");
 
         group.MapGet("/lessons/{slug}", async (string slug, ClaimsPrincipal principal, AcademyService academy, CancellationToken ct) =>
             ToResponse(await academy.GetLessonAsync(UserId(principal), slug, ct)))
-            .WithSummary("Dars bosqichlari (test javoblarisiz)");
+            .WithSummary("Dars bosqiçlari (test javoblarisiz)");
 
         group.MapPost("/lessons/{slug}/start", async (string slug, ClaimsPrincipal principal, AcademyService academy, CancellationToken ct) =>
             ToResponse(await academy.StartLessonAsync(UserId(principal), slug, ct)))
-            .WithSummary("Darsni boshlash");
+            .WithSummary("Darsni boşlaş");
 
         group.MapPost("/lessons/{slug}/steps/{stepId:guid}/complete", async (
                 string slug, Guid stepId, CompleteStepRequest request, ClaimsPrincipal principal, AcademyService academy, CancellationToken ct) =>
             ToResponse(await academy.CompleteStepAsync(UserId(principal), slug, stepId, request, ct)))
-            .WithSummary("Bosqichni yakunlash: test javobini tekshiradi, topshiriqni saqlaydi");
+            .WithSummary("Bosqiçni yakunlaş: test javobini tekşiradi, topşiriqni saqlaydi");
 
         return app;
     }

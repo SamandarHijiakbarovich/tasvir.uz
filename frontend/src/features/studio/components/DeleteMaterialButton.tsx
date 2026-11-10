@@ -7,11 +7,11 @@ export function DeleteMaterialButton({ id, title }: { id: string; title: string 
     <form
       action={deleteMaterialAction.bind(null, id)}
       onSubmit={(event) => {
-        if (!window.confirm(`“${title}” o‘chirilsinmi? Buni qaytarib bo‘lmaydi.`)) event.preventDefault();
+        if (!window.confirm(`“${title}” öçirilsinmi? Buni qaytarib bölmaydi.`)) event.preventDefault();
       }}
     >
       <button className="tv-btn tv-btn-text tv-btn-danger" type="submit">
-        O‘chirish
+        Öçiriş
       </button>
     </form>
   );

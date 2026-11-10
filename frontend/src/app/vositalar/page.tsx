@@ -10,8 +10,8 @@ import "@/styles/studio.css";
 import "@/styles/tools.css";
 
 export const metadata: Metadata = {
-  title: "Vizuallashtirish dasturlari — Tasvir.uz",
-  description: "Vizualizatsiya nima, qaysi mazmunga qaysi shakl mos va Canva, GeoGebra, Power BI, Tableau kabi dasturlar nima qiladi.",
+  title: "Vizuallaştiriş dasturlari — Tasvir.uz",
+  description: "Vizualizatsiya nima, qaysi mazmunga qaysi şakl mos va Canva, GeoGebra, Power BI, Tableau kabi dasturlar nima qiladi.",
 };
 
 type Props = { searchParams: Promise<{ fan?: string }> };
@@ -36,26 +36,26 @@ export default async function ToolsPage({ searchParams }: Props) {
       </header>
       <main className="tv-tools-in">
         <div className="tv-tools-section">
-          <h1 className="tv-h2">Vizuallashtirish dasturlari</h1>
+          <h1 className="tv-h2">Vizuallaştiriş dasturlari</h1>
           <p className="tv-lead">
-            O‘quv materialini ko‘rgazmali qilishning ko‘p yo‘li bor. Bu sahifa vizualizatsiya nima ekanini, qaysi mazmunga qaysi shakl mosligini va mashhur dasturlar nima
-            qilishini tushuntiradi.
+            Öquv materialini körgazmali qilişning köp yöli bor. Bu sahifa vizualizatsiya nima ekanini, qaysi mazmunga qaysi şakl mosligini va maşhur dasturlar nima
+            qilişini tuşuntiradi.
           </p>
         </div>
         {catalog ? (
           <ToolCatalogView catalog={catalog} subject={subject} />
         ) : (
-          <p className="tv-form-msg err">Katalogni yuklab bo‘lmadi. Birozdan keyin sahifani yangilang.</p>
+          <p className="tv-form-msg err">Katalogni yuklab bölmadi. Birozdan keyin sahifani yangilang.</p>
         )}
         <section className="tv-card tv-tools-cta">
           <div>
-            <h2 className="tv-h3">O‘z materialingizni yarating</h2>
+            <h2 className="tv-h3">Öz materialingizni yarating</h2>
             <p className="tv-muted" style={{ margin: "var(--space-2) 0 0" }}>
-              Blok-sxema, vaqt chizig‘i, aqliy xarita, qiyosiy jadval va infografikani Tasvir.uz Studiyasida shablondan tayyorlang.
+              Blok-sxema, vaqt çiziği, aqliy xarita, qiyosiy jadval va infografikani Tasvir.uz Studiyasida şablondan tayyorlang.
             </p>
           </div>
           <Link className="tv-btn tv-btn-primary" href="/studiya/yangi">
-            Studiyani ochish
+            Studiyani oçiş
           </Link>
         </section>
       </main>

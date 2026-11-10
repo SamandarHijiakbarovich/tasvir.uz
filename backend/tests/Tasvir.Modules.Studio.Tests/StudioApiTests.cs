@@ -52,7 +52,7 @@ public sealed class StudioApiTests(StudioApiFactory factory) : IClassFixture<Stu
         var client = factory.CreateClient();
         var response = await client.PostAsJsonAsync("/api/identity/register", new
         {
-            fullName = "Test O‘qituvchi",
+            fullName = "Test Öqituvçi",
             email = $"oqituvchi-{Guid.NewGuid():N}@example.com",
             password = "Yaxshi-parol-2026",
             acceptPrivacy = true,
@@ -71,7 +71,7 @@ public sealed class StudioApiTests(StudioApiFactory factory) : IClassFixture<Stu
         content = new
         {
             accent = "sun",
-            note = "Dars uchun",
+            note = "Dars uçun",
             items = Enumerable.Range(1, items).Select(i => new { heading = $"{i}-bosqich", text = "Izoh" }).ToArray(),
         },
     };
@@ -184,7 +184,7 @@ public sealed class StudioApiTests(StudioApiFactory factory) : IClassFixture<Stu
         var valid = new
         {
             templateKey = "comparison",
-            title = "Taqqoslash",
+            title = "Taqqoslaş",
             content = new
             {
                 columns = new[] { "A", "B" },
@@ -196,7 +196,7 @@ public sealed class StudioApiTests(StudioApiFactory factory) : IClassFixture<Stu
         var invalid = new
         {
             templateKey = "comparison",
-            title = "Taqqoslash",
+            title = "Taqqoslaş",
             content = new
             {
                 columns = new[] { "A", "B" },

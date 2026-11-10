@@ -79,12 +79,12 @@ public sealed class StudioService(IMaterialRepository repository, TimeProvider c
     {
         if (await repository.CountAsync(userId, ct) >= MaxMaterialsPerUser)
         {
-            return Invalid($"Materiallar soni {MaxMaterialsPerUser} tadan oshmasligi kerak. Keraksizlarini o‘chiring.");
+            return Invalid($"Materiallar soni {MaxMaterialsPerUser} tadan oşmasligi kerak. Keraksizlarini öçiring.");
         }
 
         if (request.TemplateKey is null || !Templates.ContainsKey(request.TemplateKey))
         {
-            return Invalid("Bunday shablon yo‘q.");
+            return Invalid("Bunday şablon yöq.");
         }
 
         if (Validate(request.TemplateKey, request) is { } error)
@@ -127,7 +127,7 @@ public sealed class StudioService(IMaterialRepository repository, TimeProvider c
 
         if (await repository.CountAsync(userId, ct) >= MaxMaterialsPerUser)
         {
-            return Invalid($"Materiallar soni {MaxMaterialsPerUser} tadan oshmasligi kerak. Keraksizlarini o‘chiring.");
+            return Invalid($"Materiallar soni {MaxMaterialsPerUser} tadan oşmasligi kerak. Keraksizlarini öçiring.");
         }
 
         var title = $"{source.Title} (nusxa)";
@@ -161,39 +161,39 @@ public sealed class StudioService(IMaterialRepository repository, TimeProvider c
 
         if (string.IsNullOrWhiteSpace(request.Title) || request.Title.Trim().Length > MaxTitleLength)
         {
-            return Invalid($"Sarlavha 1–{MaxTitleLength} belgi bo‘lsin.");
+            return Invalid($"Sarlavha 1–{MaxTitleLength} belgi bölsin.");
         }
 
         if (request.Subject?.Trim().Length > MaxSubjectLength)
         {
-            return Invalid($"Fan nomi {MaxSubjectLength} belgidan oshmasin.");
+            return Invalid($"Fan nomi {MaxSubjectLength} belgidan oşmasin.");
         }
 
         if (request.Grade is < 1 or > 11)
         {
-            return Invalid("Sinf 1 dan 11 gacha bo‘lsin.");
+            return Invalid("Sinf 1 dan 11 gaça bölsin.");
         }
 
         var content = request.Content;
         if (content is null)
         {
-            return Invalid("Material mazmuni bo‘sh.");
+            return Invalid("Material mazmuni böş.");
         }
 
         if (content.Accent is not null && !Accents.Contains(content.Accent))
         {
-            return Invalid("Bunday rang mavzusi yo‘q.");
+            return Invalid("Bunday rang mavzusi yöq.");
         }
 
         if (content.Note?.Length > MaxNoteLength)
         {
-            return Invalid($"Izoh {MaxNoteLength} belgidan oshmasin.");
+            return Invalid($"Izoh {MaxNoteLength} belgidan oşmasin.");
         }
 
         var items = content.Items ?? [];
         if (items.Count < rules.MinItems || items.Count > rules.MaxItems)
         {
-            return Invalid($"Bu shablonda {rules.MinItems} tadan {rules.MaxItems} tagacha element bo‘lsin.");
+            return Invalid($"Bu şablonda {rules.MinItems} tadan {rules.MaxItems} tagaça element bölsin.");
         }
 
         var columnCount = content.Columns?.Count ?? 0;
@@ -201,12 +201,12 @@ public sealed class StudioService(IMaterialRepository repository, TimeProvider c
         {
             if (columnCount < rules.MinColumns || columnCount > rules.MaxColumns)
             {
-                return Invalid($"Jadvalda {rules.MinColumns} tadan {rules.MaxColumns} tagacha ustun bo‘lsin.");
+                return Invalid($"Jadvalda {rules.MinColumns} tadan {rules.MaxColumns} tagaça ustun bölsin.");
             }
 
             if (content.Columns!.Any(c => string.IsNullOrWhiteSpace(c) || c.Length > MaxCellLength))
             {
-                return Invalid($"Ustun nomi 1–{MaxCellLength} belgi bo‘lsin.");
+                return Invalid($"Ustun nomi 1–{MaxCellLength} belgi bölsin.");
             }
         }
 
@@ -214,24 +214,24 @@ public sealed class StudioService(IMaterialRepository repository, TimeProvider c
         {
             if (string.IsNullOrWhiteSpace(item.Heading))
             {
-                return Invalid("Har bir elementga nom bering yoki bo‘sh elementni o‘chiring.");
+                return Invalid("Har bir elementga nom bering yoki böş elementni öçiring.");
             }
 
             if (item.Heading.Length > MaxHeadingLength)
             {
-                return Invalid($"Element nomi {MaxHeadingLength} belgidan oshmasin: sxemada qisqa yozuv yaxshi o‘qiladi.");
+                return Invalid($"Element nomi {MaxHeadingLength} belgidan oşmasin: sxemada qisqa yozuv yaxşi öqiladi.");
             }
 
             if (item.Text?.Length > MaxTextLength)
             {
-                return Invalid($"Izoh {MaxTextLength} belgidan oshmasin.");
+                return Invalid($"Izoh {MaxTextLength} belgidan oşmasin.");
             }
 
             if (rules.MaxColumns > 0)
             {
                 if ((item.Cells?.Count ?? 0) != columnCount || item.Cells!.Any(c => c.Length > MaxCellLength))
                 {
-                    return Invalid($"Jadval kataklari ustunlar soniga teng va {MaxCellLength} belgidan qisqa bo‘lsin.");
+                    return Invalid($"Jadval kataklari ustunlar soniga teng va {MaxCellLength} belgidan qisqa bölsin.");
                 }
             }
         }

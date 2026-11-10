@@ -14,7 +14,7 @@ export function Results({ results }: { results: ResultsData }) {
           id="res-t"
           label="Tadqiqot"
           title="Tajriba-sinov natijalari"
-          lead="Metodika tajriba va nazorat guruhlarida sinovdan o‘tkaziladi. Natijalar tajriba yakunlangach shu yerda e’lon qilinadi."
+          lead="Metodika tajriba va nazorat guruhlarida sinovdan ötkaziladi. Natijalar tajriba yakunlangaç şu yerda e’lon qilinadi."
         />
         <div className="res">
           <div className="tv-card tv-reveal">
@@ -32,7 +32,7 @@ export function Results({ results }: { results: ResultsData }) {
             {hasEmpty && (
               <div className="res-note">
                 <InfoIcon />
-                Shtrixli ustunlar — ma’lumot uchun joy. Real qiymatlar kiritilganda ustunlar animatsiya bilan o‘sadi.
+                Ştrixli ustunlar — ma’lumot uçun joy. Real qiymatlar kiritilganda ustunlar animatsiya bilan ösadi.
               </div>
             )}
           </div>

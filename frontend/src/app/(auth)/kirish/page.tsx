@@ -6,7 +6,7 @@ import { LoginForm } from "@/features/auth/components/forms";
 import { getCurrentUser } from "@/features/auth/lib/identity-api";
 import { safeNextPath } from "@/features/auth/lib/session-cookies";
 
-export const metadata: Metadata = { title: "Kirish — Tasvir.uz" };
+export const metadata: Metadata = { title: "Kiriş — Tasvir.uz" };
 
 type Props = { searchParams: Promise<{ keyin?: string; parol?: string }> };
 
@@ -18,11 +18,11 @@ export default async function LoginPage({ searchParams }: Props) {
 
   return (
     <AuthShell
-      title="Xush kelibsiz"
+      title="Xuş kelibsiz"
       lead="Hisobingizga kiring va vizual darslaringizni davom ettiring."
       footer={
         <>
-          Hisobingiz yo‘qmi? <Link href={`/royxatdan-otish${keyin ? `?keyin=${encodeURIComponent(next)}` : ""}`}>Ro‘yxatdan o‘ting</Link>
+          Hisobingiz yöqmi? <Link href={`/royxatdan-otish${keyin ? `?keyin=${encodeURIComponent(next)}` : ""}`}>Röyxatdan öting</Link>
         </>
       }
     >

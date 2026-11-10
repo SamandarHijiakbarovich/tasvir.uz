@@ -66,7 +66,7 @@ public sealed class AcademyApiTests(AcademyApiFactory factory) : IClassFixture<A
         var client = factory.CreateClient();
         var response = await client.PostAsJsonAsync("/api/identity/register", new
         {
-            fullName = "Test O‘qituvchi",
+            fullName = "Test Öqituvçi",
             email = $"talaba-{Guid.NewGuid():N}@example.com",
             password = "Yaxshi-parol-2026",
             acceptPrivacy = true,
@@ -92,14 +92,14 @@ public sealed class AcademyApiTests(AcademyApiFactory factory) : IClassFixture<A
             object body = step.Kind switch
             {
                 "quiz" => new { optionId = quizAnswers[i] },
-                "practice" when step.Practice!.Mode == "text" => new { text = "Fotosintez bosqichlari: ketma-ketlik, blok-sxema." },
-                "practice" when step.Practice!.Mode == "process" => new { items = new[] { "Yorug‘lik", "Suv parchalanishi", "Glyukoza" } },
+                "practice" when step.Practice!.Mode == "text" => new { text = "Fotosintez bosqiçlari: ketma-ketlik, blok-sxema." },
+                "practice" when step.Practice!.Mode == "process" => new { items = new[] { "Yoruğlik", "Suv parçalanişi", "Glyukoza" } },
                 "practice" => new { items = step.Practice!.Checklist },
                 _ => new { },
             };
 
             var result = await Read<StepResult>(await Complete(client, slug, step.Id, body));
-            Assert.True(result.StepCompleted, $"{slug} bosqichi {i} yakunlanmadi: {result.Feedback}");
+            Assert.True(result.StepCompleted, $"{slug} bosqiçi {i} yakunlanmadi: {result.Feedback}");
         }
     }
 
@@ -165,7 +165,7 @@ public sealed class AcademyApiTests(AcademyApiFactory factory) : IClassFixture<A
 
         Assert.DoesNotContain("correctOptionId", raw, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("explanation", raw, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("To‘g‘ri.", raw);
+        Assert.DoesNotContain("Töğri.", raw);
     }
 
     [Fact]
@@ -247,7 +247,7 @@ public sealed class AcademyApiTests(AcademyApiFactory factory) : IClassFixture<A
 
         var lesson = await Read<Lesson>(await client.GetAsync($"/api/academy/lessons/{Lesson1}"));
         Assert.Equal("completed", lesson.Status);
-        Assert.Equal("Fotosintez bosqichlari: ketma-ketlik, blok-sxema.", lesson.Steps[4].SavedResponse!.Value.GetProperty("text").GetString());
+        Assert.Equal("Fotosintez bosqiçlari: ketma-ketlik, blok-sxema.", lesson.Steps[4].SavedResponse!.Value.GetProperty("text").GetString());
     }
 
     [Fact]
@@ -262,7 +262,7 @@ public sealed class AcademyApiTests(AcademyApiFactory factory) : IClassFixture<A
         var tooFew = await Complete(client, Lesson3, lesson.Steps[1].Id, new { items = new[] { "Bitta", "  " } });
         Assert.Equal(HttpStatusCode.BadRequest, tooFew.StatusCode);
 
-        var ok = await Read<StepResult>(await Complete(client, Lesson3, lesson.Steps[1].Id, new { items = new[] { "Bir", "Ikki", "Uch" } }));
+        var ok = await Read<StepResult>(await Complete(client, Lesson3, lesson.Steps[1].Id, new { items = new[] { "Bir", "Ikki", "Uç" } }));
         Assert.True(ok.StepCompleted);
 
         var partial = await Complete(client, Lesson3, lesson.Steps[2].Id, new { items = lesson.Steps[2].Practice!.Checklist!.Take(2) });
@@ -324,8 +324,8 @@ public sealed class AcademyApiTests(AcademyApiFactory factory) : IClassFixture<A
                 object body = step.Kind switch
                 {
                     "quiz" => new { optionId = await CorrectOption(step.Id) },
-                    "practice" when step.Practice!.Mode == "text" => new { text = $"{summary.Slug} bo‘yicha javobim." },
-                    "practice" when step.Practice!.Mode == "process" => new { items = new[] { "Bir", "Ikki", "Uch" } },
+                    "practice" when step.Practice!.Mode == "text" => new { text = $"{summary.Slug} böyiça javobim." },
+                    "practice" when step.Practice!.Mode == "process" => new { items = new[] { "Bir", "Ikki", "Uç" } },
                     "practice" => new { items = step.Practice!.Checklist },
                     _ => new { },
                 };
@@ -369,7 +369,7 @@ public sealed class AcademyApiTests(AcademyApiFactory factory) : IClassFixture<A
         await FinishEveryLesson(first);
 
         var work = await Read<List<WorkItem>>(await first.GetAsync("/api/academy/my-work"));
-        Assert.Contains(work, w => w.Mode == "process" && w.Items!.SequenceEqual(["Bir", "Ikki", "Uch"]));
+        Assert.Contains(work, w => w.Mode == "process" && w.Items!.SequenceEqual(["Bir", "Ikki", "Uç"]));
         Assert.Contains(work, w => w.Mode == "text" && w.LessonSlug == Lesson1);
         Assert.DoesNotContain(work, w => w.Mode == "checklist");
 

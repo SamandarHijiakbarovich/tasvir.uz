@@ -3,20 +3,22 @@ import { getTemplate } from "@/features/studio/lib/templates";
 import { deleteGroupAction, removeMemberAction } from "../actions";
 import { fixed, formatDate, percent } from "../lib/format";
 import type { GroupDashboard, ItemAnalysis, StudentRow, SubmissionSummary, SurveySummary } from "../types";
+import { DiagnosticsPanel, type CompareState } from "./DiagnosticsPanel";
 import { ConfirmForm } from "./forms";
 
 const TABS = [
   { key: "talabalar", label: "Talabalar" },
-  { key: "ishlar", label: "Ishlar" },
+  { key: "ishlar", label: "Işlar" },
   { key: "test", label: "Test tahlili" },
-  { key: "sorovnoma", label: "So‘rovnoma" },
+  { key: "sorovnoma", label: "Sörovnoma" },
+  { key: "diagnostika", label: "Diagnostika" },
 ] as const;
 
 export type TabKey = (typeof TABS)[number]["key"];
 
 export const toTab = (value?: string): TabKey => TABS.find((t) => t.key === value)?.key ?? "talabalar";
 
-export function TeacherDashboard({ data, tab }: { data: GroupDashboard; tab: TabKey }) {
+export function TeacherDashboard({ data, tab, compare }: { data: GroupDashboard; tab: TabKey; compare: CompareState }) {
   const { group } = data;
   const path = `/guruhlar/${group.id}`;
   const pending = data.submissions.filter((s) => s.review?.version !== s.version).length;
@@ -26,16 +28,16 @@ export function TeacherDashboard({ data, tab }: { data: GroupDashboard; tab: Tab
       <section className="tv-card tv-code-card" aria-label="Guruh kodi">
         <div>
           <p className="tv-muted" style={{ margin: 0 }}>
-            Talabalarga shu kodni bering
+            Talabalarga şu kodni bering
           </p>
           <p className="tv-join-code">{group.joinCode}</p>
         </div>
         <p className="tv-field-hint" style={{ margin: 0, maxWidth: 340 }}>
-          Talaba ro‘yxatdan o‘tadi, “Guruhlar” sahifasida kodni kiritadi va natijalari sizga ko‘rinishiga rozilik beradi.
+          Talaba röyxatdan ötadi, “Guruhlar” sahifasida kodni kiritadi va natijalari sizga körinişiga rozilik beradi.
         </p>
       </section>
 
-      <nav className="tv-filter" aria-label="Guruh bo‘limlari">
+      <nav className="tv-filter" aria-label="Guruh bölimlari">
         {TABS.map((t) => (
           <Link key={t.key} href={`${path}?b=${t.key}`} aria-current={tab === t.key}>
             {t.label}
@@ -48,11 +50,12 @@ export function TeacherDashboard({ data, tab }: { data: GroupDashboard; tab: Tab
       {tab === "ishlar" && <Submissions submissions={data.submissions} />}
       {tab === "test" && <Items groupId={group.id} items={data.items} />}
       {tab === "sorovnoma" && <Survey groupId={group.id} survey={data.survey} />}
+      {tab === "diagnostika" && <DiagnosticsPanel groupId={group.id} data={data.diagnostics} compare={compare} />}
 
       <ConfirmForm
         action={deleteGroupAction.bind(null, group.id)}
-        message={`“${group.name}” guruhi va undagi barcha ishlar, baholar va so‘rovnoma javoblari o‘chirilsinmi? Buni qaytarib bo‘lmaydi.`}
-        label="Guruhni o‘chirish"
+        message={`“${group.name}” guruhi va undagi barça işlar, baholar va sörovnoma javoblari öçirilsinmi? Buni qaytarib bölmaydi.`}
+        label="Guruhni öçiriş"
       />
     </>
   );
@@ -70,8 +73,8 @@ function Students({ groupId, students }: { groupId: string; students: StudentRow
   if (students.length === 0) {
     return (
       <section className="tv-card tv-empty">
-        <h2 className="tv-h3">Hali talaba yo‘q</h2>
-        <p className="tv-muted">Yuqoridagi kodni talabalarga bering. Qo‘shilganlar shu yerda ko‘rinadi.</p>
+        <h2 className="tv-h3">Hali talaba yöq</h2>
+        <p className="tv-muted">Yuqoridagi kodni talabalarga bering. Qöşilganlar şu yerda körinadi.</p>
       </section>
     );
   }
@@ -84,21 +87,21 @@ function Students({ groupId, students }: { groupId: string; students: StudentRow
         <h2 className="tv-h3" id="talabalar-t">
           Talabalar ({students.length})
         </h2>
-        <ExportLink groupId={groupId} kind="natijalar" label="Excel uchun yuklab olish" />
+        <ExportLink groupId={groupId} kind="natijalar" label="Excel uçun yuklab oliş" />
       </div>
       <div className="tv-table-wrap" tabIndex={0} role="region" aria-labelledby="talabalar-t">
         <table className="tv-table">
           <thead>
             <tr>
-              <th scope="col">F.I.Sh.</th>
+              <th scope="col">F.I.Ş.</th>
               {courses.map((c) => (
                 <th scope="col" key={c.title}>
                   {c.title}
                 </th>
               ))}
-              <th scope="col">Testlar (1-urinish)</th>
-              <th scope="col">Ishlar</th>
-              <th scope="col">O‘rtacha baho</th>
+              <th scope="col">Testlar (1-uriniş)</th>
+              <th scope="col">Işlar</th>
+              <th scope="col">Örtaça baho</th>
               <th scope="col">Oxirgi faollik</th>
               <th scope="col">
                 <span className="tv-sr">Amal</span>
@@ -127,8 +130,8 @@ function Students({ groupId, students }: { groupId: string; students: StudentRow
                 <td>
                   <ConfirmForm
                     action={removeMemberAction.bind(null, groupId, student.userId)}
-                    message={`${student.name} guruhdan chiqarilsinmi? Uning shu guruhdagi ishlari va baholari o‘chadi.`}
-                    label="Chiqarish"
+                    message={`${student.name} guruhdan çiqarilsinmi? Uning şu guruhdagi işlari va baholari öçadi.`}
+                    label="Çiqariş"
                   />
                 </td>
               </tr>
@@ -144,8 +147,8 @@ function Submissions({ submissions }: { submissions: SubmissionSummary[] }) {
   if (submissions.length === 0) {
     return (
       <section className="tv-card tv-empty">
-        <h2 className="tv-h3">Hali ish topshirilmagan</h2>
-        <p className="tv-muted">Talabalar Studiyada yaratgan materiallarini guruh sahifasidan topshiradi.</p>
+        <h2 className="tv-h3">Hali iş topşirilmagan</h2>
+        <p className="tv-muted">Talabalar Studiyada yaratgan materiallarini guruh sahifasidan topşiradi.</p>
       </section>
     );
   }
@@ -153,16 +156,16 @@ function Submissions({ submissions }: { submissions: SubmissionSummary[] }) {
   return (
     <section className="tv-card tv-panel" aria-labelledby="ishlar-t">
       <h2 className="tv-h3" id="ishlar-t">
-        Topshirilgan ishlar
+        Topşirilgan işlar
       </h2>
       <div className="tv-table-wrap" tabIndex={0} role="region" aria-labelledby="ishlar-t">
         <table className="tv-table">
           <thead>
             <tr>
               <th scope="col">Talaba</th>
-              <th scope="col">Ish</th>
-              <th scope="col">Shakl</th>
-              <th scope="col">Topshirilgan</th>
+              <th scope="col">Iş</th>
+              <th scope="col">Şakl</th>
+              <th scope="col">Topşirilgan</th>
               <th scope="col">Baho</th>
             </tr>
           </thead>
@@ -198,8 +201,8 @@ function Items({ groupId, items }: { groupId: string; items: ItemAnalysis[] }) {
   if (items.length === 0) {
     return (
       <section className="tv-card tv-empty">
-        <h2 className="tv-h3">Hali ma’lumot yo‘q</h2>
-        <p className="tv-muted">Talabalar darslardagi test va mashqlarni bajargach, har bir savol tahlili shu yerda chiqadi.</p>
+        <h2 className="tv-h3">Hali ma’lumot yöq</h2>
+        <p className="tv-muted">Talabalar darslardagi test va maşqlarni bajargaç, har bir savol tahlili şu yerda çiqadi.</p>
       </section>
     );
   }
@@ -210,11 +213,11 @@ function Items({ groupId, items }: { groupId: string; items: ItemAnalysis[] }) {
         <h2 className="tv-h3" id="test-t">
           Test savollari tahlili
         </h2>
-        <ExportLink groupId={groupId} kind="test-tahlili" label="Excel uchun yuklab olish" />
+        <ExportLink groupId={groupId} kind="test-tahlili" label="Excel uçun yuklab oliş" />
       </div>
       <p className="tv-field-hint" style={{ margin: 0 }}>
-        Hisob birinchi urinishlarga asoslanadi. Qiyinlik: to‘g‘ri javob berganlar ulushi. Farqlash: kuchli va zaif talabalar orasidagi farq; 4 tadan kam javobda hisoblanmaydi.
-        Guruh kichik bo‘lsa, ko‘rsatkichlarni taxminiy deb qarang.
+        Hisob birinçi urinişlarga asoslanadi. Qiyinlik: töğri javob berganlar uluşi. Farqlaş: kuçli va zaif talabalar orasidagi farq; 4 tadan kam javobda hisoblanmaydi.
+        Guruh kiçik bölsa, körsatkiçlarni taxminiy deb qarang.
       </p>
       <ul className="tv-item-list">
         {items.map((item) => (
@@ -226,8 +229,8 @@ function Items({ groupId, items }: { groupId: string; items: ItemAnalysis[] }) {
             <p className="tv-item-stats">
               <span>Javob berganlar: {item.respondents}</span>
               <span>Qiyinlik: {fixed(item.difficultyIndex)}</span>
-              <span>Farqlash: {item.discriminationIndex == null ? "—" : fixed(item.discriminationIndex)}</span>
-              <span>O‘rtacha urinish: {fixed(item.averageAttempts, 1)}</span>
+              <span>Farqlaş: {item.discriminationIndex == null ? "—" : fixed(item.discriminationIndex)}</span>
+              <span>Örtaça uriniş: {fixed(item.averageAttempts, 1)}</span>
               {item.difficultyIndex < HARD && <span className="tv-chip-warn">Juda qiyin</span>}
               {item.difficultyIndex > EASY && <span className="tv-chip-soon">Juda oson</span>}
               {item.discriminationIndex != null && item.discriminationIndex < WEAK_DISCRIMINATION && <span className="tv-chip-warn">Zaif farqlaydi</span>}
@@ -237,7 +240,7 @@ function Items({ groupId, items }: { groupId: string; items: ItemAnalysis[] }) {
                 {item.options.map((option) => (
                   <li key={option.text}>
                     <span>
-                      {option.isCorrect && <strong>To‘g‘ri: </strong>}
+                      {option.isCorrect && <strong>Töğri: </strong>}
                       {option.text}
                     </span>
                     <span className="tv-bar" aria-hidden="true">
@@ -259,8 +262,8 @@ function Survey({ groupId, survey }: { groupId: string; survey: SurveySummary })
   if (survey.respondents === 0) {
     return (
       <section className="tv-card tv-empty">
-        <h2 className="tv-h3">Hali javob yo‘q</h2>
-        <p className="tv-muted">Talabalar guruh sahifasida so‘rovnomani to‘ldiradi. Bu yerda faqat umumiy natija va ismsiz izohlar ko‘rinadi.</p>
+        <h2 className="tv-h3">Hali javob yöq</h2>
+        <p className="tv-muted">Talabalar guruh sahifasida sörovnomani töldiradi. Bu yerda faqat umumiy natija va ismsiz izohlar körinadi.</p>
       </section>
     );
   }
@@ -269,9 +272,9 @@ function Survey({ groupId, survey }: { groupId: string; survey: SurveySummary })
     <section className="tv-card tv-panel" aria-labelledby="sorov-t">
       <div className="tv-panel-head">
         <h2 className="tv-h3" id="sorov-t">
-          So‘rovnoma natijalari ({survey.respondents} ta javob)
+          Sörovnoma natijalari ({survey.respondents} ta javob)
         </h2>
-        <ExportLink groupId={groupId} kind="sorovnoma" label="Excel uchun yuklab olish" />
+        <ExportLink groupId={groupId} kind="sorovnoma" label="Excel uçun yuklab oliş" />
       </div>
       <ul className="tv-option-bars tv-survey-bars">
         {survey.questions.map((question) => (

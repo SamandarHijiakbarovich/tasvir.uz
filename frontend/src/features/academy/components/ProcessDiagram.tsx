@@ -3,7 +3,7 @@ export function ProcessDiagram({ items }: { items: string[] }) {
   const filled = items.map((i) => i.trim()).filter(Boolean);
 
   if (filled.length === 0) {
-    return <p className="tv-diagram-empty">Bosqich nomlarini yozing, sxema shu yerda paydo bo‘ladi.</p>;
+    return <p className="tv-diagram-empty">Bosqiç nomlarini yozing, sxema şu yerda paydo böladi.</p>;
   }
 
   return (

@@ -84,6 +84,7 @@ export type GroupDashboard = {
   submissions: SubmissionSummary[];
   items: ItemAnalysis[];
   survey: SurveySummary;
+  diagnostics: Diagnostics;
 };
 
 export type SurveyQuestion = { key: string; text: string };
@@ -95,4 +96,56 @@ export type StudentGroup = {
   surveyQuestions: SurveyQuestion[];
   surveyAnswers?: Record<string, number> | null;
   surveyComment?: string | null;
+  diagnostics: StudentDiagnosticStage[];
+};
+
+export type DiagnosticStage = "pre" | "post";
+
+export type DiagnosticScore = { stage: DiagnosticStage; score: number; maxScore: number; submittedAt: string };
+export type StudentDiagnosticStage = { stage: DiagnosticStage; title: string; isOpen: boolean; result?: DiagnosticScore | null };
+
+export type DiagnosticOption = { id: string; text: string };
+export type DiagnosticQuestion = { key: string; text: string; options: DiagnosticOption[] };
+export type DiagnosticTest = { groupId: string; groupName: string; stage: DiagnosticStage; title: string; questions: DiagnosticQuestion[] };
+
+export type PairedTest = {
+  n: number;
+  meanPre: number;
+  meanPost: number;
+  meanGain: number;
+  sdGain: number;
+  t?: number | null;
+  df: number;
+  p?: number | null;
+  effectSize?: number | null;
+};
+
+export type TwoSampleTest = {
+  countA: number;
+  meanA: number;
+  sdA: number;
+  countB: number;
+  meanB: number;
+  sdB: number;
+  t?: number | null;
+  df?: number | null;
+  p?: number | null;
+  effectSize?: number | null;
+};
+
+export type Diagnostics = {
+  maxScore: number;
+  stages: { stage: DiagnosticStage; title: string; isOpen: boolean; respondents: number }[];
+  students: { userId: string; name: string; pre?: number | null; post?: number | null }[];
+  items: { key: string; topic: string; text: string; preCorrectShare?: number | null; postCorrectShare?: number | null }[];
+  paired?: PairedTest | null;
+};
+
+export type GroupComparison = {
+  groupA: GroupSummary;
+  groupB: GroupSummary;
+  maxScore: number;
+  pre?: TwoSampleTest | null;
+  post?: TwoSampleTest | null;
+  gain?: TwoSampleTest | null;
 };

@@ -26,10 +26,13 @@ public sealed class ClassroomService(
 
     // Boshqa birovning guruhi "yo‘q" hisoblanadi: uning borligi ham oshkor bo‘lmasin
     private static readonly Error GroupNotFound = new("group_not_found", "Guruh topilmadi.", ErrorKind.NotFound);
-    private static readonly Error SubmissionNotFound = new("submission_not_found", "Ish topilmadi.", ErrorKind.NotFound);
+    private static readonly Error SubmissionNotFound = new("submission_not_found", "Iş topilmadi.", ErrorKind.NotFound);
     private static readonly Error MaterialNotFound = new("material_not_found", "Material topilmadi.", ErrorKind.NotFound);
-    private static readonly Error InvalidCode = new("invalid_code", "Bunday kodli guruh topilmadi. Kodni o‘qituvchingizdan tekshirib oling.", ErrorKind.NotFound);
+    private static readonly Error InvalidCode = new("invalid_code", "Bunday kodli guruh topilmadi. Kodni öqituvçingizdan tekşirib oling.", ErrorKind.NotFound);
     private static readonly Error UnknownUser = new("invalid_session", "Sessiya tugagan. Qayta kiring.", ErrorKind.Unauthorized);
+    private static readonly Error DiagnosticNotFound = new("diagnostic_not_found", "Bunday test yöq.", ErrorKind.NotFound);
+    private static readonly Error DiagnosticClosed = new("diagnostic_closed", "Bu test hozir yopiq. Öqituvçingiz oçganda topşirasiz.", ErrorKind.Conflict);
+    private static readonly Error DiagnosticDone = new("diagnostic_done", "Bu testni topşirgansiz: har bir test bir marta topşiriladi.", ErrorKind.Conflict);
 
     private DateTime Now => clock.GetUtcNow().UtcDateTime;
 
@@ -54,7 +57,7 @@ public sealed class ClassroomService(
 
         if (await repository.CountOwnedAsync(userId, ct) >= MaxGroupsPerTeacher)
         {
-            return new Error("limit_reached", $"Bir o‘qituvchi {MaxGroupsPerTeacher} tagacha guruh yarata oladi.", ErrorKind.Conflict);
+            return new Error("limit_reached", $"Bir öqituvçi {MaxGroupsPerTeacher} tagaça guruh yarata oladi.", ErrorKind.Conflict);
         }
 
         if (await directory.GetNameAsync(userId, ct) is not { } ownerName)
@@ -72,7 +75,7 @@ public sealed class ClassroomService(
             }
         }
 
-        throw new InvalidOperationException("Noyob guruh kodini yaratib bo‘lmadi.");
+        throw new InvalidOperationException("Noyob guruh kodini yaratib bölmadi.");
     }
 
     public async Task<Result<GroupSummaryDto>> JoinAsync(Guid userId, JoinGroupRequest request, CancellationToken ct)
@@ -85,7 +88,7 @@ public sealed class ClassroomService(
 
         if (!request.AcceptSharing)
         {
-            return Invalid("acceptSharing", "Guruhga qo‘shilish uchun natijalaringiz o‘qituvchiga ko‘rinishiga rozilik bering.");
+            return Invalid("acceptSharing", "Guruhga qöşiliş uçun natijalaringiz öqituvçiga körinişiga rozilik bering.");
         }
 
         if (await repository.FindGroupByCodeAsync(code, ct) is not { } group)
@@ -95,7 +98,7 @@ public sealed class ClassroomService(
 
         if (group.OwnerUserId == userId)
         {
-            return new Error("own_group", "Bu guruhni o‘zingiz yaratgansiz: siz uning o‘qituvchisisiz.", ErrorKind.Conflict);
+            return new Error("own_group", "Bu guruhni özingiz yaratgansiz: siz uning öqituvçisisiz.", ErrorKind.Conflict);
         }
 
         var members = await repository.ListMembersAsync(group.Id, ct);
@@ -103,7 +106,7 @@ public sealed class ClassroomService(
         {
             if (members.Count >= MaxMembersPerGroup)
             {
-                return new Error("group_full", "Guruh to‘lgan. O‘qituvchingizga murojaat qiling.", ErrorKind.Conflict);
+                return new Error("group_full", "Guruh tölgan. Öqituvçingizga murojaat qiling.", ErrorKind.Conflict);
             }
 
             if (await directory.GetNameAsync(userId, ct) is not { } displayName)
@@ -166,7 +169,7 @@ public sealed class ClassroomService(
         {
             if ((await repository.ListSubmissionsOfAsync(groupId, userId, ct)).Count >= MaxSubmissionsPerStudent)
             {
-                return new Error("limit_reached", $"Bir guruhga {MaxSubmissionsPerStudent} tagacha ish topshirish mumkin.", ErrorKind.Conflict);
+                return new Error("limit_reached", $"Bir guruhga {MaxSubmissionsPerStudent} tagaça iş topşiriş mumkin.", ErrorKind.Conflict);
             }
 
             existing = new Submission(groupId, userId, request.MaterialId, material.TemplateKey, material.Title, material.Subject, material.Grade, material.ContentJson, Now);
@@ -215,13 +218,13 @@ public sealed class ClassroomService(
         var scores = request.Scores ?? new Dictionary<string, int>();
         if (ClassroomCatalog.Rubric.Any(c => !scores.TryGetValue(c.Key, out var score) || score is < 0 or > ClassroomCatalog.MaxCriterionScore))
         {
-            return Invalid("scores", $"Har bir mezonga 0 dan {ClassroomCatalog.MaxCriterionScore} gacha ball qo‘ying.");
+            return Invalid("scores", $"Har bir mezonga 0 dan {ClassroomCatalog.MaxCriterionScore} gaça ball qöying.");
         }
 
         var comment = Clean(request.Comment);
         if (comment?.Length > MaxCommentLength)
         {
-            return Invalid("comment", $"Izoh {MaxCommentLength} belgidan oshmasin.");
+            return Invalid("comment", $"Izoh {MaxCommentLength} belgidan oşmasin.");
         }
 
         var known = ClassroomCatalog.Rubric.ToDictionary(c => c.Key, c => scores[c.Key]);
@@ -261,7 +264,8 @@ public sealed class ClassroomService(
             submissions.Select(s => ToSummary(s, member.DisplayName, LatestReview(reviews, s.Id))).ToList(),
             ClassroomCatalog.Survey,
             survey is null ? null : ReadScores(survey.AnswersJson),
-            survey?.Comment);
+            survey?.Comment,
+            await BuildStudentDiagnosticsAsync(groupId, userId, ct));
     }
 
     public async Task<Result<Unit>> SaveSurveyAsync(Guid userId, Guid groupId, SaveSurveyRequest request, CancellationToken ct)
@@ -274,13 +278,13 @@ public sealed class ClassroomService(
         var answers = request.Answers ?? new Dictionary<string, int>();
         if (ClassroomCatalog.Survey.Any(q => !answers.TryGetValue(q.Key, out var a) || a is < ClassroomCatalog.MinLikert or > ClassroomCatalog.MaxLikert))
         {
-            return Invalid("answers", "Barcha savollarga javob bering.");
+            return Invalid("answers", "Barça savollarga javob bering.");
         }
 
         var comment = Clean(request.Comment);
         if (comment?.Length > MaxCommentLength)
         {
-            return Invalid("comment", $"Izoh {MaxCommentLength} belgidan oshmasin.");
+            return Invalid("comment", $"Izoh {MaxCommentLength} belgidan oşmasin.");
         }
 
         var json = JsonSerializer.Serialize(ClassroomCatalog.Survey.ToDictionary(q => q.Key, q => answers[q.Key]), ClassroomJson.Options);
@@ -312,10 +316,11 @@ public sealed class ClassroomService(
             data.Students,
             data.Submissions,
             data.Learning.Items,
-            await BuildSurveyAsync(groupId, ct));
+            await BuildSurveyAsync(groupId, ct),
+            await BuildDiagnosticsAsync(groupId, data.Members, ct));
     }
 
-    /// <summary>kind: "natijalar", "test-tahlili" yoki "sorovnoma".</summary>
+    /// <summary>kind: "natijalar", "test-tahlili", "sorovnoma" yoki "diagnostika".</summary>
     public async Task<Result<GroupExportDto>> ExportAsync(Guid userId, Guid groupId, string kind, CancellationToken ct)
     {
         if (await FindOwnedAsync(userId, groupId, ct) is not { } group)
@@ -333,9 +338,184 @@ public sealed class ClassroomService(
                 return new GroupExportDto($"{kind}.csv", ClassroomCsv.Items(learning.Items));
             case "sorovnoma":
                 return new GroupExportDto($"{kind}.csv", ClassroomCsv.Survey(await BuildSurveyAsync(groupId, ct)));
+            case "diagnostika":
+                var members = await repository.ListMembersAsync(groupId, ct);
+                return new GroupExportDto($"{kind}.csv", ClassroomCsv.Diagnostics(
+                    await BuildDiagnosticsAsync(groupId, members, ct),
+                    await repository.ListDiagnosticResultsAsync(groupId, ct)));
             default:
-                return new Error("export_not_found", "Bunday hisobot yo‘q.", ErrorKind.NotFound);
+                return new Error("export_not_found", "Bunday hisobot yöq.", ErrorKind.NotFound);
         }
+    }
+
+    public async Task<Result<DiagnosticTestDto>> GetDiagnosticTestAsync(Guid userId, Guid groupId, string stage, CancellationToken ct)
+    {
+        if (await CheckCanTakeAsync(userId, groupId, stage, ct) is { } error)
+        {
+            return error;
+        }
+
+        var group = (await repository.FindGroupAsync(groupId, ct))!;
+        return new DiagnosticTestDto(
+            groupId,
+            group.Name,
+            stage,
+            DiagnosticCatalog.Title(stage),
+            DiagnosticCatalog.Questions.Select(q => new DiagnosticQuestionDto(q.Key, q.Text, q.Options)).ToList());
+    }
+
+    public async Task<Result<DiagnosticScoreDto>> SubmitDiagnosticAsync(Guid userId, Guid groupId, string stage, SubmitDiagnosticRequest request, CancellationToken ct)
+    {
+        if (await CheckCanTakeAsync(userId, groupId, stage, ct) is { } error)
+        {
+            return error;
+        }
+
+        var answers = request.Answers ?? new Dictionary<string, string>();
+        if (DiagnosticCatalog.Questions.Any(q => !answers.TryGetValue(q.Key, out var a) || q.Options.All(o => o.Id != a)))
+        {
+            return Invalid("answers", "Barça savollarga javob bering.");
+        }
+
+        var chosen = DiagnosticCatalog.Questions.ToDictionary(q => q.Key, q => answers[q.Key]);
+        var score = DiagnosticCatalog.Questions.Count(q => chosen[q.Key] == q.CorrectOptionId);
+        var result = new DiagnosticResult(groupId, userId, stage, JsonSerializer.Serialize(chosen, ClassroomJson.Options), score, DiagnosticCatalog.MaxScore, Now);
+        repository.Add(result);
+
+        // Ikki marta bosilsa, noyob indeks ikkinchisini ushlab qoladi
+        if (!await repository.TrySaveChangesAsync(ct))
+        {
+            return DiagnosticDone;
+        }
+
+        return new DiagnosticScoreDto(stage, score, result.MaxScore, result.SubmittedAt);
+    }
+
+    public async Task<Result<Unit>> SetDiagnosticStateAsync(Guid userId, Guid groupId, string stage, SetDiagnosticStateRequest request, CancellationToken ct)
+    {
+        if (await FindOwnedAsync(userId, groupId, ct) is null)
+        {
+            return GroupNotFound;
+        }
+
+        if (!DiagnosticStage.IsKnown(stage))
+        {
+            return DiagnosticNotFound;
+        }
+
+        var window = await repository.FindDiagnosticWindowAsync(groupId, stage, ct);
+        if (window is null)
+        {
+            repository.Add(new DiagnosticWindow(groupId, stage, request.IsOpen, Now));
+        }
+        else
+        {
+            window.Set(request.IsOpen, Now);
+        }
+
+        await repository.SaveChangesAsync(ct);
+        return Unit.Value;
+    }
+
+    /// <summary>O‘qituvchining ikki guruhini solishtiradi: odatda tajriba va nazorat guruhlari.</summary>
+    public async Task<Result<GroupComparisonDto>> CompareAsync(Guid userId, Guid groupId, Guid otherGroupId, CancellationToken ct)
+    {
+        if (groupId == otherGroupId
+            || await FindOwnedAsync(userId, groupId, ct) is not { } groupA
+            || await FindOwnedAsync(userId, otherGroupId, ct) is not { } groupB)
+        {
+            return GroupNotFound;
+        }
+
+        var a = await ScoresAsync(groupId, ct);
+        var b = await ScoresAsync(otherGroupId, ct);
+        var counts = await repository.CountMembersAsync([groupId, otherGroupId], ct);
+
+        return new GroupComparisonDto(
+            ToSummary(groupA, counts, withCode: false),
+            ToSummary(groupB, counts, withCode: false),
+            DiagnosticCatalog.MaxScore,
+            DiagnosticStatistics.Welch(a.Pre, b.Pre),
+            DiagnosticStatistics.Welch(a.Post, b.Post),
+            DiagnosticStatistics.Welch(a.Gains, b.Gains));
+    }
+
+    private sealed record GroupScores(List<int> Pre, List<int> Post, List<int> Gains);
+
+    // Faqat hozir guruhda turgan talabalar hisoblanadi
+    private async Task<GroupScores> ScoresAsync(Guid groupId, CancellationToken ct)
+    {
+        var members = (await repository.ListMembersAsync(groupId, ct)).Select(m => m.UserId).ToHashSet();
+        var results = (await repository.ListDiagnosticResultsAsync(groupId, ct)).Where(r => members.Contains(r.UserId)).ToList();
+        var pre = results.Where(r => r.Stage == DiagnosticStage.Pre).ToDictionary(r => r.UserId, r => r.Score);
+        var post = results.Where(r => r.Stage == DiagnosticStage.Post).ToDictionary(r => r.UserId, r => r.Score);
+        var gains = post.Where(p => pre.ContainsKey(p.Key)).Select(p => p.Value - pre[p.Key]).ToList();
+        return new GroupScores(pre.Values.ToList(), post.Values.ToList(), gains);
+    }
+
+    private async Task<Error?> CheckCanTakeAsync(Guid userId, Guid groupId, string stage, CancellationToken ct)
+    {
+        if (await repository.FindMemberAsync(groupId, userId, ct) is null)
+        {
+            return GroupNotFound;
+        }
+
+        if (!DiagnosticStage.IsKnown(stage))
+        {
+            return DiagnosticNotFound;
+        }
+
+        if (await repository.FindDiagnosticResultAsync(groupId, userId, stage, ct) is not null)
+        {
+            return DiagnosticDone;
+        }
+
+        return await repository.FindDiagnosticWindowAsync(groupId, stage, ct) is { IsOpen: true } ? null : DiagnosticClosed;
+    }
+
+    private async Task<List<StudentDiagnosticStageDto>> BuildStudentDiagnosticsAsync(Guid groupId, Guid userId, CancellationToken ct)
+    {
+        var windows = await repository.ListDiagnosticWindowsAsync(groupId, ct);
+        var results = (await repository.ListDiagnosticResultsAsync(groupId, ct)).Where(r => r.UserId == userId).ToList();
+
+        return DiagnosticStage.All.Select(stage =>
+        {
+            var result = results.FirstOrDefault(r => r.Stage == stage);
+            return new StudentDiagnosticStageDto(
+                stage,
+                DiagnosticCatalog.Title(stage),
+                windows.Any(w => w.Stage == stage && w.IsOpen),
+                result is null ? null : new DiagnosticScoreDto(stage, result.Score, result.MaxScore, result.SubmittedAt));
+        }).ToList();
+    }
+
+    private async Task<DiagnosticsDto> BuildDiagnosticsAsync(Guid groupId, List<GroupMember> members, CancellationToken ct)
+    {
+        var windows = await repository.ListDiagnosticWindowsAsync(groupId, ct);
+        var memberIds = members.Select(m => m.UserId).ToHashSet();
+        var results = (await repository.ListDiagnosticResultsAsync(groupId, ct)).Where(r => memberIds.Contains(r.UserId)).ToList();
+        var byStage = DiagnosticStage.All.ToDictionary(stage => stage, stage => results.Where(r => r.Stage == stage).ToList());
+
+        var stages = DiagnosticStage.All
+            .Select(stage => new DiagnosticStageStateDto(stage, DiagnosticCatalog.Title(stage), windows.Any(w => w.Stage == stage && w.IsOpen), byStage[stage].Count))
+            .ToList();
+
+        int? ScoreOf(string stage, Guid user) => byStage[stage].FirstOrDefault(r => r.UserId == user)?.Score;
+        var students = members
+            .Select(m => new DiagnosticStudentRowDto(m.UserId, m.DisplayName, ScoreOf(DiagnosticStage.Pre, m.UserId), ScoreOf(DiagnosticStage.Post, m.UserId)))
+            .ToList();
+
+        var answers = DiagnosticStage.All.ToDictionary(
+            stage => stage,
+            stage => byStage[stage].Select(r => JsonSerializer.Deserialize<Dictionary<string, string>>(r.AnswersJson, ClassroomJson.Options) ?? []).ToList());
+        double? Share(string stage, DiagnosticQuestion q) =>
+            answers[stage].Count == 0 ? null : (double)answers[stage].Count(a => a.GetValueOrDefault(q.Key) == q.CorrectOptionId) / answers[stage].Count;
+        var items = DiagnosticCatalog.Questions
+            .Select(q => new DiagnosticItemDto(q.Key, q.Topic, q.Text, Share(DiagnosticStage.Pre, q), Share(DiagnosticStage.Post, q)))
+            .ToList();
+
+        var pairs = students.Where(s => s.Pre is not null && s.Post is not null).Select(s => (s.Pre!.Value, s.Post!.Value)).ToList();
+        return new DiagnosticsDto(DiagnosticCatalog.MaxScore, stages, students, items, DiagnosticStatistics.Paired(pairs));
     }
 
     private sealed record GroupData(

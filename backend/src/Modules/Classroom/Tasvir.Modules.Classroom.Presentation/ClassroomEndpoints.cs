@@ -36,24 +36,24 @@ public static class ClassroomEndpoints
 
         api.MapGet("/groups", async (ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
             ToResponse(await classroom.GetMyGroupsAsync(UserId(principal), ct)))
-            .WithSummary("Men o‘qitayotgan va o‘qiyotgan guruhlar");
+            .WithSummary("Men öqitayotgan va öqiyotgan guruhlar");
 
         api.MapPost("/groups", async (CreateGroupRequest request, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
             ToResponse(await classroom.CreateGroupAsync(UserId(principal), request, ct), StatusCodes.Status201Created))
-            .WithSummary("Yangi guruh (yaratgan kishi o‘qituvchi bo‘ladi)");
+            .WithSummary("Yangi guruh (yaratgan kişi öqituvçi böladi)");
 
         api.MapPost("/groups/join", async (JoinGroupRequest request, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
             ToResponse(await classroom.JoinAsync(UserId(principal), request, ct)))
             .RequireRateLimiting(JoinRateLimit)
-            .WithSummary("Kod bilan guruhga qo‘shilish");
+            .WithSummary("Kod bilan guruhga qöşiliş");
 
         api.MapDelete("/groups/{id:guid}", async (Guid id, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
             ToResponse(await classroom.DeleteGroupAsync(UserId(principal), id, ct)))
-            .WithSummary("Guruhni o‘chirish (o‘qituvchi)");
+            .WithSummary("Guruhni öçiriş (öqituvçi)");
 
         api.MapGet("/groups/{id:guid}/dashboard", async (Guid id, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
             ToResponse(await classroom.GetDashboardAsync(UserId(principal), id, ct)))
-            .WithSummary("O‘qituvchi paneli: progress, ishlar, test tahlili, so‘rovnoma");
+            .WithSummary("Öqituvçi paneli: progress, işlar, test tahlili, sörovnoma");
 
         api.MapGet("/groups/{id:guid}/export/{kind}", async (Guid id, string kind, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
         {
@@ -66,31 +66,47 @@ public static class ClassroomEndpoints
             // UTF-8 belgisi (BOM) bo‘lmasa, Excel o‘zbekcha harflarni buzadi
             var bytes = Encoding.UTF8.GetPreamble().Concat(Encoding.UTF8.GetBytes(result.Value!.Csv)).ToArray();
             return Results.File(bytes, "text/csv; charset=utf-8", result.Value.FileName);
-        }).WithSummary("Natijalarni Excel uchun CSV ko‘rinishida yuklab olish (o‘qituvchi)");
+        }).WithSummary("Natijalarni Excel uçun CSV körinişida yuklab oliş (öqituvçi)");
 
         api.MapGet("/groups/{id:guid}/me", async (Guid id, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
             ToResponse(await classroom.GetStudentViewAsync(UserId(principal), id, ct)))
-            .WithSummary("Talaba ko‘rinishi: mening ishlarim va so‘rovnoma");
+            .WithSummary("Talaba körinişi: mening işlarim va sörovnoma");
 
         api.MapDelete("/groups/{id:guid}/members/{userId:guid}", async (Guid id, Guid userId, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
             ToResponse(await classroom.RemoveMemberAsync(UserId(principal), id, userId, ct)))
-            .WithSummary("Guruhdan chiqish yoki talabani chiqarish");
+            .WithSummary("Guruhdan çiqiş yoki talabani çiqariş");
 
         api.MapPost("/groups/{id:guid}/submissions", async (Guid id, SubmitWorkRequest request, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
             ToResponse(await classroom.SubmitAsync(UserId(principal), id, request, ct), StatusCodes.Status201Created))
-            .WithSummary("Materialni o‘qituvchiga topshirish");
+            .WithSummary("Materialni öqituvçiga topşiriş");
 
         api.MapPut("/groups/{id:guid}/survey", async (Guid id, SaveSurveyRequest request, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
             ToResponse(await classroom.SaveSurveyAsync(UserId(principal), id, request, ct)))
-            .WithSummary("So‘rovnomaga javob");
+            .WithSummary("Sörovnomaga javob");
+
+        api.MapGet("/groups/{id:guid}/diagnostics/{stage}", async (Guid id, string stage, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
+            ToResponse(await classroom.GetDiagnosticTestAsync(UserId(principal), id, stage, ct)))
+            .WithSummary("Diagnostika testi savollari (talaba; test oçiq va hali topşirilmagan bölsa)");
+
+        api.MapPost("/groups/{id:guid}/diagnostics/{stage}", async (Guid id, string stage, SubmitDiagnosticRequest request, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
+            ToResponse(await classroom.SubmitDiagnosticAsync(UserId(principal), id, stage, request, ct), StatusCodes.Status201Created))
+            .WithSummary("Diagnostika testini topşiriş (bir marta)");
+
+        api.MapPut("/groups/{id:guid}/diagnostics/{stage}/state", async (Guid id, string stage, SetDiagnosticStateRequest request, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
+            ToResponse(await classroom.SetDiagnosticStateAsync(UserId(principal), id, stage, request, ct)))
+            .WithSummary("Diagnostika testini oçiş yoki yopiş (öqituvçi)");
+
+        api.MapGet("/groups/{id:guid}/compare/{otherId:guid}", async (Guid id, Guid otherId, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
+            ToResponse(await classroom.CompareAsync(UserId(principal), id, otherId, ct)))
+            .WithSummary("Ikki guruh diagnostika natijalarini soliştiriş (öqituvçi)");
 
         api.MapGet("/submissions/{id:guid}", async (Guid id, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
             ToResponse(await classroom.GetSubmissionAsync(UserId(principal), id, ct)))
-            .WithSummary("Topshirilgan ish (o‘qituvchi yoki ish egasi)");
+            .WithSummary("Topşirilgan iş (öqituvçi yoki iş egasi)");
 
         api.MapPut("/submissions/{id:guid}/review", async (Guid id, SaveReviewRequest request, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
             ToResponse(await classroom.SaveReviewAsync(UserId(principal), id, request, ct)))
-            .WithSummary("Rubrika bo‘yicha baholash (o‘qituvchi)");
+            .WithSummary("Rubrika böyiça baholaş (öqituvçi)");
 
         return app;
     }

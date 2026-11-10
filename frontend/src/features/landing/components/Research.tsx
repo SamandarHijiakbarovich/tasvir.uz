@@ -17,11 +17,11 @@ export function Research() {
               Intuitsiya emas — ilmiy asoslangan metodika
             </h2>
             <p className="tv-lead">
-              Tasvir.uz pedagogika fanlari bo‘yicha dissertatsiya tadqiqoti asosida ishlab chiqilgan. Vizual o‘quv
-              materiallarini yaratish va darsda qo‘llash metodikasi tajriba-sinovdan o‘tkazilmoqda.
+              Tasvir.uz pedagogika fanlari böyiça dissertatsiya tadqiqoti asosida işlab çiqilgan. Vizual öquv
+              materiallarini yaratiş va darsda qöllaş metodikasi tajriba-sinovdan ötkazilmoqda.
             </p>
             <a className="tv-btn tv-btn-ghost" href="#tadqiqot-sahifa">
-              Tadqiqot bilan tanishish →
+              Tadqiqot bilan tanişiş →
             </a>
           </div>
         </div>

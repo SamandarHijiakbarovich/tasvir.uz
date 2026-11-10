@@ -9,9 +9,10 @@ import {
   joinGroupAction,
   saveReviewAction,
   saveSurveyAction,
+  submitDiagnosticAction,
   submitWorkAction,
 } from "../actions";
-import type { Review, RubricCriterion, SurveyQuestion } from "../types";
+import type { DiagnosticTest, Review, RubricCriterion, SurveyQuestion } from "../types";
 
 const initial: FormState = {};
 
@@ -23,7 +24,7 @@ export function CreateGroupForm() {
     <form ref={ref} action={action} className="tv-form" noValidate>
       <FormMessage state={state} />
       <TextField label="Guruh nomi" name="name" placeholder="Masalan: Biologiya, 3-kurs" error={state.fields?.name} required />
-      <SubmitButton pendingText="Yaratilmoqda…">Guruh yaratish</SubmitButton>
+      <SubmitButton pendingText="Yaratilmoqda…">Guruh yaratiş</SubmitButton>
     </form>
   );
 }
@@ -50,7 +51,7 @@ export function JoinGroupForm({ code }: { code?: string }) {
         <label className="tv-check tv-check-top">
           <input type="checkbox" name="acceptSharing" aria-invalid={state.fields?.acceptSharing ? true : undefined} />
           <span>
-            Ismim, darslardagi progressim, test natijalarim va topshirgan ishlarim shu guruh o‘qituvchisiga ko‘rinishiga roziman.{" "}
+            Ismim, darslardagi progressim, test natijalarim va topşirgan işlarim şu guruh öqituvçisiga körinişiga roziman.{" "}
             <Link href="/maxfiylik" target="_blank">
               Batafsil
             </Link>
@@ -58,7 +59,7 @@ export function JoinGroupForm({ code }: { code?: string }) {
         </label>
         {state.fields?.acceptSharing && <p className="tv-field-error">{state.fields.acceptSharing}</p>}
       </div>
-      <SubmitButton pendingText="Qo‘shilmoqda…">Guruhga qo‘shilish</SubmitButton>
+      <SubmitButton pendingText="Qöşilmoqda…">Guruhga qöşiliş</SubmitButton>
     </form>
   );
 }
@@ -84,10 +85,10 @@ export function SubmitWorkForm({ groupId, materials }: { groupId: string; materi
           ))}
         </select>
         {state.fields?.materialId && <p className="tv-field-error">{state.fields.materialId}</p>}
-        <p className="tv-field-hint">O‘qituvchiga hozirgi holati yuboriladi. Keyin o‘zgartirsangiz, qayta topshiring.</p>
+        <p className="tv-field-hint">Öqituvçiga hozirgi holati yuboriladi. Keyin özgartirsangiz, qayta topşiring.</p>
       </div>
-      <SubmitButton pendingText="Topshirilmoqda…" block={false}>
-        Topshirish
+      <SubmitButton pendingText="Topşirilmoqda…" block={false}>
+        Topşiriş
       </SubmitButton>
     </form>
   );
@@ -116,7 +117,7 @@ export function ReviewForm({ submissionId, rubric, maxScore, review, isCurrent }
           {state.fields.scores}
         </p>
       )}
-      {!isCurrent && review && <p className="tv-form-msg ok">Talaba ishni qayta topshirgan. Quyida oldingi versiya bahosi turibdi: yangi versiyani ko‘rib, saqlang.</p>}
+      {!isCurrent && review && <p className="tv-form-msg ok">Talaba işni qayta topşirgan. Quyida oldingi versiya bahosi turibdi: yangi versiyani körib, saqlang.</p>}
       {rubric.map((criterion) => (
         <fieldset key={criterion.key} className="tv-rubric-row">
           <legend>{criterion.title}</legend>
@@ -139,20 +140,20 @@ export function ReviewForm({ submissionId, rubric, maxScore, review, isCurrent }
       ))}
       <div className="tv-field">
         <label htmlFor="review-comment">Izoh talabaga</label>
-        <textarea id="review-comment" name="comment" rows={4} maxLength={1000} defaultValue={review?.comment ?? ""} className="tv-textarea" placeholder="Nima yaxshi chiqdi va nimani yaxshilash mumkin?" />
+        <textarea id="review-comment" name="comment" rows={4} maxLength={1000} defaultValue={review?.comment ?? ""} className="tv-textarea" placeholder="Nima yaxşi çiqdi va nimani yaxşilaş mumkin?" />
       </div>
       <p className="tv-rubric-total" aria-live="polite">
         Jami: <strong>{total}</strong> / {rubric.length * maxScore}
         {filled < rubric.length && ` · yana ${rubric.length - filled} ta mezon qoldi`}
       </p>
       <SubmitButton pendingText="Saqlanmoqda…" block={false}>
-        Bahoni saqlash
+        Bahoni saqlaş
       </SubmitButton>
     </form>
   );
 }
 
-const LIKERT = ["To‘liq qo‘shilmayman", "Qo‘shilmayman", "Betaraf", "Qo‘shilaman", "To‘liq qo‘shilaman"];
+const LIKERT = ["Töliq qöşilmayman", "Qöşilmayman", "Betaraf", "Qöşilaman", "Töliq qöşilaman"];
 
 type SurveyFormProps = {
   groupId: string;
@@ -186,11 +187,63 @@ export function SurveyForm({ groupId, questions, answers, comment }: SurveyFormP
         </fieldset>
       ))}
       <div className="tv-field">
-        <label htmlFor="survey-comment">Nimani o‘zgartirish kerak? (ixtiyoriy)</label>
+        <label htmlFor="survey-comment">Nimani özgartiriş kerak? (ixtiyoriy)</label>
         <textarea id="survey-comment" name="comment" rows={3} maxLength={1000} defaultValue={comment ?? ""} className="tv-textarea" />
       </div>
       <SubmitButton pendingText="Yuborilmoqda…" block={false}>
-        {answers ? "Javobni yangilash" : "Yuborish"}
+        {answers ? "Javobni yangilaş" : "Yuboriş"}
+      </SubmitButton>
+    </form>
+  );
+}
+
+export function DiagnosticTestForm({ groupId, test }: { groupId: string; test: DiagnosticTest }) {
+  const [state, action] = useActionState(submitDiagnosticAction.bind(null, groupId, test.stage), initial);
+  const [answered, setAnswered] = useState<Record<string, string>>({});
+  const left = test.questions.length - Object.keys(answered).length;
+
+  return (
+    <form
+      action={action}
+      className="tv-form"
+      onSubmit={(event) => {
+        if (!window.confirm("Javoblar yuborilsinmi? Test bir marta topşiriladi, keyin özgartirib bölmaydi.")) event.preventDefault();
+      }}
+    >
+      <FormMessage state={state} />
+      {state.fields?.answers && (
+        <p className="tv-form-msg err" role="alert">
+          {state.fields.answers}
+        </p>
+      )}
+      <ol className="tv-diag-list">
+        {test.questions.map((question) => (
+          <li key={question.key}>
+            <fieldset className="tv-rubric-row">
+              <legend>{question.text}</legend>
+              <div className="tv-diag-options">
+                {question.options.map((option) => (
+                  <label key={option.id}>
+                    <input
+                      type="radio"
+                      name={`q:${question.key}`}
+                      value={option.id}
+                      required
+                      onChange={() => setAnswered((current) => ({ ...current, [question.key]: option.id }))}
+                    />
+                    {option.text}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          </li>
+        ))}
+      </ol>
+      <p className="tv-rubric-total" aria-live="polite">
+        {left > 0 ? `Yana ${left} ta savol qoldi` : "Hamma savolga javob berildi"}
+      </p>
+      <SubmitButton pendingText="Yuborilmoqda…" block={false}>
+        Javoblarni yuboriş
       </SubmitButton>
     </form>
   );

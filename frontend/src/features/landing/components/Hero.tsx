@@ -23,22 +23,22 @@ export function Hero() {
             qiling
           </h1>
           <p className="tv-lead">
-            Tasvir.uz o‘qituvchilarga o‘quv materialini infografika, sxema, diagramma va aqliy xaritaga aylantirishni
-            o‘rgatadi — va buni bir necha bosishda bajarishga yordam beradi.
+            Tasvir.uz öqituvçilarga öquv materialini infografika, sxema, diagramma va aqliy xaritaga aylantirişni
+            örgatadi — va buni bir neça bosişda bajarişga yordam beradi.
           </p>
           <div className="hero-cta">
             <a className="tv-btn tv-btn-primary" href="/royxatdan-otish">
-              Bepul boshlash <ArrowRightIcon />
+              Bepul boşlaş <ArrowRightIcon />
             </a>
             <a className="tv-btn tv-btn-ghost" href="#demo">
-              <PlayIcon /> Demo ko‘rish
+              <PlayIcon /> Demo köriş
             </a>
           </div>
           <div className="hero-note">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M5 12l5 5 9-10" />
             </svg>
-            Karta talab qilinmaydi · O‘zbek tilida
+            Karta talab qilinmaydi · Özbek tilida
           </div>
           <div className="hero-doodle" aria-hidden="true">
             <span className="tv-hand">matn → infografika</span>

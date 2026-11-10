@@ -12,8 +12,8 @@ type Message = {
 };
 
 const MAX_LENGTH = 500;
-const WELCOME = "Assalomu alaykum! Men Tasvir.uz yordamchisiman. Sayt, darslar va vizuallashtirish asoslari haqidagi oddiy savollarga javob beraman.";
-const INITIAL_SUGGESTIONS = ["Tasvir.uz nima?", "Qanday boshlayman?", "Qaysi shaklni tanlayman?", "Parolimni unutdim"];
+const WELCOME = "Assalomu alaykum! Men Tasvir.uz yordamçisiman. Sayt, darslar va vizuallaştiriş asoslari haqidagi oddiy savollarga javob beraman.";
+const INITIAL_SUGGESTIONS = ["Tasvir.uz nima?", "Qanday boşlayman?", "Qaysi şaklni tanlayman?", "Parolimni unutdim"];
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
@@ -62,7 +62,7 @@ export function ChatWidget() {
           add({ role: "bot", text: response.message });
         }
       } catch {
-        add({ role: "bot", text: "Hozir javob bera olmadim. Birozdan so‘ng qayta urinib ko‘ring." });
+        add({ role: "bot", text: "Hozir javob bera olmadim. Birozdan söng qayta urinib köring." });
       }
       inputRef.current?.focus();
     });
@@ -79,17 +79,17 @@ export function ChatWidget() {
         <section
           className="tv-chat-panel"
           role="dialog"
-          aria-label="Tasvir.uz yordamchisi"
+          aria-label="Tasvir.uz yordamçisi"
           onKeyDown={(e) => {
             if (e.key === "Escape") close();
           }}
         >
           <header className="tv-chat-head">
             <div>
-              <strong>Yordamchi</strong>
+              <strong>Yordamçi</strong>
               <span>Avtomatik javob beradi, inson emas</span>
             </div>
-            <button className="tv-chat-close" type="button" onClick={close} aria-label="Yordamchini yopish">
+            <button className="tv-chat-close" type="button" onClick={close} aria-label="Yordamçini yopiş">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M6 6l12 12M18 6L6 18" />
               </svg>
@@ -99,7 +99,7 @@ export function ChatWidget() {
           <div className="tv-chat-log" ref={logRef} role="log" aria-live="polite" aria-label="Suhbat" tabIndex={0}>
             {messages.map((message) => (
               <div key={message.id} className={`tv-chat-msg ${message.role}`}>
-                <span className="tv-sr">{message.role === "user" ? "Siz:" : "Yordamchi:"}</span>
+                <span className="tv-sr">{message.role === "user" ? "Siz:" : "Yordamçi:"}</span>
                 <p>{message.text}</p>
                 {message.link && (
                   <Link href={message.link.href} onClick={() => setOpen(false)}>
@@ -134,7 +134,7 @@ export function ChatWidget() {
               placeholder="Savolingizni yozing…"
               onChange={(e) => setDraft(e.target.value)}
             />
-            <button type="submit" disabled={pending || !draft.trim()} aria-label="Yuborish">
+            <button type="submit" disabled={pending || !draft.trim()} aria-label="Yuboriş">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>

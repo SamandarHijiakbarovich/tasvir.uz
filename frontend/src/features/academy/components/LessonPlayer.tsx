@@ -78,7 +78,7 @@ function ProcessBuilder({ step, practice, answer, onChange, readOnly }: AnswerPr
         {items.map((item, index) => (
           <div className="tv-builder-row" key={index}>
             <label className="tv-sr" htmlFor={`bosqich-${index}`}>
-              {index + 1}-bosqich nomi
+              {index + 1}-bosqiç nomi
             </label>
             <span className="tv-diagram-num" aria-hidden="true">
               {index + 1}
@@ -95,7 +95,7 @@ function ProcessBuilder({ step, practice, answer, onChange, readOnly }: AnswerPr
               <button
                 type="button"
                 className="tv-iconbtn tv-builder-remove"
-                aria-label={`${index + 1}-bosqichni o‘chirish`}
+                aria-label={`${index + 1}-bosqiçni öçiriş`}
                 onClick={() => onChange({ items: items.filter((_, i) => i !== index) })}
               >
                 <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -107,7 +107,7 @@ function ProcessBuilder({ step, practice, answer, onChange, readOnly }: AnswerPr
         ))}
         {!readOnly && items.length < practice.maxItems && (
           <button type="button" className="tv-btn tv-btn-text tv-builder-add" onClick={() => onChange({ items: [...items, ""] })}>
-            + Bosqich qo‘shish
+            + Bosqiç qöşiş
           </button>
         )}
       </div>
@@ -147,7 +147,7 @@ function PracticeStep({ step, answer, onChange, readOnly }: AnswerProps) {
 
       {practice.mode === "checklist" && (
         <fieldset className="tv-quiz" disabled={readOnly}>
-          <legend className="tv-sr">O‘zini tekshirish bandlari</legend>
+          <legend className="tv-sr">Özini tekşiriş bandlari</legend>
           {practice.checklist?.map((item) => {
             const checked = answer.items?.includes(item) ?? false;
             return (
@@ -209,22 +209,22 @@ function CompletionScreen({ lesson, nextLessonSlug }: { lesson: Lesson; nextLess
       </h2>
       <p className="tv-muted">
         {courseDone
-          ? "Siz bu kursning barcha darslarini tugatdingiz. Sxemangizni endi o‘z darsingizda sinab ko‘ring."
-          : "Natijalaringiz saqlandi. Keyingi dars ochildi."}
+          ? "Siz bu kursning barça darslarini tugatdingiz. Sxemangizni endi öz darsingizda sinab köring."
+          : "Natijalaringiz saqlandi. Keyingi dars oçildi."}
       </p>
       <div className="tv-lesson-actions">
         {nextLessonSlug ? (
           <form action={startLessonAction.bind(null, nextLessonSlug)}>
             <button className="tv-btn tv-btn-primary" type="submit">
-              Keyingi darsni boshlash →
+              Keyingi darsni boşlaş →
             </button>
           </form>
         ) : null}
         <Link className="tv-btn tv-btn-ghost" href={`/akademiya/kurslar/${lesson.courseSlug}`}>
-          Kurs sahifasiga qaytish
+          Kurs sahifasiga qaytiş
         </Link>
         <Link className="tv-btn tv-btn-ghost" href="/akademiya/ishlarim">
-          Mening ishlarim
+          Mening işlarim
         </Link>
       </div>
     </section>
@@ -320,26 +320,26 @@ export function LessonPlayer({ lesson }: { lesson: Lesson }) {
 
   const primaryLabel = isStepDone
     ? index === lesson.steps.length - 1
-      ? "Yakunlash"
-      : "Davom etish"
+      ? "Yakunlaş"
+      : "Davom etiş"
     : step.kind === "quiz" || step.kind === "exercise"
-      ? "Javobni tekshirish"
+      ? "Javobni tekşiriş"
       : step.kind === "video"
-        ? "Ko‘rdim, mashqqa o‘taman"
+        ? "Kördim, maşqqa ötaman"
         : step.kind === "reading"
-          ? "Tushundim, davom etamiz"
-          : "Saqlash va davom etish";
+          ? "Tuşundim, davom etamiz"
+          : "Saqlaş va davom etiş";
 
   return (
     <div className="tv-lesson">
       <div className="tv-lesson-progress">
         <span>
-          {index + 1}-bosqich / {lesson.steps.length}
+          {index + 1}-bosqiç / {lesson.steps.length}
         </span>
         <div
           className="tv-progress"
           role="progressbar"
-          aria-label="Dars bo‘yicha natija"
+          aria-label="Dars böyiça natija"
           aria-valuenow={progress}
           aria-valuemin={0}
           aria-valuemax={100}

@@ -89,7 +89,7 @@ export async function forgotPasswordAction(_: FormState, form: FormData): Promis
 
   return {
     success: true,
-    message: "Agar bu email ro‘yxatdan o‘tgan bo‘lsa, unga parolni tiklash havolasini yubordik. Pochtangizni, jumladan “Spam” bo‘limini tekshiring.",
+    message: "Agar bu email röyxatdan ötgan bölsa, unga parolni tiklaş havolasini yubordik. Poçtangizni, jumladan “Spam” bölimini tekşiring.",
   };
 }
 
@@ -114,7 +114,7 @@ export async function resendConfirmationAction(_: FormState): Promise<FormState>
   const accessToken = (await cookies()).get(ACCESS_COOKIE)?.value;
   const result = await identityRequest<void>("email/resend", { accessToken });
   if (!result.ok) return failed(result);
-  return { success: true, message: "Tasdiqlash xatini qayta yubordik. Pochtangizni tekshiring." };
+  return { success: true, message: "Tasdiqlaş xatini qayta yubordik. Poçtangizni tekşiring." };
 }
 
 export async function changePasswordAction(_: FormState, form: FormData): Promise<FormState> {
@@ -126,5 +126,5 @@ export async function changePasswordAction(_: FormState, form: FormData): Promis
   if (!result.ok) return failed(result);
 
   applySession(jar, result.data);
-  return { success: true, message: "Parol o‘zgartirildi. Boshqa qurilmalardagi sessiyalar yopildi." };
+  return { success: true, message: "Parol özgartirildi. Boşqa qurilmalardagi sessiyalar yopildi." };
 }

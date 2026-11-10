@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getCurrentUser } from "@/features/auth/lib/identity-api";
-import { getDashboard, getStudentView } from "@/features/classroom/api";
+import { getComparison, getDashboard, getMyGroups, getStudentView } from "@/features/classroom/api";
+import type { CompareState } from "@/features/classroom/components/DiagnosticsPanel";
 import { ClassroomHeader } from "@/features/classroom/components/ClassroomHeader";
 import { StudentGroupView } from "@/features/classroom/components/StudentGroupView";
 import { TeacherDashboard, toTab } from "@/features/classroom/components/TeacherDashboard";
@@ -14,11 +15,11 @@ import "@/styles/classroom.css";
 
 export const metadata: Metadata = { title: "Guruh — Tasvir.uz", robots: { index: false, follow: false } };
 
-type Props = { params: Promise<{ id: string }>; searchParams: Promise<{ b?: string; xato?: string }> };
+type Props = { params: Promise<{ id: string }>; searchParams: Promise<{ b?: string; xato?: string; qiyos?: string }> };
 
 export default async function GroupPage({ params, searchParams }: Props) {
   const { id } = await params;
-  const { b, xato } = await searchParams;
+  const { b, xato, qiyos } = await searchParams;
   const login = `/kirish?keyin=${encodeURIComponent(`/guruhlar/${id}`)}`;
 
   // O‘qituvchi bo‘lmasa, backend 404 qaytaradi: unda talaba ko‘rinishi sinab ko‘riladi
@@ -32,6 +33,8 @@ export default async function GroupPage({ params, searchParams }: Props) {
   }
 
   const group = dashboard.ok ? dashboard.data.group : student?.ok ? student.data.group : null;
+  const tab = toTab(b);
+  const compare = dashboard.ok && tab === "diagnostika" ? await loadCompare(id, qiyos) : { groups: [] };
 
   return (
     <div className="tv-studio">
@@ -57,16 +60,27 @@ export default async function GroupPage({ params, searchParams }: Props) {
           <div>
             <h1 className="tv-h2">{group.name}</h1>
             <p className="tv-muted" style={{ margin: "var(--space-2) 0 0" }}>
-              {dashboard.ok ? `${group.memberCount} ta talaba` : `O‘qituvchi: ${group.teacherName}`}
+              {dashboard.ok ? `${group.memberCount} ta talaba` : `Öqituvçi: ${group.teacherName}`}
             </p>
           </div>
         )}
 
-        {dashboard.ok && <TeacherDashboard data={dashboard.data} tab={toTab(b)} />}
+        {dashboard.ok && <TeacherDashboard data={dashboard.data} tab={tab} compare={compare} />}
         {student?.ok && <StudentSection id={id} />}
       </main>
     </div>
   );
+}
+
+/** O‘qituvchining boshqa guruhlari va tanlangani bilan solishtirish natijasi. */
+async function loadCompare(id: string, other?: string): Promise<CompareState> {
+  const [mine, result] = await Promise.all([getMyGroups(), other ? getComparison(id, other) : Promise.resolve(null)]);
+  return {
+    groups: mine.ok ? mine.data.teaching : [],
+    selected: other,
+    result: result?.ok ? result.data : null,
+    error: result && !result.ok ? result.message : undefined,
+  };
 }
 
 async function StudentSection({ id }: { id: string }) {

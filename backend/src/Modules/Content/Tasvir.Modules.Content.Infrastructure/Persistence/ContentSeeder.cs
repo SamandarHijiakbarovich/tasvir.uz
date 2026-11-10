@@ -10,9 +10,9 @@ namespace Tasvir.Modules.Content.Infrastructure.Persistence;
 internal static class ContentSeeder
 {
     private const string ScientificBasisQuestion = "Platformaning ilmiy asosi nimada?";
-    private const string ScientificBasisAnswer = "Metodika pedagogika fanlari bo‘yicha dissertatsiya tadqiqoti doirasida ishlab chiqilgan. Tajriba-sinov natijalari yakunlangach e’lon qilinadi.";
+    private const string ScientificBasisAnswer = "Metodika pedagogika fanlari böyiça dissertatsiya tadqiqoti doirasida işlab çiqilgan. Tajriba-sinov natijalari yakunlangaç e’lon qilinadi.";
     private const string AcademyVsStudioQuestion = "Akademiya va Studiyaning farqi nimada?";
-    private const string AcademyVsStudioAnswer = "Akademiya — o‘rgatadi: kurslar va amaliy topshiriqlar. Studiya — yaratadi: tayyor shablon asosida mavzuingizni infografika yoki sxemaga aylantiradi.";
+    private const string AcademyVsStudioAnswer = "Akademiya — örgatadi: kurslar va amaliy topşiriqlar. Studiya — yaratadi: tayyor şablon asosida mavzuingizni infografika yoki sxemaga aylantiradi.";
 
     public static async Task SeedAsync(ContentDbContext db, CancellationToken cancellationToken)
     {
@@ -39,46 +39,46 @@ internal static class ContentSeeder
             new ResultCriterion("[4-mezon]", null, null, 4));
 
         db.ResultStats.AddRange(
-            new ResultStat("[Ko‘rsatkich izohi]", null, "%", 1),
-            new ResultStat("[Ko‘rsatkich izohi]", null, "%", 2),
-            new ResultStat("Tajriba-sinov ishtirokchilari", null, null, 3),
-            new ResultStat("Ishtirokchi ta’lim muassasalari", null, null, 4));
+            new ResultStat("[Körsatkiç izohi]", null, "%", 1),
+            new ResultStat("[Körsatkiç izohi]", null, "%", 2),
+            new ResultStat("Tajriba-sinov iştirokçilari", null, null, 3),
+            new ResultStat("Iştirokçi ta’lim muassasalari", null, null, 4));
 
         db.PricingPlans.AddRange(
             new PricingPlan(
-                "Bepul", "Platformani sinab ko‘rish uchun", 0m, "so‘m",
-                ["Akademiyadan kirish darslari", "Studiyada asosiy shablonlar", "Hamjamiyatga kirish"],
-                isFeatured: false, "Bepul boshlash", "/royxatdan-otish", 1),
+                "Bepul", "Platformani sinab köriş uçun", 0m, "söm",
+                ["Akademiyadan kiriş darslari", "Studiyada asosiy şablonlar", "Hamjamiyatga kiriş"],
+                isFeatured: false, "Bepul boşlaş", "/royxatdan-otish", 1),
             new PricingPlan(
-                "Pro", "O‘qituvchi uchun", null, "so‘m / oy",
-                ["Barcha kurslar va amaliy topshiriqlar", "Barcha shablonlar", "Sertifikat", "Progress kuzatuvi"],
-                isFeatured: true, "Pro ni tanlash", "/royxatdan-otish", 2),
+                "Pro", "Öqituvçi uçun", null, "söm / oy",
+                ["Barça kurslar va amaliy topşiriqlar", "Barça şablonlar", "Sertifikat", "Progress kuzatuvi"],
+                isFeatured: true, "Pro ni tanlaş", "/royxatdan-otish", 2),
             new PricingPlan(
-                "Tashkilot", "Maktab, kollej va OTM uchun", null, "so‘m",
-                ["Pro dagi barcha imkoniyatlar", "O‘qituvchilar jamoasi uchun hisob", "Jamoa progressini kuzatish"],
-                isFeatured: false, "Bog‘lanish", "#boglanish", 3));
+                "Taşkilot", "Maktab, kollej va OTM uçun", null, "söm",
+                ["Pro dagi barça imkoniyatlar", "Öqituvçilar jamoasi uçun hisob", "Jamoa progressini kuzatiş"],
+                isFeatured: false, "Boğlaniş", "#boglanish", 3));
 
         db.Testimonials.AddRange(
-            new Testimonial("[O‘qituvchi sharhi shu yerga joylanadi — real fikr, egasining ruxsati bilan.]",
-                "[Ism Familiya]", "[Fan o‘qituvchisi, maktab]", null, isVerified: false, 1),
-            new Testimonial("[Talaba sharhi shu yerga joylanadi — real fikr, egasining ruxsati bilan.]",
+            new Testimonial("[Öqituvçi şarhi şu yerga joylanadi — real fikr, egasining ruxsati bilan.]",
+                "[Ism Familiya]", "[Fan öqituvçisi, maktab]", null, isVerified: false, 1),
+            new Testimonial("[Talaba şarhi şu yerga joylanadi — real fikr, egasining ruxsati bilan.]",
                 "[Ism Familiya]", "[Talaba, OTM nomi]", null, isVerified: false, 2),
-            new Testimonial("[Muassasa vakili sharhi shu yerga joylanadi — real fikr, egasining ruxsati bilan.]",
+            new Testimonial("[Muassasa vakili şarhi şu yerga joylanadi — real fikr, egasining ruxsati bilan.]",
                 "[Ism Familiya]", "[Lavozim, muassasa]", null, isVerified: false, 3));
 
         db.FaqItems.AddRange(
-            new FaqItem("Foydalanish uchun dizayn ko‘nikmasi kerakmi?",
-                "Yo‘q. Akademiya kurslari vizual material yaratishni noldan, bosqichma-bosqich o‘rgatadi. Studiyadagi tayyor shablonlar esa ishni yanada osonlashtiradi.", 1),
+            new FaqItem("Foydalaniş uçun dizayn könikmasi kerakmi?",
+                "Yöq. Akademiya kurslari vizual material yaratişni noldan, bosqiçma-bosqiç örgatadi. Studiyadagi tayyor şablonlar esa işni yanada osonlaştiradi.", 1),
             new FaqItem(AcademyVsStudioQuestion,
                 AcademyVsStudioAnswer, 2),
-            new FaqItem("Qaysi fanlar uchun mos?",
-                "Galereyada matematika, biologiya, tarix, informatika va ona tili bo‘yicha namunalar bor. Metodika har qanday fan mavzusini vizual shaklga keltirishga yo‘naltirilgan.", 3),
+            new FaqItem("Qaysi fanlar uçun mos?",
+                "Galereyada matematika, biologiya, tarix, informatika va ona tili böyiça namunalar bor. Metodika har qanday fan mavzusini vizual şaklga keltirişga yönaltirilgan.", 3),
             new FaqItem("Sertifikat beriladimi?",
-                "Sertifikat hozircha ishlab chiqilmoqda. Kursdagi natijalaringiz saqlanadi, sertifikat ishga tushgach e’lon qilamiz.", 4),
+                "Sertifikat hozirça işlab çiqilmoqda. Kursdagi natijalaringiz saqlanadi, sertifikat işga tuşgaç e’lon qilamiz.", 4),
             new FaqItem(ScientificBasisQuestion,
                 ScientificBasisAnswer, 5),
-            new FaqItem("Maktab yoki OTM uchun alohida tarif bormi?",
-                "Ha, “Tashkilot” tarifi ta’lim muassasalari uchun mo‘ljallangan. Shartlar bo‘yicha biz bilan bog‘laning.", 6));
+            new FaqItem("Maktab yoki OTM uçun alohida tarif bormi?",
+                "Ha, “Taşkilot” tarifi ta’lim muassasalari uçun möljallangan. Şartlar böyiça biz bilan boğlaning.", 6));
 
         await db.SaveChangesAsync(cancellationToken);
     }

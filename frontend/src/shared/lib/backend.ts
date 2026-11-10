@@ -13,7 +13,7 @@ export type ApiFailure = {
 
 export type ApiResult<T> = { ok: true; data: T } | ApiFailure;
 
-const UNAVAILABLE = "Xizmat vaqtincha ishlamayapti. Birozdan so‘ng qayta urining.";
+const UNAVAILABLE = "Xizmat vaqtinça işlamayapti. Birozdan söng qayta urining.";
 const SESSION_EXPIRED = "Sessiya tugagan. Qayta kiring.";
 
 type RequestOptions = {
@@ -41,7 +41,7 @@ export async function backendRequest<T>(path: string, { method = "POST", body, a
       cache: "no-store",
     });
   } catch (error) {
-    console.error(`[backend] ${path} ga ulanib bo‘lmadi`, error);
+    console.error(`[backend] ${path} ga ulanib bölmadi`, error);
     return { ok: false, status: 503, message: UNAVAILABLE };
   }
 

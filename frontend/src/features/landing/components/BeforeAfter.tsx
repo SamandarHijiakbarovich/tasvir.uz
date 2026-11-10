@@ -17,27 +17,27 @@ export function BeforeAfter() {
         <SectionHead
           id="ba-t"
           label="Oldin / Keyin"
-          title="Bir xil mavzu — butunlay boshqa taassurot"
-          lead="Slayderni suring va oddiy matnli slayd Tasvir.uz da qanday ko‘rinishga kelishini solishtiring."
+          title="Bir xil mavzu — butunlay boşqa taassurot"
+          lead="Slayderni suring va oddiy matnli slayd Tasvir.uz da qanday körinişga kelişini soliştiring."
         />
         <div className="tv-ba tv-reveal" style={{ "--pos": `${pos}%` } as CSSProperties}>
-          <div className="tv-ba-pane ba-before" role="img" aria-label="Oldin: ‘Suvning tabiatda aylanishi’ mavzusidagi faqat matndan iborat slayd">
-            <h4>Suvning tabiatda aylanishi</h4>
+          <div className="tv-ba-pane ba-before" role="img" aria-label="Oldin: ‘Suvning tabiatda aylanişi’ mavzusidagi faqat matndan iborat slayd">
+            <h4>Suvning tabiatda aylanişi</h4>
             <p>
-              Quyosh issiqligi ta’sirida dengiz, ko‘l va daryolar yuzasidan suv bug‘lanadi. Suv bug‘i havoga ko‘tariladi,
-              soviydi va mayda tomchilarga aylanib bulutlarni hosil qiladi (kondensatsiya). Tomchilar yiriklashgach,
-              bulutlardan yomg‘ir yoki qor ko‘rinishida yog‘in tushadi. Yog‘in suvlari daryolar va yer osti suvlari orqali
-              yana dengiz va okeanlarga oqib boradi. Shu tariqa jarayon qayta-qayta takrorlanadi.
+              Quyoş issiqligi ta’sirida dengiz, köl va daryolar yuzasidan suv buğlanadi. Suv buği havoga kötariladi,
+              soviydi va mayda tomçilarga aylanib bulutlarni hosil qiladi (kondensatsiya). Tomçilar yiriklaşgaç,
+              bulutlardan yomğir yoki qor körinişida yoğin tuşadi. Yoğin suvlari daryolar va yer osti suvlari orqali
+              yana dengiz va okeanlarga oqib boradi. Şu tariqa jarayon qayta-qayta takrorlanadi.
             </p>
           </div>
           <div
             className="tv-ba-pane ba-after tv-ba-after"
             role="img"
-            aria-label="Keyin: xuddi shu mavzu — bug‘lanish, kondensatsiya, yog‘in va oqim bosqichlari aylana sxemada"
+            aria-label="Keyin: xuddi şu mavzu — buğlaniş, kondensatsiya, yoğin va oqim bosqiçlari aylana sxemada"
           >
             <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
               <text x="800" y="96" textAnchor="middle" style={{ font: "800 56px var(--font-display)", fill: "var(--ink)" }}>
-                Suvning tabiatda aylanishi
+                Suvning tabiatda aylanişi
               </text>
               <circle cx="800" cy="500" r="250" fill="none" strokeDasharray="4 18" strokeLinecap="round" style={{ stroke: "var(--ink-muted)", strokeWidth: 5 }} />
               <g style={{ fill: "none", stroke: "var(--ink)", strokeWidth: 6, strokeLinecap: "round", strokeLinejoin: "round" }}>
@@ -52,11 +52,11 @@ export function BeforeAfter() {
               </g>
               <circle cx="800" cy="500" r="120" style={{ fill: "var(--brand)" }} />
               <text x="800" y="490" textAnchor="middle" style={center}>Suv</text>
-              <text x="800" y="530" textAnchor="middle" style={center}>aylanishi</text>
+              <text x="800" y="530" textAnchor="middle" style={center}>aylanişi</text>
               <g>
                 <circle cx="560" cy="250" r="92" style={{ fill: "var(--sun)" }} />
                 <text x="560" y="244" textAnchor="middle" style={num}>1</text>
-                <text x="560" y="282" textAnchor="middle" style={lbl}>Bug‘lanish</text>
+                <text x="560" y="282" textAnchor="middle" style={lbl}>Buğlaniş</text>
               </g>
               <g>
                 <circle cx="1060" cy="260" r="92" style={{ fill: "var(--card)", stroke: "var(--line-strong)", strokeWidth: 4 }} />
@@ -66,16 +66,16 @@ export function BeforeAfter() {
               <g>
                 <circle cx="1060" cy="750" r="92" style={{ fill: "var(--mint)" }} />
                 <text x="1060" y="744" textAnchor="middle" style={num}>3</text>
-                <text x="1060" y="782" textAnchor="middle" style={lbl}>Yog‘in</text>
+                <text x="1060" y="782" textAnchor="middle" style={lbl}>Yoğin</text>
               </g>
               <g>
                 <circle cx="540" cy="740" r="92" style={{ fill: "var(--coral)" }} />
                 <text x="540" y="734" textAnchor="middle" style={num}>4</text>
                 <text x="540" y="772" textAnchor="middle" style={lbl}>Oqim</text>
               </g>
-              <text x="250" y="250" textAnchor="middle" style={note}>quyosh isitadi</text>
-              <text x="1350" y="260" textAnchor="middle" style={note}>bulut hosil bo‘ladi</text>
-              <text x="1350" y="750" textAnchor="middle" style={note}>yomg‘ir, qor</text>
+              <text x="250" y="250" textAnchor="middle" style={note}>quyoş isitadi</text>
+              <text x="1350" y="260" textAnchor="middle" style={note}>bulut hosil böladi</text>
+              <text x="1350" y="750" textAnchor="middle" style={note}>yomğir, qor</text>
               <text x="250" y="740" textAnchor="middle" style={note}>daryo → dengiz</text>
             </svg>
           </div>
@@ -91,7 +91,7 @@ export function BeforeAfter() {
             max={100}
             value={pos}
             onChange={(e) => setPos(Number(e.target.value))}
-            aria-label="Oldin va keyin ko‘rinishini solishtirish slayderi"
+            aria-label="Oldin va keyin körinişini soliştiriş slayderi"
           />
           <div className="tv-ba-line">
             <div className="tv-ba-knob">
@@ -101,7 +101,7 @@ export function BeforeAfter() {
             </div>
           </div>
         </div>
-        <p className="ba-hint">← Strelka tugmalari bilan ham boshqarish mumkin →</p>
+        <p className="ba-hint">← Strelka tugmalari bilan ham boşqariş mumkin →</p>
       </div>
     </section>
   );

@@ -26,7 +26,7 @@ export function VideoStep({ content }: { content: VideoContent }) {
       <p className="tv-video-source">
         Video: “{content.sourceTitle}”. Muallifning YouTube’dagi darsi.{" "}
         <a href={watchUrl} target="_blank" rel="noopener noreferrer">
-          YouTube’da ochish ↗
+          YouTube’da oçiş ↗
         </a>
       </p>
     </div>

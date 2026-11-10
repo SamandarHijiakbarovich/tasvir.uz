@@ -20,10 +20,10 @@ export default function NewMaterialPage() {
             <Link href="/studiya">Materiallarim</Link>
           </p>
           <h1 className="tv-h2" style={{ marginTop: 8 }}>
-            Mazmunga mos shablonni tanlang
+            Mazmunga mos şablonni tanlang
           </h1>
           <p className="tv-lead" style={{ marginTop: 8 }}>
-            Avval o‘zingizga savol bering: mavzuda tushunchalar bir-biri bilan qanday bog‘langan?
+            Avval özingizga savol bering: mavzuda tuşunçalar bir-biri bilan qanday boğlangan?
           </p>
         </div>
 
@@ -41,7 +41,7 @@ export default function NewMaterialPage() {
                 <p className="tv-template-why">{template.whenToUse}</p>
                 <form className="tv-material-actions" action={createFromTemplateAction.bind(null, template.key)}>
                   <button className="tv-btn tv-btn-primary tv-btn-sm" type="submit">
-                    Shu shablondan boshlash
+                    Şu şablondan boşlaş
                   </button>
                 </form>
               </li>

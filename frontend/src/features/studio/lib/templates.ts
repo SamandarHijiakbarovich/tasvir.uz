@@ -16,7 +16,7 @@ export type TemplateDefinition = {
 };
 
 export const SUBJECTS = [
-  "Matematika", "Fizika", "Kimyo", "Biologiya", "Geografiya", "Tarix", "Ona tili", "Adabiyot", "Chet tili", "Informatika", "Boshlang‘ich ta’lim",
+  "Matematika", "Fizika", "Kimyo", "Biologiya", "Geografiya", "Tarix", "Ona tili", "Adabiyot", "Çet tili", "Informatika", "Boşlanğiç ta’lim",
 ];
 
 export const TEMPLATES: TemplateDefinition[] = [
@@ -24,23 +24,23 @@ export const TEMPLATES: TemplateDefinition[] = [
     key: "process",
     name: "Blok-sxema",
     relation: "Ketma-ketlik",
-    whenToUse: "Jarayon, algoritm yoki bosqichlarni tushuntirishda.",
+    whenToUse: "Jarayon, algoritm yoki bosqiçlarni tuşuntirişda.",
     minItems: 2,
     maxItems: 8,
-    itemName: "Bosqich",
-    headingLabel: "Bosqich nomi",
+    itemName: "Bosqiç",
+    headingLabel: "Bosqiç nomi",
     textLabel: "Qisqa izoh",
     noteLabel: "Pastki izoh",
     starter: {
-      title: "Suvning tabiatda aylanishi",
+      title: "Suvning tabiatda aylanişi",
       subject: "Geografiya",
       content: {
         accent: "sun",
         note: null,
         items: [
-          { heading: "Bug‘lanish", text: "Quyosh issig‘ida suv bug‘ga aylanadi" },
-          { heading: "Kondensatsiya", text: "Bug‘ soviydi va bulut hosil qiladi" },
-          { heading: "Yog‘in", text: "Bulutdan yomg‘ir yoki qor yog‘adi" },
+          { heading: "Buğlaniş", text: "Quyoş issiğida suv buğga aylanadi" },
+          { heading: "Kondensatsiya", text: "Buğ soviydi va bulut hosil qiladi" },
+          { heading: "Yoğin", text: "Bulutdan yomğir yoki qor yoğadi" },
           { heading: "Oqim", text: "Suv daryolar orqali dengizga qaytadi" },
         ],
       },
@@ -48,9 +48,9 @@ export const TEMPLATES: TemplateDefinition[] = [
   },
   {
     key: "timeline",
-    name: "Vaqt chizig‘i",
+    name: "Vaqt çiziği",
     relation: "Xronologiya",
-    whenToUse: "Tarixiy voqealar yoki sanalar tartibini ko‘rsatishda.",
+    whenToUse: "Tarixiy voqealar yoki sanalar tartibini körsatişda.",
     minItems: 2,
     maxItems: 8,
     itemName: "Voqea",
@@ -64,9 +64,9 @@ export const TEMPLATES: TemplateDefinition[] = [
         accent: "coral",
         note: null,
         items: [
-          { heading: "1336", text: "Keshda (hozirgi Shahrisabz) tug‘ildi" },
-          { heading: "1370", text: "Movarounnahrda hokimiyatni qo‘lga oldi" },
-          { heading: "1405", text: "Xitoyga yurish vaqtida O‘trorda vafot etdi" },
+          { heading: "1336", text: "Keşda (hozirgi Şahrisabz) tuğildi" },
+          { heading: "1370", text: "Movarounnahrda hokimiyatni qölga oldi" },
+          { heading: "1405", text: "Xitoyga yuriş vaqtida Ötrorda vafot etdi" },
         ],
       },
     },
@@ -75,7 +75,7 @@ export const TEMPLATES: TemplateDefinition[] = [
     key: "mindmap",
     name: "Aqliy xarita",
     relation: "Ierarxiya va tasnif",
-    whenToUse: "Mavzuni umumlashtirish yoki g‘oyalarni yig‘ishda.",
+    whenToUse: "Mavzuni umumlaştiriş yoki ğoyalarni yiğişda.",
     minItems: 2,
     maxItems: 8,
     itemName: "Tarmoq",
@@ -83,15 +83,15 @@ export const TEMPLATES: TemplateDefinition[] = [
     textLabel: "Tarkibi",
     noteLabel: "Pastki izoh",
     starter: {
-      title: "So‘z turkumlari",
+      title: "Söz turkumlari",
       subject: "Ona tili",
       content: {
         accent: "mint",
         note: null,
         items: [
-          { heading: "Mustaqil", text: "Ot, sifat, son, olmosh, fe’l, ravish" },
-          { heading: "Yordamchi", text: "Ko‘makchi, bog‘lovchi, yuklama" },
-          { heading: "Alohida guruh", text: "Modal, undov, taqlid so‘zlar" },
+          { heading: "Mustaqil", text: "Ot, sifat, son, olmoş, fe’l, raviş" },
+          { heading: "Yordamçi", text: "Kömakçi, boğlovçi, yuklama" },
+          { heading: "Alohida guruh", text: "Modal, undov, taqlid sözlar" },
         ],
       },
     },
@@ -99,24 +99,24 @@ export const TEMPLATES: TemplateDefinition[] = [
   {
     key: "comparison",
     name: "Qiyosiy jadval",
-    relation: "Taqqoslash",
-    whenToUse: "Ikki-to‘rtta tushunchani bir xil mezonlar bo‘yicha solishtirishda.",
+    relation: "Taqqoslaş",
+    whenToUse: "Ikki-törtta tuşunçani bir xil mezonlar böyiça soliştirişda.",
     minItems: 1,
     maxItems: 8,
     itemName: "Mezon",
     headingLabel: "Mezon",
     noteLabel: "Pastki izoh",
     starter: {
-      title: "Fotosintez va nafas olish",
+      title: "Fotosintez va nafas oliş",
       subject: "Biologiya",
       content: {
         accent: "brand",
         note: null,
-        columns: ["Fotosintez", "Nafas olish"],
+        columns: ["Fotosintez", "Nafas oliş"],
         items: [
           { heading: "Qayerda", cells: ["Xloroplastda", "Mitoxondriyada"] },
-          { heading: "Nima kerak", cells: ["Yorug‘lik, CO₂, suv", "Glyukoza, kislorod"] },
-          { heading: "Nima hosil bo‘ladi", cells: ["Glyukoza, kislorod", "CO₂, suv, energiya"] },
+          { heading: "Nima kerak", cells: ["Yoruğlik, CO₂, suv", "Glyukoza, kislorod"] },
+          { heading: "Nima hosil böladi", cells: ["Glyukoza, kislorod", "CO₂, suv, energiya"] },
         ],
       },
     },
@@ -124,8 +124,8 @@ export const TEMPLATES: TemplateDefinition[] = [
   {
     key: "infographic",
     name: "Infografika",
-    relation: "Bitta asosiy g‘oya",
-    whenToUse: "Bir g‘oyani bir nechta qisqa blok bilan yetkazishda.",
+    relation: "Bitta asosiy ğoya",
+    whenToUse: "Bir ğoyani bir neçta qisqa blok bilan yetkazişda.",
     minItems: 2,
     maxItems: 6,
     itemName: "Blok",
@@ -133,16 +133,16 @@ export const TEMPLATES: TemplateDefinition[] = [
     textLabel: "Qisqa matn",
     noteLabel: "Xulosa yoki manba",
     starter: {
-      title: "Nega suv ichish muhim?",
+      title: "Nega suv içiş muhim?",
       subject: "Biologiya",
       content: {
         accent: "mint",
-        note: "Bu namuna. Matnni o‘z mavzuingizga almashtiring va manbani ko‘rsating.",
+        note: "Bu namuna. Matnni öz mavzuingizga almaştiring va manbani körsating.",
         items: [
-          { heading: "Haroratni boshqaradi", text: "Terlash orqali tana soviydi" },
-          { heading: "Moddalarni tashiydi", text: "Qon orqali ozuqa hujayralarga yetadi" },
-          { heading: "Hazmga yordam beradi", text: "Ovqat oson parchalanadi" },
-          { heading: "Diqqatni saqlaydi", text: "Suv yetishmasa, tez charchaymiz" },
+          { heading: "Haroratni boşqaradi", text: "Terlaş orqali tana soviydi" },
+          { heading: "Moddalarni taşiydi", text: "Qon orqali ozuqa hujayralarga yetadi" },
+          { heading: "Hazmga yordam beradi", text: "Ovqat oson parçalanadi" },
+          { heading: "Diqqatni saqlaydi", text: "Suv yetişmasa, tez çarçaymiz" },
         ],
       },
     },
@@ -153,7 +153,7 @@ export const getTemplate = (key: string) => TEMPLATES.find((t) => t.key === key)
 
 export const ACCENTS = [
   { key: "sun", label: "Sariq", fill: "#ffc93c", ink: "#17162b" },
-  { key: "mint", label: "Yashil", fill: "#2ec4a0", ink: "#17162b" },
+  { key: "mint", label: "Yaşil", fill: "#2ec4a0", ink: "#17162b" },
   { key: "coral", label: "Marjon", fill: "#ff6b57", ink: "#17162b" },
-  { key: "brand", label: "Binafsha", fill: "#3d35c6", ink: "#ffffff" },
+  { key: "brand", label: "Binafşa", fill: "#3d35c6", ink: "#ffffff" },
 ] as const;

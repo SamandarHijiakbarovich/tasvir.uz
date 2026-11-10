@@ -22,7 +22,7 @@ function GroupList({ groups, role }: { groups: GroupSummary[]; role: "teacher" |
           <h3 className="tv-h3">
             <Link href={`/guruhlar/${group.id}`}>{group.name}</Link>
           </h3>
-          <p className="tv-material-meta">{role === "teacher" ? `${group.memberCount} ta talaba · kod: ${group.joinCode}` : `O‘qituvchi: ${group.teacherName}`}</p>
+          <p className="tv-material-meta">{role === "teacher" ? `${group.memberCount} ta talaba · kod: ${group.joinCode}` : `Öqituvçi: ${group.teacherName}`}</p>
         </li>
       ))}
     </ul>
@@ -45,7 +45,7 @@ export default async function GroupsPage({ searchParams }: Props) {
         <div>
           <h1 className="tv-h2">Guruhlar</h1>
           <p className="tv-muted" style={{ margin: "var(--space-2) 0 0" }}>
-            Guruh yaratsangiz, uning o‘qituvchisi bo‘lasiz. Kod bilan qo‘shilsangiz, talabasi.
+            Guruh yaratsangiz, uning öqituvçisi bölasiz. Kod bilan qöşilsangiz, talabasi.
           </p>
         </div>
 
@@ -58,7 +58,7 @@ export default async function GroupsPage({ searchParams }: Props) {
         {teaching.length > 0 && (
           <section aria-labelledby="oqitaman-t" className="tv-group-section">
             <h2 className="tv-h3" id="oqitaman-t">
-              O‘qitayotgan guruhlarim
+              Öqitayotgan guruhlarim
             </h2>
             <GroupList groups={teaching} role="teacher" />
           </section>
@@ -67,7 +67,7 @@ export default async function GroupsPage({ searchParams }: Props) {
         {studying.length > 0 && (
           <section aria-labelledby="oqiyman-t" className="tv-group-section">
             <h2 className="tv-h3" id="oqiyman-t">
-              O‘qiyotgan guruhlarim
+              Öqiyotgan guruhlarim
             </h2>
             <GroupList groups={studying} role="student" />
           </section>
@@ -76,13 +76,13 @@ export default async function GroupsPage({ searchParams }: Props) {
         <div className="tv-cabinet-grid">
           <section className="tv-card" aria-labelledby="qoshilish-t">
             <h2 className="tv-h3" id="qoshilish-t">
-              Guruhga qo‘shilish
+              Guruhga qöşiliş
             </h2>
             <JoinGroupForm code={kod} />
           </section>
           <section className="tv-card" aria-labelledby="yaratish-t">
             <h2 className="tv-h3" id="yaratish-t">
-              Yangi guruh yaratish
+              Yangi guruh yaratiş
             </h2>
             <CreateGroupForm />
           </section>

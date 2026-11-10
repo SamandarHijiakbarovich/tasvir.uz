@@ -6,7 +6,7 @@ import { RegisterForm } from "@/features/auth/components/forms";
 import { getCurrentUser } from "@/features/auth/lib/identity-api";
 import { safeNextPath } from "@/features/auth/lib/session-cookies";
 
-export const metadata: Metadata = { title: "Ro‘yxatdan o‘tish — Tasvir.uz" };
+export const metadata: Metadata = { title: "Röyxatdan ötiş — Tasvir.uz" };
 
 type Props = { searchParams: Promise<{ keyin?: string }> };
 
@@ -19,10 +19,10 @@ export default async function RegisterPage({ searchParams }: Props) {
   return (
     <AuthShell
       title="Hisob yarating"
-      lead="Birinchi vizual darsingizga bir qadam qoldi. Karta talab qilinmaydi."
+      lead="Birinçi vizual darsingizga bir qadam qoldi. Karta talab qilinmaydi."
       footer={
         <>
-          Hisobingiz bormi? <Link href={`/kirish${keyin ? `?keyin=${encodeURIComponent(next)}` : ""}`}>Kirish</Link>
+          Hisobingiz bormi? <Link href={`/kirish${keyin ? `?keyin=${encodeURIComponent(next)}` : ""}`}>Kiriş</Link>
         </>
       }
     >

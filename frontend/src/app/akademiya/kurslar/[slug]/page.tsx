@@ -11,16 +11,16 @@ import "@/styles/academy.css";
 export const metadata: Metadata = { title: "Kurs — Tasvir.uz", robots: { index: false, follow: false } };
 
 const statusText: Record<LessonSummary["status"], string> = {
-  locked: "Oldingi darsdan so‘ng ochiladi",
-  available: "Ochiq",
-  inProgress: "Boshlangan",
+  locked: "Oldingi darsdan söng oçiladi",
+  available: "Oçiq",
+  inProgress: "Boşlangan",
   completed: "Yakunlangan",
 };
 
 const actionText: Partial<Record<LessonSummary["status"], string>> = {
-  available: "Darsni boshlash",
-  inProgress: "Davom ettirish",
-  completed: "Qayta ko‘rish",
+  available: "Darsni boşlaş",
+  inProgress: "Davom ettiriş",
+  completed: "Qayta köriş",
 };
 
 type Props = { params: Promise<{ slug: string }> };
@@ -68,7 +68,7 @@ export default async function CoursePage({ params }: Props) {
           <span>
             {course.completedLessons} / {course.totalLessons} dars
           </span>
-          <div className="tv-progress" role="progressbar" aria-label="Kurs bo‘yicha natija" aria-valuenow={percent} aria-valuemin={0} aria-valuemax={100}>
+          <div className="tv-progress" role="progressbar" aria-label="Kurs böyiça natija" aria-valuenow={percent} aria-valuemin={0} aria-valuemax={100}>
             <i style={{ width: `${percent}%` }} />
           </div>
         </div>

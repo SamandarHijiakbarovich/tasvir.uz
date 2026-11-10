@@ -12,9 +12,9 @@ public sealed class AcademyService(IAcademyRepository repository, TimeProvider c
 
     private static readonly Error CourseNotFound = new("course_not_found", "Kurs topilmadi.", ErrorKind.NotFound);
     private static readonly Error LessonNotFound = new("lesson_not_found", "Dars topilmadi.", ErrorKind.NotFound);
-    private static readonly Error StepNotFound = new("step_not_found", "Dars bosqichi topilmadi.", ErrorKind.NotFound);
-    private static readonly Error LessonLocked = new("lesson_locked", "Bu dars oldingi darsni tugatgandan so‘ng ochiladi.", ErrorKind.Conflict);
-    private static readonly Error StepOutOfOrder = new("step_out_of_order", "Avval oldingi bosqichni yakunlang.", ErrorKind.Conflict);
+    private static readonly Error StepNotFound = new("step_not_found", "Dars bosqiçi topilmadi.", ErrorKind.NotFound);
+    private static readonly Error LessonLocked = new("lesson_locked", "Bu dars oldingi darsni tugatgandan söng oçiladi.", ErrorKind.Conflict);
+    private static readonly Error StepOutOfOrder = new("step_out_of_order", "Avval oldingi bosqiçni yakunlang.", ErrorKind.Conflict);
 
     private DateTime Now => clock.GetUtcNow().UtcDateTime;
 
@@ -233,7 +233,7 @@ public sealed class AcademyService(IAcademyRepository repository, TimeProvider c
         LessonStepKind.Exercise => EvaluateExercise(StepContentJson.Deserialize<ExerciseContent>(step.ContentJson), request),
         LessonStepKind.Quiz => EvaluateQuiz(StepContentJson.Deserialize<QuizContent>(step.ContentJson), request),
         LessonStepKind.Practice => EvaluatePractice(StepContentJson.Deserialize<PracticeContent>(step.ContentJson), request),
-        _ => throw new InvalidOperationException($"Noma’lum bosqich turi: {step.Kind}"),
+        _ => throw new InvalidOperationException($"Noma’lum bosqiç turi: {step.Kind}"),
     };
 
     private static Evaluation EvaluateExercise(ExerciseContent exercise, CompleteStepRequest request)
@@ -241,12 +241,12 @@ public sealed class AcademyService(IAcademyRepository repository, TimeProvider c
         var answer = NormalizeNumber(request.Text);
         if (answer is null)
         {
-            return Invalid("Javobni son ko‘rinishida yozing.");
+            return Invalid("Javobni son körinişida yozing.");
         }
 
         return answer == NormalizeNumber(exercise.Answer)
             ? new Evaluation(true, true, exercise.Explanation, StepContentJson.Serialize(new CompleteStepRequest(null, request.Text!.Trim(), null)))
-            : new Evaluation(false, false, $"Hali to‘g‘ri emas. {exercise.Hint}");
+            : new Evaluation(false, false, $"Hali töğri emas. {exercise.Hint}");
     }
 
     /// <summary>"1 200", "1200" va "12,5" kabi yozuvlarni bir xil songa keltiradi. Son bo‘lmasa, null.</summary>
@@ -278,7 +278,7 @@ public sealed class AcademyService(IAcademyRepository repository, TimeProvider c
                 var text = request.Text?.Trim() ?? string.Empty;
                 if (text.Length is < MinTextLength or > MaxTextLength)
                 {
-                    return Invalid($"Javobingizni {MinTextLength}–{MaxTextLength} belgi oralig‘ida yozing.");
+                    return Invalid($"Javobingizni {MinTextLength}–{MaxTextLength} belgi oraliğida yozing.");
                 }
 
                 return new Evaluation(true, ResponseJson: StepContentJson.Serialize(new CompleteStepRequest(null, text, null)));
@@ -287,12 +287,12 @@ public sealed class AcademyService(IAcademyRepository repository, TimeProvider c
                 var items = (request.Items ?? []).Select(i => i.Trim()).Where(i => i.Length > 0).ToList();
                 if (items.Count < practice.MinItems || items.Count > practice.MaxItems)
                 {
-                    return Invalid($"Sxemada {practice.MinItems} tadan {practice.MaxItems} tagacha bosqich bo‘lsin.");
+                    return Invalid($"Sxemada {practice.MinItems} tadan {practice.MaxItems} tagaça bosqiç bölsin.");
                 }
 
                 if (items.Any(i => i.Length > MaxItemLength))
                 {
-                    return Invalid($"Har bir bosqich nomi {MaxItemLength} belgidan oshmasin: sxemada qisqa yozuv yaxshi o‘qiladi.");
+                    return Invalid($"Har bir bosqiç nomi {MaxItemLength} belgidan oşmasin: sxemada qisqa yozuv yaxşi öqiladi.");
                 }
 
                 return new Evaluation(true, ResponseJson: StepContentJson.Serialize(new CompleteStepRequest(null, null, items)));
@@ -302,13 +302,13 @@ public sealed class AcademyService(IAcademyRepository repository, TimeProvider c
                 var ticked = request.Items ?? [];
                 if (checklist.Any(c => !ticked.Contains(c)))
                 {
-                    return Invalid("Barcha bandlarni tekshirib belgilang. Biror band bajarilmagan bo‘lsa, orqaga qaytib sxemani tuzating.");
+                    return Invalid("Barça bandlarni tekşirib belgilang. Biror band bajarilmagan bölsa, orqaga qaytib sxemani tuzating.");
                 }
 
                 return new Evaluation(true, ResponseJson: StepContentJson.Serialize(new CompleteStepRequest(null, null, checklist)));
 
             default:
-                throw new InvalidOperationException($"Noma’lum topshiriq turi: {practice.Mode}");
+                throw new InvalidOperationException($"Noma’lum topşiriq turi: {practice.Mode}");
         }
     }
 
@@ -331,7 +331,7 @@ public sealed class AcademyService(IAcademyRepository repository, TimeProvider c
             LessonStepKind.Video => new StepDto(step.Id, "video", step.Title, isCompleted, null, null, null,
                 StepContentJson.Deserialize<VideoContent>(step.ContentJson), null, saved),
             LessonStepKind.Exercise => new StepDto(step.Id, "exercise", step.Title, isCompleted, null, null, null, null, ToExerciseDto(step), saved),
-            _ => throw new InvalidOperationException($"Noma’lum bosqich turi: {step.Kind}"),
+            _ => throw new InvalidOperationException($"Noma’lum bosqiç turi: {step.Kind}"),
         };
     }
 

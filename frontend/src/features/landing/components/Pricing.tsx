@@ -8,11 +8,11 @@ export function Pricing({ plans }: { plans: PricingPlan[] }) {
   return (
     <section className="tv-section tv-alt" id="narxlar" aria-labelledby="narx-t">
       <div className="tv-wrap">
-        <SectionHead id="narx-t" label="Narxlar" title="O‘zingizga mos tarifni tanlang" />
+        <SectionHead id="narx-t" label="Narxlar" title="Özingizga mos tarifni tanlang" />
         <div className="tv-grid-3 price-grid">
           {plans.map((p) => (
             <article key={p.id} className={`tv-card tv-price tv-reveal${p.isFeatured ? " featured" : ""}`}>
-              {p.isFeatured && <span className="tv-sticker tv-sticker-sun">Eng mashhur</span>}
+              {p.isFeatured && <span className="tv-sticker tv-sticker-sun">Eng maşhur</span>}
               <h3 className="tv-h3">{p.name}</h3>
               <p className="tv-muted" style={{ margin: 0 }}>
                 {p.description}

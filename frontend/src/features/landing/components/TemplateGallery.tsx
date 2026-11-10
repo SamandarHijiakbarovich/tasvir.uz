@@ -37,9 +37,9 @@ const templates: { subject: Subject; title: string; meta: string; alt: string; a
   },
   {
     subject: "bio",
-    title: "Hujayra tuzilishi",
+    title: "Hujayra tuzilişi",
     meta: "Biologiya · sxema",
-    alt: "Biologiya: hujayra tuzilishi sxemasi namunasi",
+    alt: "Biologiya: hujayra tuzilişi sxemasi namunasi",
     art: (
       <>
         <ellipse cx="100" cy="75" rx="80" ry="58" className="v-mint" style={{ opacity: 0.35 }} />
@@ -55,9 +55,9 @@ const templates: { subject: Subject; title: string; meta: string; alt: string; a
   },
   {
     subject: "tar",
-    title: "Vaqt chizig‘i",
+    title: "Vaqt çiziği",
     meta: "Tarix · xronologiya",
-    alt: "Tarix: voqealar vaqt chizig‘i namunasi",
+    alt: "Tarix: voqealar vaqt çiziği namunasi",
     art: (
       <>
         <path d="M14 78h172" style={{ stroke: "var(--ink)", strokeWidth: 3, strokeLinecap: "round" }} />
@@ -85,7 +85,7 @@ const templates: { subject: Subject; title: string; meta: string; alt: string; a
         <rect x="70" y="6" width="60" height="22" rx="11" className="v-mint" />
         <path d="M100 28v12M100 92v12M64 66H40v52h24M136 66h24v52h-24" className="v-arrow" style={{ strokeWidth: 2.5 }} />
         <path d="M100 40l36 26-36 26-36-26z" className="v-sun" />
-        <text x="100" y="70" textAnchor="middle" style={small("#17162b")}>shart?</text>
+        <text x="100" y="70" textAnchor="middle" style={small("#17162b")}>şart?</text>
         <rect x="64" y="104" width="72" height="28" rx="6" className="v-brand" />
         <text x="100" y="122" textAnchor="middle" style={small("var(--on-brand)")}>amal</text>
       </>
@@ -93,9 +93,9 @@ const templates: { subject: Subject; title: string; meta: string; alt: string; a
   },
   {
     subject: "ona",
-    title: "Gap bo‘laklari",
+    title: "Gap bölaklari",
     meta: "Ona tili · aqliy xarita",
-    alt: "Ona tili: gap bo‘laklari aqliy xaritasi namunasi",
+    alt: "Ona tili: gap bölaklari aqliy xaritasi namunasi",
     art: (
       <>
         <g className="v-arrow" style={{ strokeWidth: 2.5 }}>
@@ -119,8 +119,8 @@ export function TemplateGallery() {
   return (
     <section className="tv-section" aria-labelledby="tpl-t">
       <div className="tv-wrap">
-        <SectionHead id="tpl-t" label="Shablonlar galereyasi" title="Har bir fan uchun tayyor vizual namunalar" />
-        <div className="tv-chips" role="group" aria-label="Fan bo‘yicha saralash">
+        <SectionHead id="tpl-t" label="Şablonlar galereyasi" title="Har bir fan uçun tayyor vizual namunalar" />
+        <div className="tv-chips" role="group" aria-label="Fan böyiça saralaş">
           {filters.map((f) => (
             <button key={f.id} className="tv-chip" type="button" aria-pressed={active === f.id} onClick={() => setActive(f.id)}>
               {f.label}
@@ -148,7 +148,7 @@ export function TemplateGallery() {
         </div>
         <div style={{ textAlign: "center", marginTop: 36 }}>
           <a className="tv-btn tv-btn-ghost" href="#shablonlar">
-            Barcha shablonlarni ko‘rish
+            Barça şablonlarni köriş
           </a>
         </div>
       </div>

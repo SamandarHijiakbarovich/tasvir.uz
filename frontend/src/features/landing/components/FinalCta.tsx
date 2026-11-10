@@ -15,14 +15,14 @@ export function FinalCta() {
           </svg>
           <div style={{ display: "grid", gap: 20, justifyItems: "center", maxWidth: 680, margin: "0 auto", position: "relative" }}>
             <span className="tv-hand" style={{ color: "#ffd25e" }}>
-              bugun boshlang!
+              bugun boşlang!
             </span>
             <h2 className="tv-h2" id="cta-t">
-              Birinchi vizual darsingizni bugun yarating
+              Birinçi vizual darsingizni bugun yarating
             </h2>
-            <p className="tv-lead">Ro‘yxatdan o‘ting va Akademiyaning birinchi darsini bepul boshlang.</p>
+            <p className="tv-lead">Röyxatdan öting va Akademiyaning birinçi darsini bepul boşlang.</p>
             <a className="tv-btn tv-btn-primary" href="/royxatdan-otish" style={ctaButton}>
-              Bepul boshlash →
+              Bepul boşlaş →
             </a>
           </div>
         </div>

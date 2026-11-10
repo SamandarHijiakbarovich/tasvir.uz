@@ -5,7 +5,7 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
   return (
     <section className="tv-section" aria-labelledby="fikr-t">
       <div className="tv-wrap">
-        <SectionHead id="fikr-t" label="Fikrlar" title="O‘qituvchilar va talabalar nima deydi" />
+        <SectionHead id="fikr-t" label="Fikrlar" title="Öqituvçilar va talabalar nima deydi" />
         <div className="tv-grid-3">
           {items.map((t, i) => (
             <figure key={i} className="tv-card tv-quote tv-reveal" style={{ margin: 0 }}>
@@ -15,7 +15,7 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
                 {t.avatarUrl ? (
                   <img className="tv-avatar" src={t.avatarUrl} alt="" width={48} height={48} />
                 ) : (
-                  <span className="tv-avatar" role="img" aria-label="Rasm uchun joy">
+                  <span className="tv-avatar" role="img" aria-label="Rasm uçun joy">
                     Rasm
                   </span>
                 )}

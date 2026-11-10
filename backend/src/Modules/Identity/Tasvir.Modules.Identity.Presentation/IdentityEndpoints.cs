@@ -32,7 +32,7 @@ public static class IdentityEndpoints
                 context.HttpContext.Response.Headers.RetryAfter = "60";
                 return new ValueTask(context.HttpContext.Response.WriteAsJsonAsync(new
                 {
-                    title = "So‘rovlar juda ko‘p. Bir daqiqadan so‘ng qayta urining.",
+                    title = "Sörovlar juda köp. Bir daqiqadan söng qayta urining.",
                     code = "rate_limited",
                 }, ct));
             };
@@ -60,54 +60,54 @@ public static class IdentityEndpoints
 
         limited.MapPost("/register", async (RegisterRequest request, AuthService auth, CancellationToken ct) =>
             ToResponse(await auth.RegisterAsync(request, ct), StatusCodes.Status201Created))
-            .WithSummary("Ro‘yxatdan o‘tish va sessiya ochish");
+            .WithSummary("Röyxatdan ötiş va sessiya oçiş");
 
         limited.MapPost("/login", async (LoginRequest request, AuthService auth, CancellationToken ct) =>
             ToResponse(await auth.LoginAsync(request, ct)))
-            .WithSummary("Email va parol bilan kirish");
+            .WithSummary("Email va parol bilan kiriş");
 
         limited.MapPost("/password/forgot", async (ForgotPasswordRequest request, AuthService auth, CancellationToken ct) =>
             ToResponse(await auth.ForgotPasswordAsync(request, ct), StatusCodes.Status202Accepted))
-            .WithSummary("Parolni tiklash havolasini yuborish");
+            .WithSummary("Parolni tiklaş havolasini yuboriş");
 
         limited.MapPost("/password/reset", async (ResetPasswordRequest request, AuthService auth, CancellationToken ct) =>
             ToResponse(await auth.ResetPasswordAsync(request, ct)))
-            .WithSummary("Havola orqali yangi parol o‘rnatish");
+            .WithSummary("Havola orqali yangi parol örnatiş");
 
         limited.MapPost("/email/confirm", async (ConfirmEmailRequest request, AuthService auth, CancellationToken ct) =>
             ToResponse(await auth.ConfirmEmailAsync(request, ct)))
-            .WithSummary("Emailni tasdiqlash");
+            .WithSummary("Emailni tasdiqlaş");
 
         // Sahifa ochilganda avtomatik chaqiriladi, shuning uchun IP cheklovi yo‘q: token 256 bitli va terib topilmaydi
         group.MapPost("/refresh", async (RefreshRequest request, AuthService auth, CancellationToken ct) =>
             ToResponse(await auth.RefreshAsync(request, ct)))
-            .WithSummary("Access tokenni yangilash (refresh token almashadi)");
+            .WithSummary("Access tokenni yangilaş (refresh token almaşadi)");
 
         group.MapPost("/logout", async (RefreshRequest request, AuthService auth, CancellationToken ct) =>
             ToResponse(await auth.LogoutAsync(request, ct)))
-            .WithSummary("Joriy sessiyani yopish");
+            .WithSummary("Joriy sessiyani yopiş");
 
         group.MapGet("/me", async (ClaimsPrincipal principal, AuthService auth, CancellationToken ct) =>
             ToResponse(await auth.GetCurrentUserAsync(UserId(principal), ct)))
             .RequireAuthorization()
-            .WithSummary("Joriy foydalanuvchi");
+            .WithSummary("Joriy foydalanuvçi");
 
         group.MapPost("/password/change", async (ChangePasswordRequest request, ClaimsPrincipal principal, AuthService auth, CancellationToken ct) =>
             ToResponse(await auth.ChangePasswordAsync(UserId(principal), request, ct)))
             .RequireAuthorization()
             .RequireRateLimiting(AuthRateLimit)
-            .WithSummary("Parolni o‘zgartirish (boshqa qurilmalardagi sessiyalar yopiladi)");
+            .WithSummary("Parolni özgartiriş (boşqa qurilmalardagi sessiyalar yopiladi)");
 
         group.MapPost("/email/resend", async (ClaimsPrincipal principal, AuthService auth, CancellationToken ct) =>
             ToResponse(await auth.ResendConfirmationAsync(UserId(principal), ct), StatusCodes.Status202Accepted))
             .RequireAuthorization()
             .RequireRateLimiting(AuthRateLimit)
-            .WithSummary("Tasdiqlash xatini qayta yuborish");
+            .WithSummary("Tasdiqlaş xatini qayta yuboriş");
 
         group.MapPost("/privacy/accept", async (ClaimsPrincipal principal, AuthService auth, CancellationToken ct) =>
             ToResponse(await auth.AcceptPrivacyAsync(UserId(principal), ct)))
             .RequireAuthorization()
-            .WithSummary("Maxfiylik siyosatiga rozilik (eski hisoblar uchun)");
+            .WithSummary("Maxfiylik siyosatiga rozilik (eski hisoblar uçun)");
 
         return app;
     }

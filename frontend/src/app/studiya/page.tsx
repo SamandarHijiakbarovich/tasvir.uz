@@ -34,7 +34,7 @@ export default async function MaterialsPage({ searchParams }: Props) {
         <div className="tv-studio-head">
           <div>
             <h1 className="tv-h2">Materiallarim</h1>
-            <p className="tv-muted">Darslaringiz uchun yaratgan vizual materiallar shu yerda saqlanadi.</p>
+            <p className="tv-muted">Darslaringiz uçun yaratgan vizual materiallar şu yerda saqlanadi.</p>
           </div>
           <Link className="tv-btn tv-btn-primary" href="/studiya/yangi">
             Yangi material +
@@ -48,7 +48,7 @@ export default async function MaterialsPage({ searchParams }: Props) {
         )}
 
         {subjects.length > 0 && (
-          <nav className="tv-filter" aria-label="Fan bo‘yicha saralash">
+          <nav className="tv-filter" aria-label="Fan böyiça saralaş">
             <Link href="/studiya" aria-current={!fan}>
               Hammasi
             </Link>
@@ -62,10 +62,10 @@ export default async function MaterialsPage({ searchParams }: Props) {
 
         {result.ok && all.length === 0 && (
           <section className="tv-card tv-empty">
-            <h2 className="tv-h3">Hali material yo‘q</h2>
-            <p className="tv-muted">Shablon tanlang, namunani o‘z mavzuingizga moslang va ertangi darsingizda ishlating.</p>
+            <h2 className="tv-h3">Hali material yöq</h2>
+            <p className="tv-muted">Şablon tanlang, namunani öz mavzuingizga moslang va ertangi darsingizda işlating.</p>
             <Link className="tv-btn tv-btn-primary" href="/studiya/yangi">
-              Birinchi materialni yaratish
+              Birinçi materialni yaratiş
             </Link>
           </section>
         )}
@@ -84,15 +84,15 @@ export default async function MaterialsPage({ searchParams }: Props) {
                 <p className="tv-material-meta">
                   {[getTemplate(material.templateKey)?.name, material.subject, material.grade ? `${material.grade}-sinf` : null].filter(Boolean).join(" · ")}
                   <br />
-                  O‘zgartirilgan: {dateFormat.format(new Date(/Z$/.test(material.updatedAt) ? material.updatedAt : `${material.updatedAt}Z`))}
+                  Özgartirilgan: {dateFormat.format(new Date(/Z$/.test(material.updatedAt) ? material.updatedAt : `${material.updatedAt}Z`))}
                 </p>
                 <div className="tv-material-actions">
                   <Link className="tv-btn tv-btn-primary tv-btn-sm" href={`/studiya/${material.id}/korsatish`}>
-                    Ko‘rsatish
+                    Körsatiş
                   </Link>
                   <form action={duplicateMaterialAction.bind(null, material.id)}>
                     <button className="tv-btn tv-btn-ghost tv-btn-sm" type="submit">
-                      Nusxa olish
+                      Nusxa oliş
                     </button>
                   </form>
                   <DeleteMaterialButton id={material.id} title={material.title} />

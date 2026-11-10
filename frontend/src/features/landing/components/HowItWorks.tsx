@@ -4,8 +4,8 @@ const steps = [
   {
     badge: "Akademiya",
     badgeClass: "tv-badge",
-    title: "O‘rgan",
-    text: "Vizual o‘quv material yaratishni bosqichma-bosqich o‘rgatuvchi qisqa darslar, video va amaliy topshiriqlar.",
+    title: "Örgan",
+    text: "Vizual öquv material yaratişni bosqiçma-bosqiç örgatuvçi qisqa darslar, video va amaliy topşiriqlar.",
     viz: (
       <>
         <rect x="20" y="10" width="120" height="74" rx="12" className="v-card v-line" style={{ strokeWidth: 2 }} />
@@ -19,7 +19,7 @@ const steps = [
     badge: "Studiya",
     badgeClass: "tv-badge tv-badge-coral",
     title: "Yarat",
-    text: "Tayyor shablonni tanlang, mavzuingizni kiriting — infografika yoki sxema tayyor.",
+    text: "Tayyor şablonni tanlang, mavzuingizni kiriting — infografika yoki sxema tayyor.",
     viz: (
       <>
         <rect x="14" y="14" width="56" height="68" rx="10" className="v-card v-line" style={{ strokeWidth: 2 }} />
@@ -36,8 +36,8 @@ const steps = [
   {
     badge: "Sinfda",
     badgeClass: "tv-badge tv-badge-mint",
-    title: "Darsda qo‘lla",
-    text: "Materialni doskada ko‘rsating, chop eting yoki o‘quvchilarga ulashing — mavzu ko‘z oldida jonlanadi.",
+    title: "Darsda qölla",
+    text: "Materialni doskada körsating, çop eting yoki öquvçilarga ulaşing — mavzu köz oldida jonlanadi.",
     viz: (
       <>
         <rect x="18" y="10" width="124" height="60" rx="8" className="v-ink" />
@@ -56,9 +56,9 @@ export function HowItWorks() {
       <div className="tv-wrap">
         <SectionHead
           id="qanday-t"
-          label="Qanday ishlaydi"
-          title="O‘rgan. Yarat. Darsda qo‘lla."
-          lead="Akademiya sizni o‘rgatadi, Studiya ishni tezlashtiradi — natija esa sinfda ko‘rinadi."
+          label="Qanday işlaydi"
+          title="Örgan. Yarat. Darsda qölla."
+          lead="Akademiya sizni örgatadi, Studiya işni tezlaştiradi — natija esa sinfda körinadi."
         />
         <div className="tv-grid-3 steps">
           {steps.map((s, i) => (

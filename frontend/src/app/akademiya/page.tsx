@@ -21,7 +21,7 @@ export default async function AcademyPage() {
         <div>
           <h1 className="tv-h2">Akademiya</h1>
           <p className="tv-lead" style={{ marginTop: 8 }}>
-            Kursni tanlang va o‘zingizga qulay sur’atda o‘rganing.
+            Kursni tanlang va özingizga qulay sur’atda örganing.
           </p>
         </div>
 
@@ -34,7 +34,7 @@ export default async function AcademyPage() {
         )}
 
         <p style={{ margin: 0 }}>
-          <Link href="/akademiya/ishlarim">Mening ishlarim →</Link>
+          <Link href="/akademiya/ishlarim">Mening işlarim →</Link>
         </p>
       </main>
     </div>

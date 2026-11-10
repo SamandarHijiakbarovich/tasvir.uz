@@ -20,7 +20,7 @@ public static class ContentEndpoints
                 return TypedResults.Ok(await handler.HandleAsync(ct));
             })
             .WithName("GetLandingContent")
-            .WithSummary("Landing sahifa uchun dinamik ma’lumotlar (narxlar, FAQ, sharhlar, natijalar, hamkorlar)");
+            .WithSummary("Landing sahifa uçun dinamik ma’lumotlar (narxlar, FAQ, şarhlar, natijalar, hamkorlar)");
 
         group.MapGet("/tools", (HttpContext http) =>
             {
@@ -28,7 +28,7 @@ public static class ContentEndpoints
                 return TypedResults.Ok(ToolCatalog.Value);
             })
             .WithName("GetToolCatalog")
-            .WithSummary("Vizuallashtirish dasturlari katalogi: toifalar, shakllar, fanlar va vositalar");
+            .WithSummary("Vizuallaştiriş dasturlari katalogi: toifalar, şakllar, fanlar va vositalar");
 
         return app;
     }

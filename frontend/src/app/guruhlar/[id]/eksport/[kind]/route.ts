@@ -22,7 +22,7 @@ export async function GET(request: NextRequest, { params }: Context) {
       cache: "no-store",
     });
   } catch {
-    return NextResponse.redirect(new URL(`${page}?xato=${encodeURIComponent("Xizmat vaqtincha ishlamayapti.")}`, request.url));
+    return NextResponse.redirect(new URL(`${page}?xato=${encodeURIComponent("Xizmat vaqtinça işlamayapti.")}`, request.url));
   }
 
   if (!response.ok) {

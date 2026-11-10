@@ -91,7 +91,7 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
             title,
             subject = "Biologiya",
             grade = 6,
-            content = new { accent = "sun", items = new[] { new { heading = "Birinchi", text = "Izoh" }, new { heading = "Ikkinchi", text = "Izoh" } } },
+            content = new { accent = "sun", items = new[] { new { heading = "Birinçi", text = "Izoh" }, new { heading = "Ikkinçi", text = "Izoh" } } },
         });
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
         return (await Read<Created>(response)).Id;
@@ -120,12 +120,12 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
     [Fact]
     public async Task Creator_is_teacher_and_sees_join_code()
     {
-        var (teacher, _) = await SignIn("O‘qituvchi");
+        var (teacher, _) = await SignIn("Öqituvçi");
 
         var group = await CreateGroup(teacher);
 
         Assert.Equal(8, group.JoinCode!.Length);
-        Assert.Equal("O‘qituvchi", group.TeacherName);
+        Assert.Equal("Öqituvçi", group.TeacherName);
         var mine = await Read<MyGroupsDto>(await teacher.GetAsync($"{Api}/groups"));
         Assert.Single(mine.Teaching);
         Assert.Empty(mine.Studying);
@@ -134,7 +134,7 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
     [Fact]
     public async Task Group_name_is_validated()
     {
-        var (teacher, _) = await SignIn("O‘qituvchi");
+        var (teacher, _) = await SignIn("Öqituvçi");
         var response = await teacher.PostAsJsonAsync($"{Api}/groups", new { name = "A" });
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
@@ -142,7 +142,7 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
     [Fact]
     public async Task Joining_requires_explicit_consent_to_share_results()
     {
-        var (teacher, _) = await SignIn("O‘qituvchi");
+        var (teacher, _) = await SignIn("Öqituvçi");
         var (student, _) = await SignIn("Talaba");
         var group = await CreateGroup(teacher);
 
@@ -155,7 +155,7 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
     [Fact]
     public async Task Student_joins_by_code_ignoring_case_and_spaces_and_does_not_see_code()
     {
-        var (teacher, _) = await SignIn("O‘qituvchi");
+        var (teacher, _) = await SignIn("Öqituvçi");
         var (student, _) = await SignIn("Talaba");
         var group = await CreateGroup(teacher);
 
@@ -171,7 +171,7 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
     [Fact]
     public async Task Wrong_code_and_own_group_are_rejected()
     {
-        var (teacher, _) = await SignIn("O‘qituvchi");
+        var (teacher, _) = await SignIn("Öqituvçi");
         var group = await CreateGroup(teacher);
 
         var wrong = await teacher.PostAsJsonAsync($"{Api}/groups/join", new { code = "ZZZZZZZZ", acceptSharing = true });
@@ -185,7 +185,7 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
     [Fact]
     public async Task Outsiders_and_students_cannot_open_teacher_data()
     {
-        var (teacher, _) = await SignIn("O‘qituvchi");
+        var (teacher, _) = await SignIn("Öqituvçi");
         var (student, _) = await SignIn("Talaba");
         var (outsider, _) = await SignIn("Begona");
         var group = await CreateGroup(teacher);
@@ -204,9 +204,9 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
     [Fact]
     public async Task Cannot_submit_someone_elses_material()
     {
-        var (teacher, _) = await SignIn("O‘qituvchi");
+        var (teacher, _) = await SignIn("Öqituvçi");
         var (student, _) = await SignIn("Talaba");
-        var (other, _) = await SignIn("Boshqa");
+        var (other, _) = await SignIn("Boşqa");
         var group = await CreateGroup(teacher);
         await Join(student, group.JoinCode!);
         var foreign = await CreateMaterial(other);
@@ -219,7 +219,7 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
     [Fact]
     public async Task Teacher_reviews_snapshot_and_resubmission_raises_version()
     {
-        var (teacher, _) = await SignIn("O‘qituvchi");
+        var (teacher, _) = await SignIn("Öqituvçi");
         var (student, _) = await SignIn("Talaba");
         var group = await CreateGroup(teacher);
         await Join(student, group.JoinCode!);
@@ -230,7 +230,7 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
         await student.PutAsJsonAsync($"/api/studio/materials/{materialId}", new
         {
             templateKey = "process",
-            title = "O‘zgargan sarlavha",
+            title = "Özgargan sarlavha",
             content = new { accent = "sun", items = new[] { new { heading = "A", text = "B" }, new { heading = "C", text = "D" } } },
         });
         var opened = await Read<SubmissionDetailDto>(await teacher.GetAsync($"{Api}/submissions/{submission.Id}"));
@@ -238,7 +238,7 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
         Assert.True(opened.CanReview);
         Assert.Equal(8, opened.Rubric.Count);
 
-        var saved = await teacher.PutAsJsonAsync($"{Api}/submissions/{submission.Id}/review", new { scores = Scores(2), comment = "Yaxshi, izohlarni qisqartiring." });
+        var saved = await teacher.PutAsJsonAsync($"{Api}/submissions/{submission.Id}/review", new { scores = Scores(2), comment = "Yaxşi, izohlarni qisqartiring." });
         Assert.Equal(HttpStatusCode.OK, saved.StatusCode);
         var review = await Read<ReviewDto>(saved);
         Assert.Equal(16, review.TotalScore);
@@ -246,19 +246,19 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
 
         var seen = await Read<SubmissionDetailDto>(await student.GetAsync($"{Api}/submissions/{submission.Id}"));
         Assert.False(seen.CanReview);
-        Assert.Equal("Yaxshi, izohlarni qisqartiring.", seen.Summary.Review!.Comment);
+        Assert.Equal("Yaxşi, izohlarni qisqartiring.", seen.Summary.Review!.Comment);
 
         var again = await Submit(student, group.Id, materialId);
         Assert.Equal(submission.Id, again.Id);
         Assert.Equal(2, again.Version);
-        Assert.Equal("O‘zgargan sarlavha", again.Title);
+        Assert.Equal("Özgargan sarlavha", again.Title);
         Assert.Equal(1, again.Review!.Version); // eski baho ko‘rinadi, yangi versiya baholanmagan
     }
 
     [Fact]
     public async Task Student_cannot_review_and_scores_are_validated()
     {
-        var (teacher, _) = await SignIn("O‘qituvchi");
+        var (teacher, _) = await SignIn("Öqituvçi");
         var (student, _) = await SignIn("Talaba");
         var group = await CreateGroup(teacher);
         await Join(student, group.JoinCode!);
@@ -277,8 +277,8 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
     [Fact]
     public async Task Dashboard_counts_first_attempts_for_item_analysis()
     {
-        var (teacher, _) = await SignIn("O‘qituvchi");
-        var (strong, _) = await SignIn("Kuchli Talaba");
+        var (teacher, _) = await SignIn("Öqituvçi");
+        var (strong, _) = await SignIn("Kuçli Talaba");
         var (weak, _) = await SignIn("Zaif Talaba");
         var group = await CreateGroup(teacher);
         await Join(strong, group.JoinCode!);
@@ -301,7 +301,7 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
         Assert.Null(item.DiscriminationIndex); // javob berganlar kam
         Assert.Equal(1, item.Options.Single(o => o.IsCorrect).FirstTryCount);
         Assert.Equal(2, dashboard.Students.Count);
-        Assert.Equal(1, dashboard.Students.Single(s => s.Name == "Kuchli Talaba").FirstTryCorrect);
+        Assert.Equal(1, dashboard.Students.Single(s => s.Name == "Kuçli Talaba").FirstTryCorrect);
         Assert.Equal(0, dashboard.Students.Single(s => s.Name == "Zaif Talaba").FirstTryCorrect);
         Assert.All(dashboard.Students, s => Assert.Equal(2, s.Courses.Count));
     }
@@ -320,7 +320,7 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
             await client.PostAsJsonAsync($"/api/academy/lessons/{slug}/steps/{step.Id}/complete", new { });
         }
 
-        throw new InvalidOperationException("Darsda test yo‘q.");
+        throw new InvalidOperationException("Darsda test yöq.");
     }
 
     private static async Task Answer(HttpClient client, string slug, Guid stepId, string optionId)
@@ -332,9 +332,9 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
     [Fact]
     public async Task Survey_is_aggregated_and_comments_are_anonymous()
     {
-        var (teacher, _) = await SignIn("O‘qituvchi");
-        var (first, _) = await SignIn("Birinchi Talaba");
-        var (second, _) = await SignIn("Ikkinchi Talaba");
+        var (teacher, _) = await SignIn("Öqituvçi");
+        var (first, _) = await SignIn("Birinçi Talaba");
+        var (second, _) = await SignIn("Ikkinçi Talaba");
         var group = await CreateGroup(teacher);
         await Join(first, group.JoinCode!);
         await Join(second, group.JoinCode!);
@@ -342,7 +342,7 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
         var incomplete = await first.PutAsJsonAsync($"{Api}/groups/{group.Id}/survey", new { answers = new Dictionary<string, int> { ["usability"] = 5 } });
         Assert.Equal(HttpStatusCode.BadRequest, incomplete.StatusCode);
 
-        Assert.Equal(HttpStatusCode.NoContent, (await first.PutAsJsonAsync($"{Api}/groups/{group.Id}/survey", new { answers = SurveyAnswers(5), comment = "Foydali bo‘ldi" })).StatusCode);
+        Assert.Equal(HttpStatusCode.NoContent, (await first.PutAsJsonAsync($"{Api}/groups/{group.Id}/survey", new { answers = SurveyAnswers(5), comment = "Foydali böldi" })).StatusCode);
         Assert.Equal(HttpStatusCode.NoContent, (await second.PutAsJsonAsync($"{Api}/groups/{group.Id}/survey", new { answers = SurveyAnswers(3) })).StatusCode);
         // Javobni o‘zgartirish mumkin, ikkinchi nusxa paydo bo‘lmaydi
         Assert.Equal(HttpStatusCode.NoContent, (await second.PutAsJsonAsync($"{Api}/groups/{group.Id}/survey", new { answers = SurveyAnswers(4) })).StatusCode);
@@ -353,14 +353,14 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
         Assert.Equal(2, dashboard.Survey.Respondents);
         Assert.Equal(4.5, dashboard.Survey.Questions[0].Average);
         Assert.Equal([0, 0, 0, 1, 1], dashboard.Survey.Questions[0].Counts);
-        Assert.Equal(["Foydali bo‘ldi"], dashboard.Survey.Comments);
+        Assert.Equal(["Foydali böldi"], dashboard.Survey.Comments);
     }
 
     [Fact]
     public async Task Export_is_excel_friendly_and_neutralizes_formulas()
     {
-        var (teacher, _) = await SignIn("O‘qituvchi");
-        var (student, _) = await SignIn("=HYPERLINK(1) O‘g‘il; Talaba");
+        var (teacher, _) = await SignIn("Öqituvçi");
+        var (student, _) = await SignIn("=HYPERLINK(1) Öğil; Talaba");
         var group = await CreateGroup(teacher);
         await Join(student, group.JoinCode!);
         var submission = await Submit(student, group.Id, await CreateMaterial(student));
@@ -373,9 +373,9 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
         var bytes = await response.Content.ReadAsByteArrayAsync();
         Assert.Equal(Encoding.UTF8.GetPreamble(), bytes[..3]);
         var lines = Encoding.UTF8.GetString(bytes[3..]).Split("\r\n");
-        Assert.StartsWith("F.I.Sh.;", lines[0]);
-        Assert.Contains("Ilmiy to‘g‘rilik", lines[0]);
-        Assert.StartsWith("\"'=HYPERLINK(1) O‘g‘il; Talaba\";", lines[1]);
+        Assert.StartsWith("F.I.Ş.;", lines[0]);
+        Assert.Contains("Ilmiy töğrilik", lines[0]);
+        Assert.StartsWith("\"'=HYPERLINK(1) Öğil; Talaba\";", lines[1]);
         Assert.EndsWith(";24", lines[1]);
 
         Assert.Equal(HttpStatusCode.OK, (await teacher.GetAsync($"{Api}/groups/{group.Id}/export/test-tahlili")).StatusCode);
@@ -386,7 +386,7 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
     [Fact]
     public async Task Leaving_removes_students_group_data()
     {
-        var (teacher, _) = await SignIn("O‘qituvchi");
+        var (teacher, _) = await SignIn("Öqituvçi");
         var (student, studentId) = await SignIn("Talaba");
         var group = await CreateGroup(teacher);
         await Join(student, group.JoinCode!);
@@ -407,9 +407,9 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
     [Fact]
     public async Task Student_cannot_remove_another_student()
     {
-        var (teacher, _) = await SignIn("O‘qituvchi");
-        var (first, _) = await SignIn("Birinchi");
-        var (second, secondId) = await SignIn("Ikkinchi");
+        var (teacher, _) = await SignIn("Öqituvçi");
+        var (first, _) = await SignIn("Birinçi");
+        var (second, secondId) = await SignIn("Ikkinçi");
         var group = await CreateGroup(teacher);
         await Join(first, group.JoinCode!);
         await Join(second, group.JoinCode!);
@@ -421,7 +421,7 @@ public sealed class ClassroomApiTests(ClassroomApiFactory factory) : IClassFixtu
     [Fact]
     public async Task Deleting_group_removes_it_for_everyone()
     {
-        var (teacher, _) = await SignIn("O‘qituvchi");
+        var (teacher, _) = await SignIn("Öqituvçi");
         var (student, _) = await SignIn("Talaba");
         var group = await CreateGroup(teacher);
         await Join(student, group.JoinCode!);

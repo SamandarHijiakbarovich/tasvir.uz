@@ -12,7 +12,7 @@ import "@/styles/academy.css";
 import "@/styles/studio.css";
 import "@/styles/classroom.css";
 
-export const metadata: Metadata = { title: "Topshirilgan ish — Tasvir.uz", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Topşirilgan iş — Tasvir.uz", robots: { index: false, follow: false } };
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -65,13 +65,13 @@ export default async function SubmissionPage({ params }: Props) {
 
           <section className="tv-card" aria-labelledby="baho-t">
             <h2 className="tv-h3" id="baho-t">
-              Baholash
+              Baholaş
             </h2>
             {canReview ? (
               <ReviewForm key={summary.version} submissionId={id} rubric={rubric} maxScore={maxCriterionScore} review={review} isCurrent={isCurrent} />
             ) : review ? (
               <div className="tv-form">
-                {!isCurrent && <p className="tv-form-msg ok">Bu baho oldingi versiyaga qo‘yilgan. Yangi versiya hali baholanmagan.</p>}
+                {!isCurrent && <p className="tv-form-msg ok">Bu baho oldingi versiyaga qöyilgan. Yangi versiya hali baholanmagan.</p>}
                 <p className="tv-rubric-total">
                   Jami: <strong>{review.totalScore}</strong> / {review.maxScore}
                 </p>
@@ -87,12 +87,12 @@ export default async function SubmissionPage({ params }: Props) {
                 </ul>
                 {review.comment && (
                   <blockquote className="tv-review-comment">
-                    <strong>O‘qituvchi izohi:</strong> {review.comment}
+                    <strong>Öqituvçi izohi:</strong> {review.comment}
                   </blockquote>
                 )}
               </div>
             ) : (
-              <p className="tv-muted">O‘qituvchi hali baholamagan. Baho qo‘yilgach, shu yerda ko‘rinadi.</p>
+              <p className="tv-muted">Öqituvçi hali baholamagan. Baho qöyilgaç, şu yerda körinadi.</p>
             )}
           </section>
         </div>

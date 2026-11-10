@@ -28,7 +28,7 @@ public sealed class ResultCriterion : Entity, IOrdered
 
     private static decimal? Percent(decimal? value, string name) =>
         value is < 0 or > 100
-            ? throw new ArgumentOutOfRangeException(name, value, "Foiz 0 va 100 orasida bo‘lishi kerak.")
+            ? throw new ArgumentOutOfRangeException(name, value, "Foiz 0 va 100 orasida bölişi kerak.")
             : value;
 }
 

@@ -100,7 +100,7 @@ public sealed class IdentityApiTests : IClassFixture<IdentityApiFactory>
 
     private async Task<SessionBody> Register(string email, string password = Password)
     {
-        var response = await Post("register", new { fullName = "Test O‘qituvchi", email, password, acceptPrivacy = true });
+        var response = await Post("register", new { fullName = "Test Öqituvçi", email, password, acceptPrivacy = true });
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
         return (await response.Content.ReadFromJsonAsync<SessionBody>(Json))!;
     }
@@ -145,7 +145,7 @@ public sealed class IdentityApiTests : IClassFixture<IdentityApiFactory>
     [InlineData("aaaaaaaaaa")]
     public async Task Register_rejects_weak_passwords(string password)
     {
-        var response = await Post("register", new { fullName = "Test Foydalanuvchi", email = NewEmail(), password, acceptPrivacy = true });
+        var response = await Post("register", new { fullName = "Test Foydalanuvçi", email = NewEmail(), password, acceptPrivacy = true });
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         Assert.Contains("password", (await Problem(response)).Errors!.Keys);
@@ -157,7 +157,7 @@ public sealed class IdentityApiTests : IClassFixture<IdentityApiFactory>
         var email = NewEmail();
         await Register(email);
 
-        var response = await Post("register", new { fullName = "Boshqa Odam", email = email.ToUpperInvariant(), password = Password, acceptPrivacy = true });
+        var response = await Post("register", new { fullName = "Boşqa Odam", email = email.ToUpperInvariant(), password = Password, acceptPrivacy = true });
 
         Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
         Assert.Equal("email_taken", (await Problem(response)).Code);
@@ -169,7 +169,7 @@ public sealed class IdentityApiTests : IClassFixture<IdentityApiFactory>
         var email = NewEmail();
         await Register(email);
 
-        var wrong = await Post("login", new { email, password = "Noto‘g‘ri-parol-1" });
+        var wrong = await Post("login", new { email, password = "Notöğri-parol-1" });
         var unknown = await Post("login", new { email = NewEmail(), password = Password });
 
         Assert.Equal(HttpStatusCode.Unauthorized, wrong.StatusCode);
@@ -198,7 +198,7 @@ public sealed class IdentityApiTests : IClassFixture<IdentityApiFactory>
 
         for (var i = 0; i < 5; i++)
         {
-            await Post("login", new { email, password = "Noto‘g‘ri-parol-1" });
+            await Post("login", new { email, password = "Notöğri-parol-1" });
         }
 
         var locked = await Post("login", new { email, password = Password });
@@ -374,7 +374,7 @@ public sealed class IdentityApiTests : IClassFixture<IdentityApiFactory>
 
         using var wrong = new HttpRequestMessage(HttpMethod.Post, "/api/identity/password/change")
         {
-            Content = JsonContent.Create(new { currentPassword = "Noto‘g‘ri-parol-1", newPassword }),
+            Content = JsonContent.Create(new { currentPassword = "Notöğri-parol-1", newPassword }),
         };
         wrong.Headers.Authorization = new AuthenticationHeaderValue("Bearer", session.AccessToken);
         var rejected = await _client.SendAsync(wrong);
@@ -413,7 +413,7 @@ public sealed class IdentityApiTests : IClassFixture<IdentityApiFactory>
     {
         await using var limited = new IdentityApiFactory { PermitPerMinute = 3 };
         var client = limited.CreateClient();
-        var body = new { email = NewEmail(), password = "Noto‘g‘ri-parol-1" };
+        var body = new { email = NewEmail(), password = "Notöğri-parol-1" };
 
         for (var i = 0; i < 3; i++)
         {

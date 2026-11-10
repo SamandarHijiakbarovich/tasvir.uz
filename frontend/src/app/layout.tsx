@@ -13,7 +13,7 @@ const hand = Caveat({ subsets: ["latin"], weight: ["600", "700"], variable: "--f
 export const metadata: Metadata = {
   title: "Tasvir.uz — murakkabni oddiy, zerikarlini qiziqarli qiling",
   description:
-    "Tasvir.uz o‘qituvchilarga o‘quv materialini infografika, sxema, diagramma va aqliy xaritaga aylantirishni o‘rgatadi va buni oson qiladi.",
+    "Tasvir.uz öqituvçilarga öquv materialini infografika, sxema, diagramma va aqliy xaritaga aylantirişni örgatadi va buni oson qiladi.",
   icons: { icon: "/brand/tasvir-mark.svg" },
 };
 

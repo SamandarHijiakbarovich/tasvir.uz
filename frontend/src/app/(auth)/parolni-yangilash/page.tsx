@@ -12,10 +12,10 @@ export default async function ResetPasswordPage({ searchParams }: Props) {
 
   if (!token) {
     return (
-      <AuthShell title="Havola yaroqsiz" lead="Parolni tiklash uchun yangi havola so‘rang." footer={<Link href="/kirish">Kirish sahifasiga qaytish</Link>}>
+      <AuthShell title="Havola yaroqsiz" lead="Parolni tiklaş uçun yangi havola sörang." footer={<Link href="/kirish">Kiriş sahifasiga qaytiş</Link>}>
         <div className="tv-form">
           <Link className="tv-btn tv-btn-primary tv-btn-block" href="/parolni-tiklash">
-            Yangi havola so‘rash
+            Yangi havola söraş
           </Link>
         </div>
       </AuthShell>
@@ -25,8 +25,8 @@ export default async function ResetPasswordPage({ searchParams }: Props) {
   return (
     <AuthShell
       title="Yangi parol"
-      lead="Yangi parol o‘rnating. Saqlangach, barcha qurilmalardan chiqib ketasiz."
-      footer={<Link href="/parolni-tiklash">Havola ishlamayaptimi? Yangisini so‘rang</Link>}
+      lead="Yangi parol örnating. Saqlangaç, barça qurilmalardan çiqib ketasiz."
+      footer={<Link href="/parolni-tiklash">Havola işlamayaptimi? Yangisini sörang</Link>}
     >
       <ResetPasswordForm token={token} />
     </AuthShell>

@@ -1,6 +1,6 @@
 import "server-only";
 import { authedRequest } from "@/shared/lib/backend";
-import type { GroupDashboard, MyGroups, StudentGroup, SubmissionDetail } from "./types";
+import type { DiagnosticTest, GroupComparison, GroupDashboard, MyGroups, StudentGroup, SubmissionDetail } from "./types";
 
 const BASE = "/api/classroom";
 
@@ -14,6 +14,14 @@ export function getDashboard(groupId: string) {
 
 export function getStudentView(groupId: string) {
   return authedRequest<StudentGroup>(`${BASE}/groups/${encodeURIComponent(groupId)}/me`, { method: "GET" });
+}
+
+export function getDiagnosticTest(groupId: string, stage: string) {
+  return authedRequest<DiagnosticTest>(`${BASE}/groups/${encodeURIComponent(groupId)}/diagnostics/${encodeURIComponent(stage)}`, { method: "GET" });
+}
+
+export function getComparison(groupId: string, otherGroupId: string) {
+  return authedRequest<GroupComparison>(`${BASE}/groups/${encodeURIComponent(groupId)}/compare/${encodeURIComponent(otherGroupId)}`, { method: "GET" });
 }
 
 export function getSubmission(id: string) {

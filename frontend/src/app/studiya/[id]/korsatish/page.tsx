@@ -4,7 +4,7 @@ import { getMaterial } from "@/features/studio/api/studio-api";
 import { PresentView } from "@/features/studio/components/PresentView";
 import "@/styles/studio.css";
 
-export const metadata: Metadata = { title: "Darsda ko‘rsatish — Tasvir.uz", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Darsda körsatiş — Tasvir.uz", robots: { index: false, follow: false } };
 
 type Props = { params: Promise<{ id: string }> };
 
