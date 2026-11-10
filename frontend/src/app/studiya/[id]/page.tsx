@@ -35,7 +35,7 @@ export default async function MaterialPage({ params }: Props) {
     <div className="tv-studio">
       <StudioHeader />
       <main className="tv-studio-in">
-        <h1 className="tv-sr">{result.data.title}: tahrirlash</h1>
+        <h1 className="tv-sr">{result.data.title}: tahrirlaş</h1>
         {/* Kalit: nusxa ochilganda muharrir holati noldan boshlanadi */}
         <MaterialEditor key={result.data.id} material={result.data} />
       </main>

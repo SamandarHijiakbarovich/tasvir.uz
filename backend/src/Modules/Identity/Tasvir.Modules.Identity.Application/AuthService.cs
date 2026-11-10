@@ -15,11 +15,11 @@ public sealed class AuthService(
     ILogger<AuthService> logger)
 {
     private static readonly Error InvalidCredentials =
-        new("invalid_credentials", "Email yoki parol noto‘g‘ri.", ErrorKind.Unauthorized);
+        new("invalid_credentials", "Email yoki parol notöğri.", ErrorKind.Unauthorized);
     private static readonly Error InvalidSession =
         new("invalid_session", "Sessiya tugagan. Qayta kiring.", ErrorKind.Unauthorized);
     private static readonly Error InvalidLink =
-        new("invalid_token", "Havola yaroqsiz yoki muddati o‘tgan.", ErrorKind.Validation);
+        new("invalid_token", "Havola yaroqsiz yoki muddati ötgan.", ErrorKind.Validation);
 
     private DateTime Now => clock.GetUtcNow().UtcDateTime;
 
@@ -35,7 +35,7 @@ public sealed class AuthService(
 
         if (!Validation.IsValidEmail(request.Email))
         {
-            fields["email"] = "Email manzilini to‘g‘ri kiriting.";
+            fields["email"] = "Email manzilini töğri kiriting.";
         }
 
         if (Validation.CheckPassword(request.Password, request.Email) is { } passwordError)
@@ -45,7 +45,7 @@ public sealed class AuthService(
 
         if (!request.AcceptPrivacy)
         {
-            fields["acceptPrivacy"] = "Hisob ochish uchun maxfiylik siyosatiga rozilik bering.";
+            fields["acceptPrivacy"] = "Hisob oçiş uçun maxfiylik siyosatiga rozilik bering.";
         }
 
         if (fields.Count > 0)
@@ -58,8 +58,8 @@ public sealed class AuthService(
 
         if (!await repository.TryAddUserAsync(user, ct))
         {
-            return new Error("email_taken", "Bu email bilan hisob allaqachon mavjud.", ErrorKind.Conflict,
-                new Dictionary<string, string> { ["email"] = "Bu email band. Kirishni yoki parolni tiklashni sinab ko‘ring." });
+            return new Error("email_taken", "Bu email bilan hisob allaqaçon mavjud.", ErrorKind.Conflict,
+                new Dictionary<string, string> { ["email"] = "Bu email band. Kirişni yoki parolni tiklaşni sinab köring." });
         }
 
         user.RecordLogin(Now);
@@ -88,14 +88,14 @@ public sealed class AuthService(
 
         if (user.IsLockedOut(Now))
         {
-            return new Error("locked_out", "Urinishlar juda ko‘p. 15 daqiqadan so‘ng qayta urining yoki parolni tiklang.", ErrorKind.TooManyRequests);
+            return new Error("locked_out", "Urinişlar juda köp. 15 daqiqadan söng qayta urining yoki parolni tiklang.", ErrorKind.TooManyRequests);
         }
 
         if (!passwords.Verify(user.PasswordHash, password))
         {
             user.RecordFailedLogin(Now);
             await repository.SaveChangesAsync(ct);
-            logger.LogInformation("Kirish muvaffaqiyatsiz: foydalanuvchi {UserId}", user.Id);
+            logger.LogInformation("Kiriş muvaffaqiyatsiz: foydalanuvçi {UserId}", user.Id);
             return InvalidCredentials;
         }
 
@@ -120,7 +120,7 @@ public sealed class AuthService(
         {
             // Eski token qayta ishlatildi: u o‘g‘irlangan bo‘lishi mumkin, butun sessiyani yopamiz
             await repository.RevokeFamilyAsync(current.FamilyId, Now, ct);
-            logger.LogWarning("Refresh token qayta ishlatildi: foydalanuvchi {UserId}, oila {FamilyId}", current.UserId, current.FamilyId);
+            logger.LogWarning("Refresh token qayta işlatildi: foydalanuvçi {UserId}, oila {FamilyId}", current.UserId, current.FamilyId);
             return InvalidSession;
         }
 
@@ -203,7 +203,7 @@ public sealed class AuthService(
     {
         if (!Validation.IsValidEmail(request.Email))
         {
-            return Validation.Invalid(new() { ["email"] = "Email manzilini to‘g‘ri kiriting." });
+            return Validation.Invalid(new() { ["email"] = "Email manzilini töğri kiriting." });
         }
 
         var user = await repository.FindUserByEmailAsync(User.Normalize(request.Email!), ct);
@@ -212,15 +212,15 @@ public sealed class AuthService(
             var link = await CreateLinkAsync(user, OneTimeTokenPurpose.PasswordReset, TimeSpan.FromMinutes(options.PasswordResetMinutes), "parolni-yangilash", ct);
             await SendSafelyAsync(new EmailMessage(
                 user.Email,
-                "Tasvir.uz — parolni tiklash",
+                "Tasvir.uz — parolni tiklaş",
                 $"""
                 Assalomu alaykum, {user.FullName}!
 
-                Parolni tiklash so‘rovini oldik. Yangi parol o‘rnatish uchun havolani oching:
+                Parolni tiklaş sörovini oldik. Yangi parol örnatiş uçun havolani oçing:
                 {link}
 
-                Havola {options.PasswordResetMinutes} daqiqa amal qiladi va bir marta ishlaydi.
-                Agar buni siz so‘ramagan bo‘lsangiz, bu xatni e’tiborsiz qoldiring — parolingiz o‘zgarmaydi.
+                Havola {options.PasswordResetMinutes} daqiqa amal qiladi va bir marta işlaydi.
+                Agar buni siz söramagan bölsangiz, bu xatni e’tiborsiz qoldiring — parolingiz özgarmaydi.
                 """), ct);
         }
 
@@ -262,7 +262,7 @@ public sealed class AuthService(
             || request.CurrentPassword.Length > Validation.MaxPasswordLength
             || !passwords.Verify(user.PasswordHash, request.CurrentPassword))
         {
-            return Validation.Invalid(new() { ["currentPassword"] = "Joriy parol noto‘g‘ri." });
+            return Validation.Invalid(new() { ["currentPassword"] = "Joriy parol notöğri." });
         }
 
         if (Validation.CheckPassword(request.NewPassword, user.Email) is { } passwordError)
@@ -301,11 +301,11 @@ public sealed class AuthService(
             $"""
             Assalomu alaykum, {user.FullName}!
 
-            Tasvir.uz’ga xush kelibsiz. Emailingizni tasdiqlash uchun havolani oching:
+            Tasvir.uz’ga xuş kelibsiz. Emailingizni tasdiqlaş uçun havolani oçing:
             {link}
 
             Havola {options.EmailConfirmationHours} soat amal qiladi.
-            Agar siz ro‘yxatdan o‘tmagan bo‘lsangiz, bu xatni e’tiborsiz qoldiring.
+            Agar siz röyxatdan ötmagan bölsangiz, bu xatni e’tiborsiz qoldiring.
             """), ct);
     }
 

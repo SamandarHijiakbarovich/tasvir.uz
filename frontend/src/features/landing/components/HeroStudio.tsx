@@ -11,7 +11,7 @@ export function HeroStudio() {
       <figure
         className="studio"
         role="img"
-        aria-label="Animatsiya: ‘Fotosintez’ mavzusidagi oddiy matn Tasvir.uz Studiyasida quyosh, barg, karbonat angidrid, suv, kislorod va glyukozani ko‘rsatuvchi infografikaga aylanadi."
+        aria-label="Animatsiya: ‘Fotosintez’ mavzusidagi oddiy matn Tasvir.uz Studiyasida quyoş, barg, karbonat angidrid, suv, kislorod va glyukozani körsatuvçi infografikaga aylanadi."
         style={{ margin: 0 }}
       >
         <div className="studio-bar" aria-hidden="true">
@@ -31,11 +31,11 @@ export function HeroStudio() {
             <span className="scan" />
             <h4>Fotosintez</h4>
             <p>
-              Fotosintez — yashil o‘simliklarning quyosh nuri energiyasi yordamida karbonat angidrid va suvdan organik
-              modda (glyukoza) hosil qilish jarayoni.
+              Fotosintez — yaşil ösimliklarning quyoş nuri energiyasi yordamida karbonat angidrid va suvdan organik
+              modda (glyukoza) hosil qiliş jarayoni.
             </p>
-            <p>Jarayon bargdagi xloroplastlarda kechadi. Natijada atmosferaga kislorod ajralib chiqadi.</p>
-            <p>Ya’ni: quyosh nuri + CO₂ + H₂O → glyukoza + O₂.</p>
+            <p>Jarayon bargdagi xloroplastlarda keçadi. Natijada atmosferaga kislorod ajralib çiqadi.</p>
+            <p>Ya’ni: quyoş nuri + CO₂ + H₂O → glyukoza + O₂.</p>
           </div>
           <div className="viz">
             <svg viewBox="0 0 500 400">
@@ -47,7 +47,7 @@ export function HeroStudio() {
                   <path d="M88 22v-10M88 144v-10M32 78H22M154 78h-10M48 38l-7-7M135 125l-7-7M128 38l7-7" />
                 </g>
                 <text className="v-tb" x="88" y="83" textAnchor="middle">
-                  Quyosh
+                  Quyoş
                 </text>
               </g>
               <path className="v-arrow draw d2" d="M130 110c28 20 50 30 72 40" />
@@ -89,7 +89,7 @@ export function HeroStudio() {
                 </text>
               </g>
               <text className="v-ts pop d6" x="250" y="388" textAnchor="middle">
-                Xloroplastda: quyosh nuri + CO₂ + H₂O → glyukoza + O₂
+                Xloroplastda: quyoş nuri + CO₂ + H₂O → glyukoza + O₂
               </text>
             </svg>
           </div>

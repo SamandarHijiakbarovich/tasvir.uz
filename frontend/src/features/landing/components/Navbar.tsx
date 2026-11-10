@@ -8,7 +8,7 @@ import { ThemeToggle } from "@/shared/ui/ThemeToggle";
 
 const links = [
   { href: "#imkoniyatlar", label: "Imkoniyatlar" },
-  { href: "#qanday", label: "Qanday ishlaydi" },
+  { href: "#qanday", label: "Qanday işlaydi" },
   { href: "/vositalar", label: "Vositalar" },
   { href: "#narxlar", label: "Narxlar" },
   { href: "#tadqiqot", label: "Tadqiqot" },
@@ -42,10 +42,10 @@ export function Navbar() {
           ) : (
             <>
               <li className="tv-nav-auth">
-                <Link href="/kirish">Kirish</Link>
+                <Link href="/kirish">Kiriş</Link>
               </li>
               <li className="tv-nav-auth">
-                <Link href="/royxatdan-otish">Bepul boshlash</Link>
+                <Link href="/royxatdan-otish">Bepul boşlaş</Link>
               </li>
             </>
           )}
@@ -59,17 +59,17 @@ export function Navbar() {
           ) : (
             <>
               <Link className="tv-btn tv-btn-text tv-login" href="/kirish">
-                Kirish
+                Kiriş
               </Link>
               <Link className="tv-btn tv-btn-primary tv-btn-sm" href="/royxatdan-otish">
-                Bepul boshlash
+                Bepul boşlaş
               </Link>
             </>
           )}
           <button
             className="tv-iconbtn tv-burger"
             type="button"
-            aria-label={open ? "Menyuni yopish" : "Menyuni ochish"}
+            aria-label={open ? "Menyuni yopiş" : "Menyuni oçiş"}
             aria-expanded={open}
             aria-controls="menu"
             onClick={() => setOpen((o) => !o)}

@@ -41,7 +41,7 @@ public static class AssistantEndpoints
                 if (question.Length is 0 or > MaxQuestionLength)
                 {
                     return Results.Problem(
-                        title: $"Savol 1–{MaxQuestionLength} belgi oralig‘ida bo‘lsin.",
+                        title: $"Savol 1–{MaxQuestionLength} belgi oraliğida bölsin.",
                         statusCode: StatusCodes.Status400BadRequest,
                         extensions: new Dictionary<string, object?> { ["code"] = "invalid_question" });
                 }

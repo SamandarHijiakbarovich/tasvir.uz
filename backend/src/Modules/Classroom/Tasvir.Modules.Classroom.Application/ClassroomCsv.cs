@@ -17,11 +17,11 @@ public static class ClassroomCsv
         var rubric = ClassroomCatalog.Rubric;
 
         var csv = new StringBuilder();
-        Row(csv, new[] { "F.I.Sh." }
+        Row(csv, new[] { "F.I.Ş." }
             .Concat(courses.Select(c => $"{c}: tugatilgan darslar"))
-            .Concat(["Testlar: birinchi urinishda to‘g‘ri, %", "Topshirilgan ishlar", "Baholangan ishlar"])
-            .Concat(rubric.Select(c => $"{c.Title} (o‘rtacha, 0–{ClassroomCatalog.MaxCriterionScore})"))
-            .Concat([$"Jami ball (o‘rtacha, 0–{ClassroomCatalog.MaxTotalScore})"]));
+            .Concat(["Testlar: birinçi urinişda töğri, %", "Topşirilgan işlar", "Baholangan işlar"])
+            .Concat(rubric.Select(c => $"{c.Title} (örtaça, 0–{ClassroomCatalog.MaxCriterionScore})"))
+            .Concat([$"Jami ball (örtaça, 0–{ClassroomCatalog.MaxTotalScore})"]));
 
         foreach (var student in students)
         {
@@ -43,7 +43,7 @@ public static class ClassroomCsv
     public static string Items(IReadOnlyList<ItemAnalysis> items)
     {
         var csv = new StringBuilder();
-        Row(csv, ["Kurs", "Dars", "Savol", "Javob berganlar", "Qiyinlik indeksi (0–1)", "Farqlash indeksi", "O‘rtacha urinishlar", "Javoblar (birinchi urinish)"]);
+        Row(csv, ["Kurs", "Dars", "Savol", "Javob berganlar", "Qiyinlik indeksi (0–1)", "Farqlaş indeksi", "Örtaça urinişlar", "Javoblar (birinçi uriniş)"]);
         foreach (var item in items)
         {
             Row(csv, [
@@ -64,7 +64,7 @@ public static class ClassroomCsv
     public static string Survey(SurveySummaryDto survey)
     {
         var csv = new StringBuilder();
-        Row(csv, ["Savol", "O‘rtacha (1–5)", "1", "2", "3", "4", "5"]);
+        Row(csv, ["Savol", "Örtaça (1–5)", "1", "2", "3", "4", "5"]);
         foreach (var question in survey.Questions)
         {
             Row(csv, new[] { question.Text, question.Average is { } a ? Number(a) : string.Empty }

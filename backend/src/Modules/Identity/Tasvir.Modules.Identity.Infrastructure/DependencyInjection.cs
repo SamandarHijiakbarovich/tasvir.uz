@@ -64,7 +64,7 @@ public static class DependencyInjection
         }
         else if (environment.IsProduction())
         {
-            throw new InvalidOperationException("Identity:Smtp:Host sozlanmagan: parolni tiklash xatlari yuborilmaydi.");
+            throw new InvalidOperationException("Identity:Smtp:Host sozlanmagan: parolni tiklaş xatlari yuborilmaydi.");
         }
         else
         {
@@ -119,7 +119,7 @@ public static class DependencyInjection
 
         if (environment.IsProduction() || configured.Length > 0)
         {
-            throw new InvalidOperationException($"Identity:Jwt:SigningKey kamida {MinSigningKeyBytes} bayt bo‘lishi shart.");
+            throw new InvalidOperationException($"Identity:Jwt:SigningKey kamida {MinSigningKeyBytes} bayt bölişi şart.");
         }
 
         // Lokal ishlab chiqish: kalit har ishga tushganda yangilanadi va repozitoriyga tushmaydi

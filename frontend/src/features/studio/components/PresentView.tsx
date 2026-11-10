@@ -48,7 +48,7 @@ export function PresentView({ material }: { material: Material }) {
       </div>
       <div className="tv-present-bar">
         <Link className="tv-present-btn" href={`/studiya/${material.id}`}>
-          Yopish
+          Yopiş
         </Link>
         <div className="tv-present-nav">
           <button className="tv-present-btn" type="button" onClick={previous} disabled={visible === 0}>
@@ -66,7 +66,7 @@ export function PresentView({ material }: { material: Material }) {
             Hammasi
           </button>
           <button className="tv-present-btn" type="button" onClick={toggleFullscreen}>
-            To‘liq ekran
+            Töliq ekran
           </button>
         </div>
       </div>

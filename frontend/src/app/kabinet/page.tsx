@@ -33,7 +33,7 @@ export default async function CabinetPage() {
             <ThemeToggle />
             <form action={logoutAction}>
               <button className="tv-btn tv-btn-ghost tv-btn-sm" type="submit" style={{ display: "inline-flex" }}>
-                Chiqish
+                Çiqiş
               </button>
             </form>
           </div>
@@ -55,11 +55,11 @@ export default async function CabinetPage() {
         {!user.privacyAcceptedAt && (
           <div className="tv-banner">
             <p>
-              <strong>Maxfiylik siyosati qo‘shildi.</strong> <Link href="/maxfiylik">O‘qib chiqing</Link> va rozilik bildiring.
+              <strong>Maxfiylik siyosati qöşildi.</strong> <Link href="/maxfiylik">Öqib çiqing</Link> va rozilik bildiring.
             </p>
             <form action={acceptPrivacyAction}>
               <button className="tv-btn tv-btn-primary tv-btn-sm" type="submit">
-                Tanishdim, roziman
+                Tanişdim, roziman
               </button>
             </form>
           </div>
@@ -70,7 +70,7 @@ export default async function CabinetPage() {
             <h2 className="tv-h3" id="studiya-t">
               Studiya
             </h2>
-            <p className="tv-muted">Ertangi darsingiz uchun sxema, jadval yoki infografika yarating va uni darsda ko‘rsating.</p>
+            <p className="tv-muted">Ertangi darsingiz uçun sxema, jadval yoki infografika yarating va uni darsda körsating.</p>
           </div>
           <div className="tv-lesson-actions">
             <Link className="tv-btn tv-btn-primary" href="/studiya/yangi">
@@ -87,11 +87,11 @@ export default async function CabinetPage() {
             <h2 className="tv-h3" id="guruhlar-t">
               Guruhlar
             </h2>
-            <p className="tv-muted">Talabalaringiz uchun guruh yarating, ishlarini baholang va natijalarini kuzating. Kodingiz bo‘lsa, guruhga qo‘shiling.</p>
+            <p className="tv-muted">Talabalaringiz uçun guruh yarating, işlarini baholang va natijalarini kuzating. Kodingiz bölsa, guruhga qöşiling.</p>
           </div>
           <div className="tv-lesson-actions">
             <Link className="tv-btn tv-btn-primary" href="/guruhlar">
-              Guruhlarga o‘tish
+              Guruhlarga ötiş
             </Link>
           </div>
         </section>
@@ -99,7 +99,7 @@ export default async function CabinetPage() {
         {courses.ok && courses.data.map((course) => <CourseCard key={course.slug} course={course} />)}
 
         <p style={{ margin: 0 }}>
-          <Link href="/akademiya/ishlarim">Darslardagi ishlarim →</Link>
+          <Link href="/akademiya/ishlarim">Darslardagi işlarim →</Link>
         </p>
 
         <div className="tv-cabinet-grid">
@@ -117,7 +117,7 @@ export default async function CabinetPage() {
                 <dd>{user.email}</dd>
               </div>
               <div>
-                <dt>Ro‘yxatdan o‘tgan sana</dt>
+                <dt>Röyxatdan ötgan sana</dt>
                 <dd>{dateFormat.format(createdAt)}</dd>
               </div>
             </dl>
@@ -129,14 +129,14 @@ export default async function CabinetPage() {
             </h2>
             <ul className="tv-soon">
               <li>
-                Sertifikat <span className="tv-chip-soon">Ishlab chiqilmoqda</span>
+                Sertifikat <span className="tv-chip-soon">Işlab çiqilmoqda</span>
               </li>
             </ul>
           </section>
 
           <section className="tv-card tv-cabinet-wide" aria-labelledby="parol-t">
             <h2 className="tv-h3" id="parol-t">
-              Parolni o‘zgartirish
+              Parolni özgartiriş
             </h2>
             <ChangePasswordForm />
           </section>

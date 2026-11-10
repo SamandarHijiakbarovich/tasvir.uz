@@ -80,18 +80,18 @@ export function DiagramDownload({ items, name = "sxema" }: { items: string[]; na
           downloadSvgAsPng(svg, width, height, `${name}.png`).catch(() => setError(true));
         }}
       >
-        PNG yuklab olish
+        PNG yuklab oliş
       </button>
       <button
         className="tv-btn tv-btn-ghost tv-btn-sm"
         type="button"
         onClick={() => downloadBlob(new Blob([svg], { type: "image/svg+xml" }), `${name}.svg`)}
       >
-        SVG yuklab olish
+        SVG yuklab oliş
       </button>
       {error && (
         <p className="tv-field-error" role="alert">
-          PNG yaratib bo‘lmadi. SVG faylni yuklab oling.
+          PNG yaratib bölmadi. SVG faylni yuklab oling.
         </p>
       )}
     </div>

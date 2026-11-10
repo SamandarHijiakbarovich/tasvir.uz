@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function Logo() {
   return (
-    <Link className="tv-logo" href="/" aria-label="Tasvir.uz bosh sahifa">
+    <Link className="tv-logo" href="/" aria-label="Tasvir.uz boş sahifa">
       <svg viewBox="0 0 64 64" aria-hidden="true">
         <path
           className="s"

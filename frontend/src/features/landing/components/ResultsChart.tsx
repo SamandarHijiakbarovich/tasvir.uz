@@ -24,7 +24,7 @@ export function ResultsChart({ criteria }: { criteria: ResultCriterion[] }) {
             ? `Tajriba va nazorat guruhlari natijalari: ${criteria
                 .map((c) => `${c.label} — tajriba ${c.experimentValue ?? "—"}%, nazorat ${c.controlValue ?? "—"}%`)
                 .join("; ")}`
-            : `Tajriba va nazorat guruhlari natijalarini ${criteria.length} mezon bo‘yicha taqqoslovchi diagramma — ma’lumotlar hali kiritilmagan`
+            : `Tajriba va nazorat guruhlari natijalarini ${criteria.length} mezon böyiça taqqoslovçi diagramma — ma’lumotlar hali kiritilmagan`
         }
         style={{ gridTemplateColumns: `repeat(${criteria.length}, 1fr)` }}
       >

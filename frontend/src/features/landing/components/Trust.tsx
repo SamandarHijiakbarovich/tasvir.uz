@@ -2,7 +2,7 @@ import type { Partner } from "../api/types";
 
 export function Trust({ partners }: { partners: Partner[] }) {
   return (
-    <section className="trust" aria-label="Ishonch">
+    <section className="trust" aria-label="Işonç">
       <div className="trust-in">
         <div className="seal">
           <span className="seal-ic">
@@ -12,10 +12,10 @@ export function Trust({ partners }: { partners: Partner[] }) {
             </svg>
           </span>
           <span>
-            Ilmiy tadqiqot asosida ishlab chiqilgan
+            Ilmiy tadqiqot asosida işlab çiqilgan
             <br />
             <span className="tv-muted" style={{ fontWeight: 400, fontSize: 14 }}>
-              Pedagogika fanlari bo‘yicha dissertatsiya tadqiqoti doirasida
+              Pedagogika fanlari böyiça dissertatsiya tadqiqoti doirasida
             </span>
           </span>
         </div>

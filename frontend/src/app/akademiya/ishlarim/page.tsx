@@ -8,7 +8,7 @@ import { ProcessDiagram } from "@/features/academy/components/ProcessDiagram";
 import "@/styles/auth.css";
 import "@/styles/academy.css";
 
-export const metadata: Metadata = { title: "Mening ishlarim — Tasvir.uz", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Mening işlarim — Tasvir.uz", robots: { index: false, follow: false } };
 
 const dateFormat = new Intl.DateTimeFormat("uz-UZ", { dateStyle: "medium", timeZone: "Asia/Tashkent" });
 
@@ -22,9 +22,9 @@ export default async function MyWorkPage() {
       <AcademyHeader />
       <main className="tv-academy-in">
         <div>
-          <h1 className="tv-h2">Mening ishlarim</h1>
+          <h1 className="tv-h2">Mening işlarim</h1>
           <p className="tv-lead" style={{ marginTop: 8 }}>
-            Darslarda tayyorlagan javoblaringiz va sxemalaringiz shu yerda saqlanadi.
+            Darslarda tayyorlagan javoblaringiz va sxemalaringiz şu yerda saqlanadi.
           </p>
         </div>
 
@@ -36,9 +36,9 @@ export default async function MyWorkPage() {
 
         {result.ok && result.data.length === 0 && (
           <section className="tv-card tv-work-empty">
-            <p>Hali ishlaringiz yo‘q. Birinchi amaliy topshiriq birinchi darsning oxirida.</p>
+            <p>Hali işlaringiz yöq. Birinçi amaliy topşiriq birinçi darsning oxirida.</p>
             <Link className="tv-btn tv-btn-primary" href="/akademiya">
-              Darslarga o‘tish
+              Darslarga ötiş
             </Link>
           </section>
         )}

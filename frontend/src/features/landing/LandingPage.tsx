@@ -28,7 +28,7 @@ export async function LandingPage() {
   return (
     <>
       <a className="tv-sr" href="#asosiy">
-        Asosiy kontentga o‘tish
+        Asosiy kontentga ötiş
       </a>
       <Navbar />
       <main id="asosiy">

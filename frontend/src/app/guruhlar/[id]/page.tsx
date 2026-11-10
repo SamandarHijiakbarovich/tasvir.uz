@@ -57,7 +57,7 @@ export default async function GroupPage({ params, searchParams }: Props) {
           <div>
             <h1 className="tv-h2">{group.name}</h1>
             <p className="tv-muted" style={{ margin: "var(--space-2) 0 0" }}>
-              {dashboard.ok ? `${group.memberCount} ta talaba` : `O‘qituvchi: ${group.teacherName}`}
+              {dashboard.ok ? `${group.memberCount} ta talaba` : `Öqituvçi: ${group.teacherName}`}
             </p>
           </div>
         )}

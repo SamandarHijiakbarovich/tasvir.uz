@@ -28,12 +28,12 @@ export function CourseCard({ course }: { course: Course }) {
         {course.nextLessonSlug && (
           <form action={startLessonAction.bind(null, course.nextLessonSlug)}>
             <button className="tv-btn tv-btn-primary" type="submit">
-              {course.hasStarted ? "Davom ettirish →" : "Birinchi darsni boshlash →"}
+              {course.hasStarted ? "Davom ettiriş →" : "Birinçi darsni boşlaş →"}
             </button>
           </form>
         )}
         <Link className={`tv-btn ${done ? "tv-btn-primary" : "tv-btn-ghost"}`} href={coursePath}>
-          Barcha darslar
+          Barça darslar
         </Link>
       </div>
     </section>

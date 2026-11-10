@@ -12,25 +12,25 @@ public static class ClassroomCatalog
 
     public static readonly IReadOnlyList<RubricCriterion> Rubric =
     [
-        new("accuracy", "Ilmiy to‘g‘rilik", "Axborot to‘g‘ri, atamalar aniq qo‘llanilgan, soddalashtirish mazmunni buzmagan"),
-        new("purpose", "Didaktik maqsadga muvofiqlik", "Material aniq o‘quv maqsadiga xizmat qiladi, ortiqcha elementlar yo‘q"),
-        new("structure", "Tuzilmaning aniqligi", "Materialning mantiqiy tuzilishi va elementlar o‘rtasidagi aloqalar aniq ko‘rinadi"),
-        new("form", "Vizual shaklning mosligi", "Tanlangan shakl (sxema, jadval, diagramma va boshq.) mazmun xususiyatiga mos"),
+        new("accuracy", "Ilmiy töğrilik", "Axborot töğri, atamalar aniq qöllanilgan, soddalaştiriş mazmunni buzmagan"),
+        new("purpose", "Didaktik maqsadga muvofiqlik", "Material aniq öquv maqsadiga xizmat qiladi, ortiqça elementlar yöq"),
+        new("structure", "Tuzilmaning aniqligi", "Materialning mantiqiy tuzilişi va elementlar örtasidagi aloqalar aniq körinadi"),
+        new("form", "Vizual şaklning mosligi", "Tanlangan şakl (sxema, jadval, diagramma va boşq.) mazmun xususiyatiga mos"),
         new("load", "Kognitiv yuklama", "Bir vaqtda taqdim etilgan elementlar soni maqbul, muhim joylar ajratilgan"),
-        new("design", "Vizual dizayn sifati", "Ierarxiya, tekislash, rang va shrift tizimi izchil"),
-        new("technical", "Texnik sifat va qulaylik", "Turli qurilmalarda to‘g‘ri aks etadi, kontrast yetarli, matn o‘qiladi"),
-        new("activation", "Interaktivlik va faollashtirish", "Material o‘quvchini faol bilish faoliyatiga undaydi"),
+        new("design", "Vizual dizayn sifati", "Ierarxiya, tekislaş, rang va şrift tizimi izçil"),
+        new("technical", "Texnik sifat va qulaylik", "Turli qurilmalarda töğri aks etadi, kontrast yetarli, matn öqiladi"),
+        new("activation", "Interaktivlik va faollaştiriş", "Material öquvçini faol biliş faoliyatiga undaydi"),
     ];
 
     public static int MaxTotalScore => Rubric.Count * MaxCriterionScore;
 
     public static readonly IReadOnlyList<SurveyQuestion> Survey =
     [
-        new("usability", "Platforma interfeysi tushunarli va qulay edi."),
-        new("learning", "Darslar vizual material yaratishni o‘rganishga yordam berdi."),
-        new("creating", "Studiyada material yaratish oson edi."),
-        new("transfer", "Yaratgan materiallarimni o‘z darslarimda ishlatgim keladi."),
-        new("motivation", "Mashg‘ulotlar menda vizuallashtirishga qiziqish uyg‘otdi."),
-        new("feedback", "O‘qituvchimning bahosi va mezonlar ishimni yaxshilashga yordam berdi."),
+        new("usability", "Platforma interfeysi tuşunarli va qulay edi."),
+        new("learning", "Darslar vizual material yaratişni örganişga yordam berdi."),
+        new("creating", "Studiyada material yaratiş oson edi."),
+        new("transfer", "Yaratgan materiallarimni öz darslarimda işlatgim keladi."),
+        new("motivation", "Maşğulotlar menda vizuallaştirişga qiziqiş uyğotdi."),
+        new("feedback", "Öqituvçimning bahosi va mezonlar işimni yaxşilaşga yordam berdi."),
     ];
 }

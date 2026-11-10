@@ -19,8 +19,8 @@ internal static partial class AcademySeeder
         {
             course = new Course(
                 FirstCourseSlug,
-                "Vizuallashtirish asoslari",
-                "O‘quv materialini tushunarli sxemaga aylantirishni qisqa, amaliy darslarda o‘rganing.");
+                "Vizuallaştiriş asoslari",
+                "Öquv materialini tuşunarli sxemaga aylantirişni qisqa, amaliy darslarda örganing.");
             db.Courses.Add(course);
         }
 
@@ -55,55 +55,55 @@ internal static partial class AcademySeeder
 
         var lesson = course.AddLesson(
             "nega-korgazmali-material-ishlaydi",
-            "Nega ko‘rgazmali material yaxshiroq ishlaydi?",
-            "Bir xil mazmun matnda va sxemada nega turlicha qabul qilinishini bilib oling.",
+            "Nega körgazmali material yaxşiroq işlaydi?",
+            "Bir xil mazmun matnda va sxemada nega turliça qabul qilinişini bilib oling.",
             10);
 
-        Reading(lesson, "Bitta mazmun, ikki xil ko‘rinish", new ReadingContent(
+        Reading(lesson, "Bitta mazmun, ikki xil köriniş", new ReadingContent(
             [
-                "O‘quvchi matnni o‘qiganda jarayon bosqichlarini va ular orasidagi bog‘liqlikni o‘z tasavvurida yig‘ib olishi kerak. Sxemada esa bu bog‘liqlik tayyor holda ko‘rinib turadi.",
-                "Quyidagi misolda mazmun bir xil. Farqi faqat shaklda: qaysi birida jarayon ketma-ketligi tezroq ko‘zga tashlanishiga e’tibor bering.",
+                "Öquvçi matnni öqiganda jarayon bosqiçlarini va ular orasidagi boğliqlikni öz tasavvurida yiğib olişi kerak. Sxemada esa bu boğliqlik tayyor holda körinib turadi.",
+                "Quyidagi misolda mazmun bir xil. Farqi faqat şaklda: qaysi birida jarayon ketma-ketligi tezroq közga taşlanişiga e’tibor bering.",
             ],
             Example: new ReadingExample(
                 "Matn",
-                "Quyosh issiqligi ta’sirida suv bug‘lanadi. Havoga ko‘tarilgan bug‘ soviydi va bulutlarni hosil qiladi. Bulutlardan yomg‘ir yoki qor yog‘adi. So‘ng suv daryolar orqali yana dengizga oqib boradi.",
+                "Quyoş issiqligi ta’sirida suv buğlanadi. Havoga kötarilgan buğ soviydi va bulutlarni hosil qiladi. Bulutlardan yomğir yoki qor yoğadi. Söng suv daryolar orqali yana dengizga oqib boradi.",
                 "Sxema",
-                ["Bug‘lanish", "Kondensatsiya", "Yog‘in", "Oqim"])));
+                ["Buğlaniş", "Kondensatsiya", "Yoğin", "Oqim"])));
 
         Reading(lesson, "Miyamiz axborotni qanday qabul qiladi?", new ReadingContent(
             [
-                "**Ikki kanalli kodlash.** A.Paivio nazariyasiga ko‘ra, inson so‘z va tasvirni ikki alohida, lekin bog‘liq tizimda qayta ishlaydi. Axborot ikkala tizimda ham qayd etilsa, uni eslab qolish osonlashadi.",
-                "**Kognitiv yuklama.** J.Sveller nazariyasiga ko‘ra, ishchi xotira sig‘imi cheklangan. Material noto‘g‘ri tuzilsa, xotira mazmunni tushunishga emas, materialning o‘zini “yechishga” sarflanadi.",
-                "Yaxshi sxema ortiqcha yuklamani kamaytiradi: o‘quvchi kuchini bog‘liqliklarni qidirishga emas, mazmunni tushunishga sarflaydi.",
+                "**Ikki kanalli kodlaş.** A.Paivio nazariyasiga köra, inson söz va tasvirni ikki alohida, lekin boğliq tizimda qayta işlaydi. Axborot ikkala tizimda ham qayd etilsa, uni eslab qoliş osonlaşadi.",
+                "**Kognitiv yuklama.** J.Sveller nazariyasiga köra, işçi xotira siğimi çeklangan. Material notöğri tuzilsa, xotira mazmunni tuşunişga emas, materialning özini “yeçişga” sarflanadi.",
+                "Yaxşi sxema ortiqça yuklamani kamaytiradi: öquvçi kuçini boğliqliklarni qidirişga emas, mazmunni tuşunişga sarflaydi.",
             ],
-            Callout: "Muhim: chiroyli rasm qo‘shish vizuallashtirish emas. Mazmunga aloqasi yo‘q bezak o‘quvchini chalg‘itadi va foydadan ko‘ra zarar keltirishi mumkin."));
+            Callout: "Muhim: çiroyli rasm qöşiş vizuallaştiriş emas. Mazmunga aloqasi yöq bezak öquvçini çalğitadi va foydadan köra zarar keltirişi mumkin."));
 
-        Quiz(lesson, "Tekshirib ko‘ramiz", new QuizContent(
-            "Ikki kanalli kodlash nazariyasi nima deydi?",
+        Quiz(lesson, "Tekşirib köramiz", new QuizContent(
+            "Ikki kanalli kodlaş nazariyasi nima deydi?",
             [
-                new QuizOption("a", "Tasvir har doim matndan yaxshiroq, shuning uchun matndan voz kechish kerak"),
-                new QuizOption("b", "So‘z va tasvir birga to‘g‘ri berilsa, axborotni eslab qolish osonlashadi"),
-                new QuizOption("c", "Har bir o‘quvchi faqat bitta kanal orqali o‘rganadi"),
+                new QuizOption("a", "Tasvir har doim matndan yaxşiroq, şuning uçun matndan voz keçiş kerak"),
+                new QuizOption("b", "Söz va tasvir birga töğri berilsa, axborotni eslab qoliş osonlaşadi"),
+                new QuizOption("c", "Har bir öquvçi faqat bitta kanal orqali örganadi"),
             ],
             "b",
-            "To‘g‘ri. Nazariya matndan voz kechishni emas, so‘z va tasvirni uyg‘unlashtirishni tavsiya qiladi.",
-            "Unchalik emas. Nazariya ikki kanalning birgalikda ishlashi haqida. Yana bir bor o‘ylab ko‘ring."));
+            "Töğri. Nazariya matndan voz keçişni emas, söz va tasvirni uyğunlaştirişni tavsiya qiladi.",
+            "Unçalik emas. Nazariya ikki kanalning birgalikda işlaşi haqida. Yana bir bor öylab köring."));
 
         Quiz(lesson, "Yana bir savol", new QuizContent(
-            "Slaydga mavzuga aloqasi yo‘q chiroyli rasm qo‘shilsa, nima bo‘lishi mumkin?",
+            "Slaydga mavzuga aloqasi yöq çiroyli rasm qöşilsa, nima bölişi mumkin?",
             [
-                new QuizOption("a", "O‘quvchi diqqati chalg‘iydi va ortiqcha kognitiv yuklama paydo bo‘ladi"),
-                new QuizOption("b", "Mavzu albatta yaxshiroq o‘zlashtiriladi"),
-                new QuizOption("c", "Ishchi xotira sig‘imi kengayadi"),
+                new QuizOption("a", "Öquvçi diqqati çalğiydi va ortiqça kognitiv yuklama paydo böladi"),
+                new QuizOption("b", "Mavzu albatta yaxşiroq özlaştiriladi"),
+                new QuizOption("c", "Işçi xotira siğimi kengayadi"),
             ],
             "a",
-            "To‘g‘ri. Har bir vizual element aniq vazifani bajarishi kerak, aks holda u faqat yuklama qo‘shadi.",
-            "Bu javob to‘g‘ri emas. Kognitiv yuklama haqidagi qismni eslang: xotira sig‘imi cheklangan."));
+            "Töğri. Har bir vizual element aniq vazifani bajarişi kerak, aks holda u faqat yuklama qöşadi.",
+            "Bu javob töğri emas. Kognitiv yuklama haqidagi qismni eslang: xotira siğimi çeklangan."));
 
-        Practice(lesson, "Amaliy topshiriq", new PracticeContent(
+        Practice(lesson, "Amaliy topşiriq", new PracticeContent(
             PracticeModes.Text,
-            "O‘z faningizdan o‘quvchilar eng qiynaladigan bitta mavzuni yozing. Nima uchun aynan shu mavzu qiyin ekanini qisqacha tushuntiring. Keyingi darslarda shu mavzuga qaytamiz.",
-            "Masalan: “Fotosintez bosqichlari. O‘quvchilar qaysi modda qayerda hosil bo‘lishini adashtiradi.”"));
+            "Öz faningizdan öquvçilar eng qiynaladigan bitta mavzuni yozing. Nima uçun aynan şu mavzu qiyin ekanini qisqaça tuşuntiring. Keyingi darslarda şu mavzuga qaytamiz.",
+            "Masalan: “Fotosintez bosqiçlari. Öquvçilar qaysi modda qayerda hosil bölişini adaştiradi.”"));
     }
 
     private static void AddChoosingTheForm(Course course)
@@ -112,45 +112,45 @@ internal static partial class AcademySeeder
 
         var lesson = course.AddLesson(
             "mazmunga-mos-shaklni-tanlash",
-            "Mazmunga mos shaklni tanlash",
-            "Mavzudagi bog‘liqlik turini aniqlab, unga mos vizual shaklni tanlashni o‘rganing.",
+            "Mazmunga mos şaklni tanlaş",
+            "Mavzudagi boğliqlik turini aniqlab, unga mos vizual şaklni tanlaşni örganing.",
             10);
 
-        Reading(lesson, "Avval bog‘liqlikni aniqlang", new ReadingContent(
+        Reading(lesson, "Avval boğliqlikni aniqlang", new ReadingContent(
             [
-                "Shaklni tanlashdan oldin o‘zingizga bitta savol bering: bu mavzuda tushunchalar bir-biri bilan qanday bog‘langan?",
-                "**Ketma-ketlik** (jarayon, algoritm): blok-sxema. **Xronologiya** (tarixiy voqealar): vaqt chizig‘i.",
-                "**Ierarxiya** (tasnif, tuzilma): daraxtsimon sxema yoki aqliy xarita. **Taqqoslash**: jadval yoki Venn diagrammasi.",
-                "**Sabab-oqibat**: strelkali sxema. **Miqdoriy bog‘liqlik** (raqamlar): grafik yoki diagramma.",
+                "Şaklni tanlaşdan oldin özingizga bitta savol bering: bu mavzuda tuşunçalar bir-biri bilan qanday boğlangan?",
+                "**Ketma-ketlik** (jarayon, algoritm): blok-sxema. **Xronologiya** (tarixiy voqealar): vaqt çiziği.",
+                "**Ierarxiya** (tasnif, tuzilma): daraxtsimon sxema yoki aqliy xarita. **Taqqoslaş**: jadval yoki Venn diagrammasi.",
+                "**Sabab-oqibat**: strelkali sxema. **Miqdoriy boğliqlik** (raqamlar): grafik yoki diagramma.",
             ],
-            Callout: "Eng ko‘p uchraydigan xato: mazmun tuzilishini tahlil qilmasdan, chiroyli ko‘ringan shablonni tanlash."));
+            Callout: "Eng köp uçraydigan xato: mazmun tuzilişini tahlil qilmasdan, çiroyli köringan şablonni tanlaş."));
 
-        Quiz(lesson, "Qaysi shakl mos?", new QuizContent(
-            "“Buyuk geografik kashfiyotlar” mavzusida voqealar qaysi tartibda bo‘lganini ko‘rsatmoqchisiz. Qaysi shakl eng mos?",
+        Quiz(lesson, "Qaysi şakl mos?", new QuizContent(
+            "“Buyuk geografik kaşfiyotlar” mavzusida voqealar qaysi tartibda bölganini körsatmoqçisiz. Qaysi şakl eng mos?",
             [
                 new QuizOption("a", "Aqliy xarita"),
-                new QuizOption("b", "Vaqt chizig‘i"),
+                new QuizOption("b", "Vaqt çiziği"),
                 new QuizOption("c", "Doiraviy diagramma"),
             ],
             "b",
-            "To‘g‘ri. Voqealarning xronologik ketma-ketligi vaqt chizig‘ida eng aniq ko‘rinadi.",
-            "Bu shakl boshqa bog‘liqlik uchun qulayroq. Bu yerda asosiy narsa nima: voqealar tartibi."));
+            "Töğri. Voqealarning xronologik ketma-ketligi vaqt çiziğida eng aniq körinadi.",
+            "Bu şakl boşqa boğliqlik uçun qulayroq. Bu yerda asosiy narsa nima: voqealar tartibi."));
 
         Quiz(lesson, "Yana bir vaziyat", new QuizContent(
-            "“So‘z turkumlari” mavzusida mustaqil va yordamchi so‘zlar tasnifini ko‘rsatmoqchisiz. Qaysi shakl mos?",
+            "“Söz turkumlari” mavzusida mustaqil va yordamçi sözlar tasnifini körsatmoqçisiz. Qaysi şakl mos?",
             [
-                new QuizOption("a", "Vaqt chizig‘i"),
-                new QuizOption("b", "Chiziqli grafik"),
+                new QuizOption("a", "Vaqt çiziği"),
+                new QuizOption("b", "Çiziqli grafik"),
                 new QuizOption("c", "Daraxtsimon sxema"),
             ],
             "c",
-            "To‘g‘ri. Tasnif ierarxik bog‘liqlikdir, uni daraxtsimon sxema yaxshi ko‘rsatadi.",
-            "Bu mavzuda vaqt yoki raqam emas, “turlarga bo‘linish” muhim. Bu qaysi bog‘liqlik turiga kiradi?"));
+            "Töğri. Tasnif ierarxik boğliqlikdir, uni daraxtsimon sxema yaxşi körsatadi.",
+            "Bu mavzuda vaqt yoki raqam emas, “turlarga böliniş” muhim. Bu qaysi boğliqlik turiga kiradi?"));
 
-        Practice(lesson, "Amaliy topshiriq", new PracticeContent(
+        Practice(lesson, "Amaliy topşiriq", new PracticeContent(
             PracticeModes.Text,
-            "Birinchi darsda tanlagan mavzuingizga qayting. Undagi asosiy bog‘liqlik turini va unga mos shaklni yozing. Nima uchun aynan shu shaklni tanlaganingizni bir-ikki gap bilan asoslang.",
-            "Masalan: “Bog‘liqlik turi: ketma-ketlik. Shakl: blok-sxema, chunki fotosintez bosqichlari birin-ketin keladi.”"));
+            "Birinçi darsda tanlagan mavzuingizga qayting. Undagi asosiy boğliqlik turini va unga mos şaklni yozing. Nima uçun aynan şu şaklni tanlaganingizni bir-ikki gap bilan asoslang.",
+            "Masalan: “Boğliqlik turi: ketma-ketlik. Şakl: blok-sxema, çunki fotosintez bosqiçlari birin-ketin keladi.”"));
     }
 
     private static void AddFirstDiagram(Course course)
@@ -159,33 +159,33 @@ internal static partial class AcademySeeder
 
         var lesson = course.AddLesson(
             "birinchi-sxemangiz",
-            "Birinchi sxemangiz",
-            "O‘z mavzuingiz bo‘yicha jarayon sxemasini tuzing va uni mezonlar bo‘yicha tekshiring.",
+            "Birinçi sxemangiz",
+            "Öz mavzuingiz böyiça jarayon sxemasini tuzing va uni mezonlar böyiça tekşiring.",
             15);
 
-        Reading(lesson, "Yaxshi sxemaning uchta qoidasi", new ReadingContent(
+        Reading(lesson, "Yaxşi sxemaning uçta qoidasi", new ReadingContent(
             [
-                "**Kam element.** Bir sxemada faqat shu dars uchun kerakli bosqichlarni qoldiring. Elementlar ko‘paysa, ularni guruhlarga ajrating.",
-                "**Qisqa yozuv.** Har bir elementda to‘liq gap emas, ikki-uch so‘z bo‘lsin. Tushuntirishni o‘zingiz og‘zaki aytasiz.",
-                "**Bitta urg‘u.** O‘quvchi birinchi nimaga qarashi kerakligini rang yoki o‘lcham bilan ajrating. Hamma narsa ajratilsa, hech narsa ajralib turmaydi.",
+                "**Kam element.** Bir sxemada faqat şu dars uçun kerakli bosqiçlarni qoldiring. Elementlar köpaysa, ularni guruhlarga ajrating.",
+                "**Qisqa yozuv.** Har bir elementda töliq gap emas, ikki-uç söz bölsin. Tuşuntirişni özingiz oğzaki aytasiz.",
+                "**Bitta urğu.** Öquvçi birinçi nimaga qaraşi kerakligini rang yoki ölçam bilan ajrating. Hamma narsa ajratilsa, heç narsa ajralib turmaydi.",
             ]));
 
         Practice(lesson, "Sxemangizni tuzing", new PracticeContent(
             PracticeModes.Process,
-            "Tanlagan mavzuingizdagi jarayonni bosqichlarga ajrating. Har bir bosqichga qisqa nom bering. Sxema yozganingiz sari chizilib boradi.",
-            "Bosqich nomi",
+            "Tanlagan mavzuingizdagi jarayonni bosqiçlarga ajrating. Har bir bosqiçga qisqa nom bering. Sxema yozganingiz sari çizilib boradi.",
+            "Bosqiç nomi",
             MinItems: 3,
             MaxItems: 6));
 
-        Practice(lesson, "O‘zingizni tekshiring", new PracticeContent(
+        Practice(lesson, "Özingizni tekşiring", new PracticeContent(
             PracticeModes.Checklist,
-            "Sxemangizga qarang va har bir bandni halol tekshiring. Biror band bajarilmagan bo‘lsa, orqaga qaytib tuzating.",
+            "Sxemangizga qarang va har bir bandni halol tekşiring. Biror band bajarilmagan bölsa, orqaga qaytib tuzating.",
             Checklist:
             [
-                "Bosqichlar to‘g‘ri tartibda va ilmiy jihatdan to‘g‘ri",
-                "Har bir yozuv qisqa: ikki-uch so‘zdan oshmaydi",
-                "Ortiqcha element yo‘q: har biri aniq vazifani bajaradi",
-                "Bu sxema mavzuni matndan ko‘ra tushunarliroq ko‘rsatadi",
+                "Bosqiçlar töğri tartibda va ilmiy jihatdan töğri",
+                "Har bir yozuv qisqa: ikki-uç sözdan oşmaydi",
+                "Ortiqça element yöq: har biri aniq vazifani bajaradi",
+                "Bu sxema mavzuni matndan köra tuşunarliroq körsatadi",
             ]));
     }
 }

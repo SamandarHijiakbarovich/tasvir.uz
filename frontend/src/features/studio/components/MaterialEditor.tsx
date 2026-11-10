@@ -120,7 +120,7 @@ export function MaterialEditor({ material }: { material: Material }) {
       const response = await saveMaterialAction(material.id, draft);
       if (!response.ok) {
         if (response.sessionExpired) {
-          setStatus({ ok: false, text: "Sessiya tugagan. O‘zgarishlaringizni nusxalab oling va qayta kiring." });
+          setStatus({ ok: false, text: "Sessiya tugagan. Özgarişlaringizni nusxalab oling va qayta kiring." });
         } else {
           setStatus({ ok: false, text: response.message });
         }
@@ -142,10 +142,10 @@ export function MaterialEditor({ material }: { material: Material }) {
         </p>
         <div className="tv-editor-actions">
           <span className="tv-editor-status" role="status">
-            {status ? status.text : dirty ? "Saqlanmagan o‘zgarishlar bor" : ""}
+            {status ? status.text : dirty ? "Saqlanmagan özgarişlar bor" : ""}
           </span>
           <button className="tv-btn tv-btn-primary tv-btn-sm" type="button" disabled={pending || !dirty} onClick={() => save()}>
-            {pending ? "Saqlanmoqda…" : "Saqlash"}
+            {pending ? "Saqlanmoqda…" : "Saqlaş"}
           </button>
           <button
             className="tv-btn tv-btn-ghost tv-btn-sm"
@@ -157,7 +157,7 @@ export function MaterialEditor({ material }: { material: Material }) {
               else open();
             }}
           >
-            Darsda ko‘rsatish
+            Darsda körsatiş
           </button>
         </div>
       </div>
@@ -256,7 +256,7 @@ export function MaterialEditor({ material }: { material: Material }) {
                     }}
                   />
                   {columns.length > MIN_COLUMNS && (
-                    <button className="tv-iconbtn" type="button" aria-label={`${c + 1}-ustunni o‘chirish`} onClick={() => removeColumn(c)}>
+                    <button className="tv-iconbtn" type="button" aria-label={`${c + 1}-ustunni öçiriş`} onClick={() => removeColumn(c)}>
                       <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M6 6l12 12M18 6L6 18" />
                       </svg>
@@ -266,7 +266,7 @@ export function MaterialEditor({ material }: { material: Material }) {
               ))}
               {columns.length < MAX_COLUMNS && (
                 <button className="tv-btn tv-btn-text" type="button" onClick={addColumn}>
-                  + Ustun qo‘shish
+                  + Ustun qöşiş
                 </button>
               )}
             </fieldset>
@@ -283,7 +283,7 @@ export function MaterialEditor({ material }: { material: Material }) {
                     {index + 1}. {template.itemName.toLowerCase()}
                   </strong>
                   <div>
-                    <button className="tv-iconbtn" type="button" disabled={index === 0} aria-label={`${index + 1}-elementni yuqoriga surish`} onClick={() => moveItem(index, -1)}>
+                    <button className="tv-iconbtn" type="button" disabled={index === 0} aria-label={`${index + 1}-elementni yuqoriga suriş`} onClick={() => moveItem(index, -1)}>
                       <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M12 19V5M6 11l6-6 6 6" />
                       </svg>
@@ -292,7 +292,7 @@ export function MaterialEditor({ material }: { material: Material }) {
                       className="tv-iconbtn"
                       type="button"
                       disabled={index === items.length - 1}
-                      aria-label={`${index + 1}-elementni pastga surish`}
+                      aria-label={`${index + 1}-elementni pastga suriş`}
                       onClick={() => moveItem(index, 1)}
                     >
                       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -303,7 +303,7 @@ export function MaterialEditor({ material }: { material: Material }) {
                       className="tv-iconbtn"
                       type="button"
                       disabled={items.length <= template.minItems}
-                      aria-label={`${index + 1}-elementni o‘chirish`}
+                      aria-label={`${index + 1}-elementni öçiriş`}
                       onClick={() => removeItem(item.key)}
                     >
                       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -333,7 +333,7 @@ export function MaterialEditor({ material }: { material: Material }) {
             ))}
             {items.length < template.maxItems && (
               <button className="tv-btn tv-btn-text" type="button" onClick={addItem}>
-                + {template.itemName} qo‘shish
+                + {template.itemName} qöşiş
               </button>
             )}
           </fieldset>
@@ -353,11 +353,11 @@ export function MaterialEditor({ material }: { material: Material }) {
           </div>
 
           <p className="tv-callout tv-editor-tip">
-            <strong>Tekshiring:</strong> yozuvlar qisqami, ortiqcha element yo‘qmi, ilmiy jihatdan to‘g‘rimi? Har bir element aniq vazifani bajarsin.
+            <strong>Tekşiring:</strong> yozuvlar qisqami, ortiqça element yöqmi, ilmiy jihatdan töğrimi? Har bir element aniq vazifani bajarsin.
           </p>
         </div>
 
-        <aside className="tv-editor-preview" aria-label="Material ko‘rinishi">
+        <aside className="tv-editor-preview" aria-label="Material körinişi">
           <div className="tv-print-area">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={svgDataUri(preview.svg)} alt={preview.alt} />
@@ -368,17 +368,17 @@ export function MaterialEditor({ material }: { material: Material }) {
               type="button"
               onClick={() => {
                 downloadSvgAsPng(preview.svg, preview.width, preview.height, `${fileName}.png`).catch(() =>
-                  setStatus({ ok: false, text: "PNG yaratib bo‘lmadi. SVG faylni yuklab oling." }),
+                  setStatus({ ok: false, text: "PNG yaratib bölmadi. SVG faylni yuklab oling." }),
                 );
               }}
             >
-              PNG yuklab olish
+              PNG yuklab oliş
             </button>
             <button className="tv-btn tv-btn-ghost tv-btn-sm" type="button" onClick={() => downloadBlob(new Blob([preview.svg], { type: "image/svg+xml" }), `${fileName}.svg`)}>
-              SVG yuklab olish
+              SVG yuklab oliş
             </button>
             <button className="tv-btn tv-btn-ghost tv-btn-sm" type="button" onClick={() => window.print()}>
-              Chop etish / PDF
+              Çop etiş / PDF
             </button>
           </div>
         </aside>

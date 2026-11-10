@@ -6,8 +6,8 @@ const columns = [
     links: [
       { href: "#", label: "Akademiya" },
       { href: "/studiya", label: "Studiya" },
-      { href: "#", label: "Shablonlar" },
-      { href: "/vositalar", label: "Vizuallashtirish dasturlari" },
+      { href: "#", label: "Şablonlar" },
+      { href: "/vositalar", label: "Vizuallaştiriş dasturlari" },
       { href: "#narxlar", label: "Narxlar" },
     ],
   },
@@ -17,7 +17,7 @@ const columns = [
       { href: "#tadqiqot", label: "Tadqiqot" },
       { href: "#", label: "Biz haqimizda" },
       { href: "/maxfiylik", label: "Maxfiylik siyosati" },
-      { href: "#", label: "Foydalanish shartlari" },
+      { href: "#", label: "Foydalaniş şartlari" },
     ],
   },
 ];
@@ -64,7 +64,7 @@ export function Footer() {
           </div>
         ))}
         <div id="boglanish">
-          <h3>Bog‘lanish</h3>
+          <h3>Boğlaniş</h3>
           <ul>
             <li><a href="#">[email@tasvir.uz]</a></li>
             <li><a href="#">[+998 __ ___ __ __]</a></li>
@@ -73,8 +73,8 @@ export function Footer() {
         </div>
       </div>
       <div className="ft-bottom">
-        <span>© {new Date().getFullYear()} Tasvir.uz. Barcha huquqlar himoyalangan.</span>
-        <span>O‘zbekistonda ishlab chiqilgan</span>
+        <span>© {new Date().getFullYear()} Tasvir.uz. Barça huquqlar himoyalangan.</span>
+        <span>Özbekistonda işlab çiqilgan</span>
       </div>
     </footer>
   );

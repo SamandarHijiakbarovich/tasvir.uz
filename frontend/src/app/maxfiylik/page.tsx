@@ -5,7 +5,7 @@ import "@/styles/classroom.css";
 
 export const metadata: Metadata = {
   title: "Maxfiylik siyosati — Tasvir.uz",
-  description: "Tasvir.uz qanday ma’lumotlarni yig‘adi, nima uchun ishlatadi va ularni kim ko‘radi.",
+  description: "Tasvir.uz qanday ma’lumotlarni yiğadi, nima uçun işlatadi va ularni kim köradi.",
 };
 
 export default function PrivacyPage() {
@@ -22,47 +22,47 @@ export default function PrivacyPage() {
       <main className="tv-legal-in">
         <h1 className="tv-h2">Maxfiylik siyosati</h1>
         <p>
-          Bu sahifa Tasvir.uz foydalanuvchilar haqida qanday ma’lumotlarni saqlashi, ulardan nima uchun foydalanishi va ularni kim ko‘ra olishini tushuntiradi. Hisob ochishdan oldin
-          o‘qib chiqing.
+          Bu sahifa Tasvir.uz foydalanuvçilar haqida qanday ma’lumotlarni saqlaşi, ulardan nima uçun foydalanişi va ularni kim köra olişini tuşuntiradi. Hisob oçişdan oldin
+          öqib çiqing.
         </p>
 
         <h2 className="tv-h3">Qanday ma’lumotlar saqlanadi</h2>
         <ul>
-          <li>Hisob: ism va familiya, email, parolning qaytarib bo‘lmaydigan xeshi (parolning o‘zi saqlanmaydi).</li>
-          <li>O‘qish: darslardagi progress, test va mashqlarga javoblar (xato urinishlar ham), amaliy topshiriq natijalari.</li>
+          <li>Hisob: ism va familiya, email, parolning qaytarib bölmaydigan xeşi (parolning özi saqlanmaydi).</li>
+          <li>Öqiş: darslardagi progress, test va maşqlarga javoblar (xato urinişlar ham), amaliy topşiriq natijalari.</li>
           <li>Studiya: siz yaratgan materiallar.</li>
-          <li>Guruh: qo‘shilgan guruhlaringiz, topshirgan ishlaringiz, o‘qituvchi baholari va so‘rovnoma javoblaringiz.</li>
-          <li>Texnik: kirish sessiyasini saqlovchi cookie fayllar va so‘rovlarni cheklash uchun vaqtincha ishlatiladigan IP manzil.</li>
+          <li>Guruh: qöşilgan guruhlaringiz, topşirgan işlaringiz, öqituvçi baholari va sörovnoma javoblaringiz.</li>
+          <li>Texnik: kiriş sessiyasini saqlovçi cookie fayllar va sörovlarni çeklaş uçun vaqtinça işlatiladigan IP manzil.</li>
         </ul>
 
-        <h2 className="tv-h3">Nima uchun kerak</h2>
+        <h2 className="tv-h3">Nima uçun kerak</h2>
         <ul>
-          <li>Hisobingizga kirish, progressingiz va materiallaringizni saqlash.</li>
-          <li>Parolni tiklash va emailni tasdiqlash xatlarini yuborish.</li>
-          <li>Guruh o‘qituvchisiga natijalaringizni ko‘rsatish (faqat guruhga qo‘shilsangiz).</li>
-          <li>Pedagogika fanlari bo‘yicha dissertatsiya tadqiqoti: tajriba-sinov natijalari umumlashtirilgan holda, ism-sharifsiz tahlil qilinadi.</li>
+          <li>Hisobingizga kiriş, progressingiz va materiallaringizni saqlaş.</li>
+          <li>Parolni tiklaş va emailni tasdiqlaş xatlarini yuboriş.</li>
+          <li>Guruh öqituvçisiga natijalaringizni körsatiş (faqat guruhga qöşilsangiz).</li>
+          <li>Pedagogika fanlari böyiça dissertatsiya tadqiqoti: tajriba-sinov natijalari umumlaştirilgan holda, ism-şarifsiz tahlil qilinadi.</li>
         </ul>
-        <p>Reklama uchun ishlatilmaydi va sotilmaydi.</p>
+        <p>Reklama uçun işlatilmaydi va sotilmaydi.</p>
 
-        <h2 className="tv-h3">Kim ko‘radi</h2>
+        <h2 className="tv-h3">Kim köradi</h2>
         <ul>
-          <li>Kod bilan guruhga qo‘shilsangiz, shu guruh o‘qituvchisi ismingizni, progressingizni, test natijalaringizni va topshirgan ishlaringizni ko‘radi. Buning uchun alohida rozilik so‘raladi.</li>
-          <li>So‘rovnoma javoblarini o‘qituvchi faqat umumlashtirilgan holda, izohlarni esa ismsiz ko‘radi.</li>
-          <li>Boshqa foydalanuvchilar sizning ma’lumotlaringizni ko‘rmaydi.</li>
-          <li>Matematika kursidagi videolar YouTube orqali ko‘rsatiladi: videoni ochganingizda YouTube o‘z shartlari asosida ma’lumot olishi mumkin.</li>
+          <li>Kod bilan guruhga qöşilsangiz, şu guruh öqituvçisi ismingizni, progressingizni, test natijalaringizni va topşirgan işlaringizni köradi. Buning uçun alohida rozilik söraladi.</li>
+          <li>Sörovnoma javoblarini öqituvçi faqat umumlaştirilgan holda, izohlarni esa ismsiz köradi.</li>
+          <li>Boşqa foydalanuvçilar sizning ma’lumotlaringizni körmaydi.</li>
+          <li>Matematika kursidagi videolar YouTube orqali körsatiladi: videoni oçganingizda YouTube öz şartlari asosida ma’lumot olişi mumkin.</li>
         </ul>
 
         <h2 className="tv-h3">Sizning huquqlaringiz</h2>
         <ul>
-          <li>Guruhdan istalgan vaqtda chiqishingiz mumkin: shu guruhdagi ishlaringiz, baholaringiz va so‘rovnoma javoblaringiz o‘chadi.</li>
-          <li>Ma’lumotlaringizni ko‘rish, tuzatish yoki hisobingizni o‘chirishni so‘rash uchun quyidagi manzilga yozing.</li>
+          <li>Guruhdan istalgan vaqtda çiqişingiz mumkin: şu guruhdagi işlaringiz, baholaringiz va sörovnoma javoblaringiz öçadi.</li>
+          <li>Ma’lumotlaringizni köriş, tuzatiş yoki hisobingizni öçirişni söraş uçun quyidagi manzilga yozing.</li>
         </ul>
         <p>
-          Ma’lumotlar O‘zbekiston Respublikasining “Shaxsga doir ma’lumotlar to‘g‘risida”gi Qonuni talablari asosida qayta ishlanadi.
+          Ma’lumotlar Özbekiston Respublikasining “Şaxsga doir ma’lumotlar töğrisida”gi Qonuni talablari asosida qayta işlanadi.
         </p>
 
-        <h2 className="tv-h3">Bog‘lanish</h2>
-        <p>[Mas’ul shaxs yoki tashkilot nomi, aloqa emaili va manzili shu yerga yoziladi]</p>
+        <h2 className="tv-h3">Boğlaniş</h2>
+        <p>[Mas’ul şaxs yoki taşkilot nomi, aloqa emaili va manzili şu yerga yoziladi]</p>
         <p className="tv-muted">Tahrir sanasi: 2026-yil 30-oktabr.</p>
       </main>
     </div>

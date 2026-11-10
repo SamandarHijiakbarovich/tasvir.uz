@@ -54,7 +54,7 @@ public static class StepContentJson
 
     public static string Serialize<T>(T value) => JsonSerializer.Serialize(value, Options);
     public static T Deserialize<T>(string json) =>
-        JsonSerializer.Deserialize<T>(json, Options) ?? throw new InvalidOperationException("Bosqich mazmuni bo‘sh.");
+        JsonSerializer.Deserialize<T>(json, Options) ?? throw new InvalidOperationException("Bosqiç mazmuni böş.");
 }
 
 public static class DependencyInjection

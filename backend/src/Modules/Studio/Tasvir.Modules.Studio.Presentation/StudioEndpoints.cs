@@ -16,7 +16,7 @@ public static class StudioEndpoints
 
         group.MapGet("", async (ClaimsPrincipal principal, StudioService studio, CancellationToken ct) =>
             ToResponse(await studio.ListAsync(UserId(principal), ct)))
-            .WithSummary("Mening materiallarim (oxirgi o‘zgartirilgani birinchi)");
+            .WithSummary("Mening materiallarim (oxirgi özgartirilgani birinçi)");
 
         group.MapGet("/{id:guid}", async (Guid id, ClaimsPrincipal principal, StudioService studio, CancellationToken ct) =>
             ToResponse(await studio.GetAsync(UserId(principal), id, ct)))
@@ -28,15 +28,15 @@ public static class StudioEndpoints
 
         group.MapPut("/{id:guid}", async (Guid id, SaveMaterialRequest request, ClaimsPrincipal principal, StudioService studio, CancellationToken ct) =>
             ToResponse(await studio.UpdateAsync(UserId(principal), id, request, ct)))
-            .WithSummary("Materialni saqlash");
+            .WithSummary("Materialni saqlaş");
 
         group.MapPost("/{id:guid}/duplicate", async (Guid id, ClaimsPrincipal principal, StudioService studio, CancellationToken ct) =>
             ToResponse(await studio.DuplicateAsync(UserId(principal), id, ct), StatusCodes.Status201Created))
-            .WithSummary("Nusxa olish");
+            .WithSummary("Nusxa oliş");
 
         group.MapDelete("/{id:guid}", async (Guid id, ClaimsPrincipal principal, StudioService studio, CancellationToken ct) =>
             ToResponse(await studio.DeleteAsync(UserId(principal), id, ct)))
-            .WithSummary("O‘chirish");
+            .WithSummary("Öçiriş");
 
         return app;
     }

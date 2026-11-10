@@ -5,7 +5,7 @@ export function Faq({ items }: { items: FaqItem[] }) {
   return (
     <section className="tv-section" aria-labelledby="faq-t">
       <div className="tv-wrap">
-        <SectionHead id="faq-t" label="Savol-javob" title="Ko‘p beriladigan savollar" />
+        <SectionHead id="faq-t" label="Savol-javob" title="Köp beriladigan savollar" />
         <div className="tv-faq">
           {items.map((f, i) => (
             <details key={f.id} open={i === 0}>

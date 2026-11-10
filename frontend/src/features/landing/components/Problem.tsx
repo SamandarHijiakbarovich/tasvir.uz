@@ -3,8 +3,8 @@ import { SectionHead } from "./SectionHead";
 const pains = [
   {
     tone: "coral",
-    title: "Vaqt yetishmaydi",
-    text: "Dars rejasi, daftar tekshirish, hisobotlar… Chiroyli ko‘rgazmali material tayyorlashga esa soatlar kerak.",
+    title: "Vaqt yetişmaydi",
+    text: "Dars rejasi, daftar tekşiriş, hisobotlar… Çiroyli körgazmali material tayyorlaşga esa soatlar kerak.",
     icon: (
       <>
         <circle cx="12" cy="13" r="8" />
@@ -14,8 +14,8 @@ const pains = [
   },
   {
     tone: "sun",
-    title: "Dizayn ko‘nikmasi yo‘q",
-    text: "Qaysi rang, qaysi shakl, ma’lumotni qanday joylash? Murakkab dasturlar o‘rganishga qo‘rqitadi.",
+    title: "Dizayn könikmasi yöq",
+    text: "Qaysi rang, qaysi şakl, ma’lumotni qanday joylaş? Murakkab dasturlar örganişga qörqitadi.",
     icon: (
       <>
         <path d="M12 19l7-7 3 3-7 7zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18zM2 2l7.6 7.6" />
@@ -25,8 +25,8 @@ const pains = [
   },
   {
     tone: "brand",
-    title: "O‘quvchilar zerikadi",
-    text: "Matnga to‘la slaydlar diqqatni ushlab turmaydi — mavzu esda qolmaydi, savollar kamayadi.",
+    title: "Öquvçilar zerikadi",
+    text: "Matnga töla slaydlar diqqatni uşlab turmaydi — mavzu esda qolmaydi, savollar kamayadi.",
     icon: (
       <>
         <circle cx="12" cy="12" r="9" />
@@ -40,7 +40,7 @@ export function Problem() {
   return (
     <section className="tv-section" aria-labelledby="muammo-t">
       <div className="tv-wrap">
-        <SectionHead id="muammo-t" label="Tanish holat?" title="Yaxshi dars bor, lekin uni ko‘rinadigan qilish qiyin" />
+        <SectionHead id="muammo-t" label="Taniş holat?" title="Yaxşi dars bor, lekin uni körinadigan qiliş qiyin" />
         <div className="tv-grid-3">
           {pains.map((p) => (
             <article key={p.title} className="tv-card tv-card-hover pain tv-reveal">

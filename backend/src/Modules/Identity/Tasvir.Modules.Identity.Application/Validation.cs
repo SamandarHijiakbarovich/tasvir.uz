@@ -16,7 +16,7 @@ internal static class Validation
     };
 
     public static Error Invalid(Dictionary<string, string> fields) =>
-        new("validation_failed", "Ma’lumotlarni tekshirib, qayta urining.", ErrorKind.Validation, fields);
+        new("validation_failed", "Ma’lumotlarni tekşirib, qayta urining.", ErrorKind.Validation, fields);
 
     public static bool IsValidEmail(string? email)
     {
@@ -35,22 +35,22 @@ internal static class Validation
     {
         if (string.IsNullOrEmpty(password) || password.Length < MinPasswordLength)
         {
-            return $"Parol kamida {MinPasswordLength} ta belgidan iborat bo‘lsin.";
+            return $"Parol kamida {MinPasswordLength} ta belgidan iborat bölsin.";
         }
 
         if (password.Length > MaxPasswordLength)
         {
-            return $"Parol {MaxPasswordLength} ta belgidan oshmasin.";
+            return $"Parol {MaxPasswordLength} ta belgidan oşmasin.";
         }
 
         if (CommonPasswords.Contains(password) || password.Distinct().Count() <= 2)
         {
-            return "Bu parolni topish juda oson. Boshqasini tanlang.";
+            return "Bu parolni topiş juda oson. Boşqasini tanlang.";
         }
 
         if (email is not null && password.Equals(email.Trim(), StringComparison.OrdinalIgnoreCase))
         {
-            return "Parol emailingiz bilan bir xil bo‘lmasin.";
+            return "Parol emailingiz bilan bir xil bölmasin.";
         }
 
         return null;

@@ -43,9 +43,9 @@ function measure(password: string): Strength {
   if (/\d/.test(password) && /[^a-zA-Z0-9]/.test(password)) score++;
 
   if (password.length < 8 || score <= 1) return { level: 1, label: "Zaif" };
-  if (score === 2) return { level: 2, label: "O‘rtacha" };
-  if (score === 3) return { level: 3, label: "Yaxshi" };
-  return { level: 4, label: "Kuchli" };
+  if (score === 2) return { level: 2, label: "Örtaça" };
+  if (score === 3) return { level: 3, label: "Yaxşi" };
+  return { level: 4, label: "Kuçli" };
 }
 
 type PasswordFieldProps = Omit<FieldProps, "type"> & { showStrength?: boolean };
@@ -73,7 +73,7 @@ export function PasswordField({ label, name, error, hint, showStrength, ...input
           spellCheck={false}
           {...input}
         />
-        <button type="button" onClick={() => setVisible((v) => !v)} aria-pressed={visible} aria-label={visible ? "Parolni yashirish" : "Parolni ko‘rsatish"}>
+        <button type="button" onClick={() => setVisible((v) => !v)} aria-pressed={visible} aria-label={visible ? "Parolni yaşiriş" : "Parolni körsatiş"}>
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z" />
             <circle cx="12" cy="12" r="3" />
@@ -89,7 +89,7 @@ export function PasswordField({ label, name, error, hint, showStrength, ...input
             <i />
             <i />
           </span>
-          <span>Parol kuchi: {strength.label}</span>
+          <span>Parol kuçi: {strength.label}</span>
         </div>
       )}
       {hint && !error && (

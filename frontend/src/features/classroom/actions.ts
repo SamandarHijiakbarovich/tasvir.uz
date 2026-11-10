@@ -78,13 +78,13 @@ export async function leaveGroupAction(groupId: string, userId: string): Promise
 
 export async function submitWorkAction(groupId: string, _: FormState, form: FormData): Promise<FormState> {
   const materialId = text(form, "materialId");
-  if (!materialId) return { fields: { materialId: "Topshiriladigan materialni tanlang." } };
+  if (!materialId) return { fields: { materialId: "Topşiriladigan materialni tanlang." } };
 
   const result = await authedRequest(`${BASE}/groups/${encodeURIComponent(groupId)}/submissions`, { body: { materialId } });
   if (!result.ok) return failed(result);
 
   revalidatePath(groupPath(groupId));
-  return { success: true, message: "Ish o‘qituvchiga topshirildi." };
+  return { success: true, message: "Iş öqituvçiga topşirildi." };
 }
 
 export async function saveReviewAction(submissionId: string, _: FormState, form: FormData): Promise<FormState> {
@@ -100,7 +100,7 @@ export async function saveReviewAction(submissionId: string, _: FormState, form:
   if (!result.ok) return failed(result);
 
   revalidatePath(`/guruhlar/ish/${encodeURIComponent(submissionId)}`);
-  return { success: true, message: "Baho saqlandi. Talaba uni o‘z sahifasida ko‘radi." };
+  return { success: true, message: "Baho saqlandi. Talaba uni öz sahifasida köradi." };
 }
 
 export async function saveSurveyAction(groupId: string, _: FormState, form: FormData): Promise<FormState> {

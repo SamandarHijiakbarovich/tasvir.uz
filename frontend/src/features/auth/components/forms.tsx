@@ -54,12 +54,12 @@ export function RegisterForm({ next }: { next?: string }) {
             <Link href="/maxfiylik" target="_blank">
               Maxfiylik siyosati
             </Link>{" "}
-            bilan tanishdim va shaxsiy ma’lumotlarim shu asosda qayta ishlanishiga roziman.
+            bilan tanişdim va şaxsiy ma’lumotlarim şu asosda qayta işlanişiga roziman.
           </span>
         </label>
         {state.fields?.acceptPrivacy && <p className="tv-field-error">{state.fields.acceptPrivacy}</p>}
       </div>
-      <SubmitButton pendingText="Hisob yaratilmoqda…">Hisob yaratish</SubmitButton>
+      <SubmitButton pendingText="Hisob yaratilmoqda…">Hisob yaratiş</SubmitButton>
     </form>
   );
 }
@@ -92,7 +92,7 @@ export function LoginForm({ next }: { next?: string }) {
         </label>
         <Link href="/parolni-tiklash">Parolni unutdingizmi?</Link>
       </div>
-      <SubmitButton pendingText="Kirilmoqda…">Kirish</SubmitButton>
+      <SubmitButton pendingText="Kirilmoqda…">Kiriş</SubmitButton>
     </form>
   );
 }
@@ -118,7 +118,7 @@ export function ForgotPasswordForm() {
         error={state.fields?.email}
         required
       />
-      <SubmitButton pendingText="Yuborilmoqda…">Havola yuborish</SubmitButton>
+      <SubmitButton pendingText="Yuborilmoqda…">Havola yuboriş</SubmitButton>
     </form>
   );
 }
@@ -132,7 +132,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
       <FormMessage state={state} />
       <input type="hidden" name="token" value={token} />
       <PasswordField label="Yangi parol" name="password" autoComplete="new-password" hint={PASSWORD_HINT} error={state.fields?.password} showStrength required />
-      <SubmitButton pendingText="Saqlanmoqda…">Parolni saqlash</SubmitButton>
+      <SubmitButton pendingText="Saqlanmoqda…">Parolni saqlaş</SubmitButton>
     </form>
   );
 }
@@ -146,7 +146,7 @@ export function ConfirmEmailForm({ token }: { token: string }) {
       <div className="tv-form">
         <FormMessage state={state} />
         <Link className="tv-btn tv-btn-primary tv-btn-block" href="/kabinet">
-          Kabinetga o‘tish
+          Kabinetga ötiş
         </Link>
       </div>
     );
@@ -156,7 +156,7 @@ export function ConfirmEmailForm({ token }: { token: string }) {
     <form action={action} className="tv-form">
       <FormMessage state={state} />
       <input type="hidden" name="token" value={token} />
-      <SubmitButton pendingText="Tasdiqlanmoqda…">Emailni tasdiqlash</SubmitButton>
+      <SubmitButton pendingText="Tasdiqlanmoqda…">Emailni tasdiqlaş</SubmitButton>
     </form>
   );
 }
@@ -166,7 +166,7 @@ export function ResendConfirmationForm() {
 
   return (
     <form action={action} className="tv-banner-action">
-      {state.message ? <FormMessage state={state} /> : <SubmitButton block={false} pendingText="Yuborilmoqda…">Xatni qayta yuborish</SubmitButton>}
+      {state.message ? <FormMessage state={state} /> : <SubmitButton block={false} pendingText="Yuborilmoqda…">Xatni qayta yuboriş</SubmitButton>}
     </form>
   );
 }
@@ -187,7 +187,7 @@ export function ChangePasswordForm() {
       <FormMessage state={state} />
       <PasswordField label="Joriy parol" name="currentPassword" autoComplete="current-password" error={state.fields?.currentPassword} required />
       <PasswordField label="Yangi parol" name="newPassword" autoComplete="new-password" hint={PASSWORD_HINT} error={state.fields?.newPassword} showStrength required />
-      <SubmitButton block={false} pendingText="Saqlanmoqda…">Parolni o‘zgartirish</SubmitButton>
+      <SubmitButton block={false} pendingText="Saqlanmoqda…">Parolni özgartiriş</SubmitButton>
     </form>
   );
 }

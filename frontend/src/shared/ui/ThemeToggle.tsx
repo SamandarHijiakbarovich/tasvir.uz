@@ -13,7 +13,7 @@ function toggleTheme() {
 
 export function ThemeToggle() {
   return (
-    <button className="tv-iconbtn theme-ic" type="button" onClick={toggleTheme} aria-label="Yorug‘ / qorong‘i rejimni almashtirish">
+    <button className="tv-iconbtn theme-ic" type="button" onClick={toggleTheme} aria-label="Yoruğ / qoronği rejimni almaştiriş">
       <svg className="moon" viewBox="0 0 24 24">
         <path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" />
       </svg>

@@ -26,9 +26,9 @@ public sealed class ClassroomService(
 
     // Boshqa birovning guruhi "yo‘q" hisoblanadi: uning borligi ham oshkor bo‘lmasin
     private static readonly Error GroupNotFound = new("group_not_found", "Guruh topilmadi.", ErrorKind.NotFound);
-    private static readonly Error SubmissionNotFound = new("submission_not_found", "Ish topilmadi.", ErrorKind.NotFound);
+    private static readonly Error SubmissionNotFound = new("submission_not_found", "Iş topilmadi.", ErrorKind.NotFound);
     private static readonly Error MaterialNotFound = new("material_not_found", "Material topilmadi.", ErrorKind.NotFound);
-    private static readonly Error InvalidCode = new("invalid_code", "Bunday kodli guruh topilmadi. Kodni o‘qituvchingizdan tekshirib oling.", ErrorKind.NotFound);
+    private static readonly Error InvalidCode = new("invalid_code", "Bunday kodli guruh topilmadi. Kodni öqituvçingizdan tekşirib oling.", ErrorKind.NotFound);
     private static readonly Error UnknownUser = new("invalid_session", "Sessiya tugagan. Qayta kiring.", ErrorKind.Unauthorized);
 
     private DateTime Now => clock.GetUtcNow().UtcDateTime;
@@ -54,7 +54,7 @@ public sealed class ClassroomService(
 
         if (await repository.CountOwnedAsync(userId, ct) >= MaxGroupsPerTeacher)
         {
-            return new Error("limit_reached", $"Bir o‘qituvchi {MaxGroupsPerTeacher} tagacha guruh yarata oladi.", ErrorKind.Conflict);
+            return new Error("limit_reached", $"Bir öqituvçi {MaxGroupsPerTeacher} tagaça guruh yarata oladi.", ErrorKind.Conflict);
         }
 
         if (await directory.GetNameAsync(userId, ct) is not { } ownerName)
@@ -72,7 +72,7 @@ public sealed class ClassroomService(
             }
         }
 
-        throw new InvalidOperationException("Noyob guruh kodini yaratib bo‘lmadi.");
+        throw new InvalidOperationException("Noyob guruh kodini yaratib bölmadi.");
     }
 
     public async Task<Result<GroupSummaryDto>> JoinAsync(Guid userId, JoinGroupRequest request, CancellationToken ct)
@@ -85,7 +85,7 @@ public sealed class ClassroomService(
 
         if (!request.AcceptSharing)
         {
-            return Invalid("acceptSharing", "Guruhga qo‘shilish uchun natijalaringiz o‘qituvchiga ko‘rinishiga rozilik bering.");
+            return Invalid("acceptSharing", "Guruhga qöşiliş uçun natijalaringiz öqituvçiga körinişiga rozilik bering.");
         }
 
         if (await repository.FindGroupByCodeAsync(code, ct) is not { } group)
@@ -95,7 +95,7 @@ public sealed class ClassroomService(
 
         if (group.OwnerUserId == userId)
         {
-            return new Error("own_group", "Bu guruhni o‘zingiz yaratgansiz: siz uning o‘qituvchisisiz.", ErrorKind.Conflict);
+            return new Error("own_group", "Bu guruhni özingiz yaratgansiz: siz uning öqituvçisisiz.", ErrorKind.Conflict);
         }
 
         var members = await repository.ListMembersAsync(group.Id, ct);
@@ -103,7 +103,7 @@ public sealed class ClassroomService(
         {
             if (members.Count >= MaxMembersPerGroup)
             {
-                return new Error("group_full", "Guruh to‘lgan. O‘qituvchingizga murojaat qiling.", ErrorKind.Conflict);
+                return new Error("group_full", "Guruh tölgan. Öqituvçingizga murojaat qiling.", ErrorKind.Conflict);
             }
 
             if (await directory.GetNameAsync(userId, ct) is not { } displayName)
@@ -166,7 +166,7 @@ public sealed class ClassroomService(
         {
             if ((await repository.ListSubmissionsOfAsync(groupId, userId, ct)).Count >= MaxSubmissionsPerStudent)
             {
-                return new Error("limit_reached", $"Bir guruhga {MaxSubmissionsPerStudent} tagacha ish topshirish mumkin.", ErrorKind.Conflict);
+                return new Error("limit_reached", $"Bir guruhga {MaxSubmissionsPerStudent} tagaça iş topşiriş mumkin.", ErrorKind.Conflict);
             }
 
             existing = new Submission(groupId, userId, request.MaterialId, material.TemplateKey, material.Title, material.Subject, material.Grade, material.ContentJson, Now);
@@ -215,13 +215,13 @@ public sealed class ClassroomService(
         var scores = request.Scores ?? new Dictionary<string, int>();
         if (ClassroomCatalog.Rubric.Any(c => !scores.TryGetValue(c.Key, out var score) || score is < 0 or > ClassroomCatalog.MaxCriterionScore))
         {
-            return Invalid("scores", $"Har bir mezonga 0 dan {ClassroomCatalog.MaxCriterionScore} gacha ball qo‘ying.");
+            return Invalid("scores", $"Har bir mezonga 0 dan {ClassroomCatalog.MaxCriterionScore} gaça ball qöying.");
         }
 
         var comment = Clean(request.Comment);
         if (comment?.Length > MaxCommentLength)
         {
-            return Invalid("comment", $"Izoh {MaxCommentLength} belgidan oshmasin.");
+            return Invalid("comment", $"Izoh {MaxCommentLength} belgidan oşmasin.");
         }
 
         var known = ClassroomCatalog.Rubric.ToDictionary(c => c.Key, c => scores[c.Key]);
@@ -274,13 +274,13 @@ public sealed class ClassroomService(
         var answers = request.Answers ?? new Dictionary<string, int>();
         if (ClassroomCatalog.Survey.Any(q => !answers.TryGetValue(q.Key, out var a) || a is < ClassroomCatalog.MinLikert or > ClassroomCatalog.MaxLikert))
         {
-            return Invalid("answers", "Barcha savollarga javob bering.");
+            return Invalid("answers", "Barça savollarga javob bering.");
         }
 
         var comment = Clean(request.Comment);
         if (comment?.Length > MaxCommentLength)
         {
-            return Invalid("comment", $"Izoh {MaxCommentLength} belgidan oshmasin.");
+            return Invalid("comment", $"Izoh {MaxCommentLength} belgidan oşmasin.");
         }
 
         var json = JsonSerializer.Serialize(ClassroomCatalog.Survey.ToDictionary(q => q.Key, q => answers[q.Key]), ClassroomJson.Options);
@@ -334,7 +334,7 @@ public sealed class ClassroomService(
             case "sorovnoma":
                 return new GroupExportDto($"{kind}.csv", ClassroomCsv.Survey(await BuildSurveyAsync(groupId, ct)));
             default:
-                return new Error("export_not_found", "Bunday hisobot yo‘q.", ErrorKind.NotFound);
+                return new Error("export_not_found", "Bunday hisobot yöq.", ErrorKind.NotFound);
         }
     }
 

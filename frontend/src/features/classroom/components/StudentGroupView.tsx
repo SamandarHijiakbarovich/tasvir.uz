@@ -18,11 +18,11 @@ export function StudentGroupView({ data, userId, materials }: Props) {
     <>
       <section className="tv-card tv-panel" aria-labelledby="topshirish-t">
         <h2 className="tv-h3" id="topshirish-t">
-          Ish topshirish
+          Iş topşiriş
         </h2>
         {materials.length === 0 ? (
           <p className="tv-muted" style={{ margin: 0 }}>
-            Avval <Link href="/studiya/yangi">Studiyada material yarating</Link>, keyin uni shu yerdan topshirasiz.
+            Avval <Link href="/studiya/yangi">Studiyada material yarating</Link>, keyin uni şu yerdan topşirasiz.
           </p>
         ) : (
           <SubmitWorkForm groupId={group.id} materials={materials} />
@@ -31,11 +31,11 @@ export function StudentGroupView({ data, userId, materials }: Props) {
 
       <section className="tv-card tv-panel" aria-labelledby="ishlarim-t">
         <h2 className="tv-h3" id="ishlarim-t">
-          Topshirgan ishlarim
+          Topşirgan işlarim
         </h2>
         {data.submissions.length === 0 ? (
           <p className="tv-muted" style={{ margin: 0 }}>
-            Hali ish topshirmagansiz.
+            Hali iş topşirmagansiz.
           </p>
         ) : (
           <ul className="tv-submission-list">
@@ -67,10 +67,10 @@ export function StudentGroupView({ data, userId, materials }: Props) {
       <section className="tv-card tv-panel" aria-labelledby="sorov-t">
         <div>
           <h2 className="tv-h3" id="sorov-t">
-            So‘rovnoma
+            Sörovnoma
           </h2>
           <p className="tv-muted" style={{ margin: "var(--space-2) 0 0" }}>
-            Fikringiz platformani yaxshilashga yordam beradi. O‘qituvchi faqat umumiy natijani va ismsiz izohlarni ko‘radi.
+            Fikringiz platformani yaxşilaşga yordam beradi. Öqituvçi faqat umumiy natijani va ismsiz izohlarni köradi.
           </p>
         </div>
         <SurveyForm groupId={group.id} questions={data.surveyQuestions} answers={data.surveyAnswers} comment={data.surveyComment} />
@@ -78,8 +78,8 @@ export function StudentGroupView({ data, userId, materials }: Props) {
 
       <ConfirmForm
         action={leaveGroupAction.bind(null, group.id, userId)}
-        message={`“${group.name}” guruhidan chiqasizmi? Shu guruhdagi ishlaringiz va baholaringiz o‘chadi. Studiyadagi materiallaringiz qoladi.`}
-        label="Guruhdan chiqish"
+        message={`“${group.name}” guruhidan çiqasizmi? Şu guruhdagi işlaringiz va baholaringiz öçadi. Studiyadagi materiallaringiz qoladi.`}
+        label="Guruhdan çiqiş"
       />
     </>
   );

@@ -20,7 +20,7 @@ export async function apiGet<T>(path: string, { revalidate = 60 }: GetOptions = 
     }
     return (await res.json()) as T;
   } catch (error) {
-    console.error(`[api] ${url} ga ulanib bo‘lmadi`, error);
+    console.error(`[api] ${url} ga ulanib bölmadi`, error);
     return null;
   }
 }

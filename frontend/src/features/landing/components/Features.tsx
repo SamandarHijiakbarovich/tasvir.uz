@@ -8,13 +8,13 @@ export function Features() {
   return (
     <section className="tv-section tv-alt" id="imkoniyatlar" aria-labelledby="imk-t">
       <div className="tv-wrap">
-        <SectionHead id="imk-t" label="Imkoniyatlar" title="Vizual dars uchun kerak bo‘lgan hammasi — bir joyda" />
+        <SectionHead id="imk-t" label="Imkoniyatlar" title="Vizual dars uçun kerak bölgan hammasi — bir joyda" />
         <div className="tv-bento">
           <article className="tv-tile tv-tile-brand b-wide tv-reveal">
             <span className="tv-label" style={onBrandLabel}>Akademiya</span>
             <h3 className="tv-h3">Amaliy darslar</h3>
             <p className="tv-muted" style={muted0}>
-              Infografika, sxema, diagramma va aqliy xarita yaratishni qisqa, amaliy darslarda o‘rganing.
+              Infografika, sxema, diagramma va aqliy xarita yaratişni qisqa, amaliy darslarda örganing.
             </p>
             <svg className="viz" viewBox="0 0 520 120" aria-hidden="true">
               <rect x="0" y="10" width="160" height="100" rx="14" fill="rgba(255,255,255,.14)" />
@@ -36,8 +36,8 @@ export function Features() {
                 <rect x="14" y="14" width="7" height="7" rx="2" />
               </svg>
             </span>
-            <h3 className="tv-h3">Tayyor shablonlar</h3>
-            <p className="tv-muted" style={muted0}>Fanlar bo‘yicha infografika va sxema shablonlari — faqat mazmunni qo‘ying.</p>
+            <h3 className="tv-h3">Tayyor şablonlar</h3>
+            <p className="tv-muted" style={muted0}>Fanlar böyiça infografika va sxema şablonlari — faqat mazmunni qöying.</p>
             <svg className="viz" viewBox="0 0 220 230" aria-hidden="true">
               <g transform="rotate(-6 110 120)">
                 <rect x="30" y="20" width="160" height="110" rx="14" className="v-card v-line" style={{ strokeWidth: 2 }} />
@@ -61,8 +61,8 @@ export function Features() {
                 <path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9" />
               </svg>
             </span>
-            <h3 className="tv-h3">Amaliy topshiriqlar</h3>
-            <p className="tv-muted" style={muted0}>Har bir mavzudan so‘ng o‘z darsingiz uchun material yaratib, mustahkamlang.</p>
+            <h3 className="tv-h3">Amaliy topşiriqlar</h3>
+            <p className="tv-muted" style={muted0}>Har bir mavzudan söng öz darsingiz uçun material yaratib, mustahkamlang.</p>
           </article>
 
           <article className="tv-tile b-wide tv-reveal">
@@ -72,7 +72,7 @@ export function Features() {
               </svg>
             </span>
             <h3 className="tv-h3">Progress kuzatuvi</h3>
-            <p className="tv-muted" style={muted0}>Qaysi modulni tugatdingiz, qaysi topshiriq qoldi — barchasi ko‘z oldingizda.</p>
+            <p className="tv-muted" style={muted0}>Qaysi modulni tugatdingiz, qaysi topşiriq qoldi — barçasi köz oldingizda.</p>
             <svg className="viz" viewBox="0 0 520 70" aria-hidden="true">
               <text x="0" y="16" className="v-ts">1-modul</text>
               <rect x="80" y="6" width="440" height="12" rx="6" className="v-paper" />
@@ -94,7 +94,7 @@ export function Features() {
               </svg>
             </span>
             <h3 className="tv-h3">Sertifikat</h3>
-            <p className="tv-muted" style={muted0}>Tez orada: kursni yakunlaganingizni tasdiqlovchi sertifikat.</p>
+            <p className="tv-muted" style={muted0}>Tez orada: kursni yakunlaganingizni tasdiqlovçi sertifikat.</p>
           </article>
 
           <article className="tv-tile tv-tile-mint tv-reveal" style={{ gridColumn: "1/-1" }}>
@@ -106,8 +106,8 @@ export function Features() {
                 <path d="M16 14a5 5 0 0 1 6 5" />
               </svg>
             </span>
-            <h3 className="tv-h3">O‘qituvchilar hamjamiyati</h3>
-            <p className="tv-muted" style={muted0}>Hamkasblaringiz bilan ishlaringizni ulashing, fikr oling va g‘oyalar almashing.</p>
+            <h3 className="tv-h3">Öqituvçilar hamjamiyati</h3>
+            <p className="tv-muted" style={muted0}>Hamkasblaringiz bilan işlaringizni ulaşing, fikr oling va ğoyalar almaşing.</p>
             <div className="viz" style={{ display: "flex" }} aria-hidden="true">
               <span className="tv-avatar" style={{ background: "var(--sun)" }} />
               <span className="tv-avatar" style={{ background: "var(--coral)", marginLeft: -12 }} />
