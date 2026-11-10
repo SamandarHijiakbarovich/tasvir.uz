@@ -16,6 +16,8 @@ public sealed class ClassroomDbContext(DbContextOptions<ClassroomDbContext> opti
     public DbSet<Submission> Submissions => Set<Submission>();
     public DbSet<SubmissionReview> Reviews => Set<SubmissionReview>();
     public DbSet<SurveyResponse> SurveyResponses => Set<SurveyResponse>();
+    public DbSet<DiagnosticWindow> DiagnosticWindows => Set<DiagnosticWindow>();
+    public DbSet<DiagnosticResult> DiagnosticResults => Set<DiagnosticResult>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -76,6 +78,25 @@ public sealed class ClassroomDbContext(DbContextOptions<ClassroomDbContext> opti
             response.Property(r => r.Comment).HasMaxLength(1000);
             response.HasIndex(r => new { r.GroupId, r.UserId }).IsUnique();
             response.HasOne<StudyGroup>().WithMany().HasForeignKey(r => r.GroupId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<DiagnosticWindow>(window =>
+        {
+            window.ToTable("diagnostic_windows");
+            window.Property(w => w.Id).ValueGeneratedNever();
+            window.Property(w => w.Stage).HasMaxLength(8).IsRequired();
+            window.HasIndex(w => new { w.GroupId, w.Stage }).IsUnique();
+            window.HasOne<StudyGroup>().WithMany().HasForeignKey(w => w.GroupId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<DiagnosticResult>(result =>
+        {
+            result.ToTable("diagnostic_results");
+            result.Property(r => r.Id).ValueGeneratedNever();
+            result.Property(r => r.Stage).HasMaxLength(8).IsRequired();
+            result.Property(r => r.AnswersJson).IsRequired();
+            result.HasIndex(r => new { r.GroupId, r.UserId, r.Stage }).IsUnique();
+            result.HasOne<StudyGroup>().WithMany().HasForeignKey(r => r.GroupId).OnDelete(DeleteBehavior.Cascade);
         });
     }
 }
@@ -154,6 +175,22 @@ internal sealed class ClassroomRepository(ClassroomDbContext db) : IClassroomRep
 
     public void Add(SurveyResponse response) => db.SurveyResponses.Add(response);
 
+    public Task<List<DiagnosticWindow>> ListDiagnosticWindowsAsync(Guid groupId, CancellationToken ct) =>
+        db.DiagnosticWindows.AsNoTracking().Where(w => w.GroupId == groupId).ToListAsync(ct);
+
+    public Task<DiagnosticWindow?> FindDiagnosticWindowAsync(Guid groupId, string stage, CancellationToken ct) =>
+        db.DiagnosticWindows.FirstOrDefaultAsync(w => w.GroupId == groupId && w.Stage == stage, ct);
+
+    public Task<List<DiagnosticResult>> ListDiagnosticResultsAsync(Guid groupId, CancellationToken ct) =>
+        db.DiagnosticResults.AsNoTracking().Where(r => r.GroupId == groupId).ToListAsync(ct);
+
+    public Task<DiagnosticResult?> FindDiagnosticResultAsync(Guid groupId, Guid userId, string stage, CancellationToken ct) =>
+        db.DiagnosticResults.FirstOrDefaultAsync(r => r.GroupId == groupId && r.UserId == userId && r.Stage == stage, ct);
+
+    public void Add(DiagnosticWindow window) => db.DiagnosticWindows.Add(window);
+
+    public void Add(DiagnosticResult result) => db.DiagnosticResults.Add(result);
+
     public void Remove(GroupMember member) => db.Members.Remove(member);
 
     public async Task RemoveGroupAsync(StudyGroup group, CancellationToken ct)
@@ -166,6 +203,7 @@ internal sealed class ClassroomRepository(ClassroomDbContext db) : IClassroomRep
     {
         await db.Submissions.Where(s => s.GroupId == groupId && s.UserId == userId).ExecuteDeleteAsync(ct);
         await db.SurveyResponses.Where(r => r.GroupId == groupId && r.UserId == userId).ExecuteDeleteAsync(ct);
+        await db.DiagnosticResults.Where(r => r.GroupId == groupId && r.UserId == userId).ExecuteDeleteAsync(ct);
     }
 
     public Task SaveChangesAsync(CancellationToken ct) => db.SaveChangesAsync(ct);
@@ -222,5 +260,31 @@ public static class DependencyInjection
 
         // TODO: ishlab chiqarishga chiqishdan oldin EnsureCreated o‘rniga EF Core migratsiyalariga o‘tish.
         await db.Database.EnsureCreatedAsync(cancellationToken);
+
+        // EnsureCreated mavjud bazaga yangi jadval qo‘shmaydi: diagnostikadan oldin yaratilgan SQLite bazani yangilaymiz
+        if (db.Database.IsSqlite())
+        {
+            await db.Database.ExecuteSqlRawAsync("""
+                CREATE TABLE IF NOT EXISTS diagnostic_windows (
+                    Id TEXT NOT NULL CONSTRAINT PK_diagnostic_windows PRIMARY KEY,
+                    GroupId TEXT NOT NULL,
+                    Stage TEXT NOT NULL,
+                    IsOpen INTEGER NOT NULL,
+                    ChangedAt TEXT NOT NULL,
+                    CONSTRAINT FK_diagnostic_windows_study_groups_GroupId FOREIGN KEY (GroupId) REFERENCES study_groups (Id) ON DELETE CASCADE);
+                CREATE UNIQUE INDEX IF NOT EXISTS IX_diagnostic_windows_GroupId_Stage ON diagnostic_windows (GroupId, Stage);
+                CREATE TABLE IF NOT EXISTS diagnostic_results (
+                    Id TEXT NOT NULL CONSTRAINT PK_diagnostic_results PRIMARY KEY,
+                    GroupId TEXT NOT NULL,
+                    UserId TEXT NOT NULL,
+                    Stage TEXT NOT NULL,
+                    AnswersJson TEXT NOT NULL,
+                    Score INTEGER NOT NULL,
+                    MaxScore INTEGER NOT NULL,
+                    SubmittedAt TEXT NOT NULL,
+                    CONSTRAINT FK_diagnostic_results_study_groups_GroupId FOREIGN KEY (GroupId) REFERENCES study_groups (Id) ON DELETE CASCADE);
+                CREATE UNIQUE INDEX IF NOT EXISTS IX_diagnostic_results_GroupId_UserId_Stage ON diagnostic_results (GroupId, UserId, Stage);
+                """, cancellationToken);
+        }
     }
 }

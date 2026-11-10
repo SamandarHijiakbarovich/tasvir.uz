@@ -9,9 +9,10 @@ import {
   joinGroupAction,
   saveReviewAction,
   saveSurveyAction,
+  submitDiagnosticAction,
   submitWorkAction,
 } from "../actions";
-import type { Review, RubricCriterion, SurveyQuestion } from "../types";
+import type { DiagnosticTest, Review, RubricCriterion, SurveyQuestion } from "../types";
 
 const initial: FormState = {};
 
@@ -191,6 +192,58 @@ export function SurveyForm({ groupId, questions, answers, comment }: SurveyFormP
       </div>
       <SubmitButton pendingText="Yuborilmoqda…" block={false}>
         {answers ? "Javobni yangilaş" : "Yuboriş"}
+      </SubmitButton>
+    </form>
+  );
+}
+
+export function DiagnosticTestForm({ groupId, test }: { groupId: string; test: DiagnosticTest }) {
+  const [state, action] = useActionState(submitDiagnosticAction.bind(null, groupId, test.stage), initial);
+  const [answered, setAnswered] = useState<Record<string, string>>({});
+  const left = test.questions.length - Object.keys(answered).length;
+
+  return (
+    <form
+      action={action}
+      className="tv-form"
+      onSubmit={(event) => {
+        if (!window.confirm("Javoblar yuborilsinmi? Test bir marta topşiriladi, keyin özgartirib bölmaydi.")) event.preventDefault();
+      }}
+    >
+      <FormMessage state={state} />
+      {state.fields?.answers && (
+        <p className="tv-form-msg err" role="alert">
+          {state.fields.answers}
+        </p>
+      )}
+      <ol className="tv-diag-list">
+        {test.questions.map((question) => (
+          <li key={question.key}>
+            <fieldset className="tv-rubric-row">
+              <legend>{question.text}</legend>
+              <div className="tv-diag-options">
+                {question.options.map((option) => (
+                  <label key={option.id}>
+                    <input
+                      type="radio"
+                      name={`q:${question.key}`}
+                      value={option.id}
+                      required
+                      onChange={() => setAnswered((current) => ({ ...current, [question.key]: option.id }))}
+                    />
+                    {option.text}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          </li>
+        ))}
+      </ol>
+      <p className="tv-rubric-total" aria-live="polite">
+        {left > 0 ? `Yana ${left} ta savol qoldi` : "Hamma savolga javob berildi"}
+      </p>
+      <SubmitButton pendingText="Yuborilmoqda…" block={false}>
+        Javoblarni yuboriş
       </SubmitButton>
     </form>
   );

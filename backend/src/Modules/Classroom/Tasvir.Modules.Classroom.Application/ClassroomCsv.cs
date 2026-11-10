@@ -80,6 +80,52 @@ public static class ClassroomCsv
         return csv.ToString();
     }
 
+    public static string Diagnostics(DiagnosticsDto diagnostics, IReadOnlyList<Domain.DiagnosticResult> results)
+    {
+        var questions = DiagnosticCatalog.Questions;
+        var csv = new StringBuilder();
+        Row(csv, new[] { "F.I.Ş.", $"Boşlanğiç (0–{diagnostics.MaxScore})", $"Yakuniy (0–{diagnostics.MaxScore})", "Ösiş" }
+            .Concat(questions.Select((_, i) => $"B{i + 1}"))
+            .Concat(questions.Select((_, i) => $"Y{i + 1}")));
+
+        // Savol ustunlari: 1 — to‘g‘ri, 0 — noto‘g‘ri, bo‘sh — test topshirilmagan
+        string[] Marks(Guid userId, string stage)
+        {
+            var result = results.FirstOrDefault(r => r.UserId == userId && r.Stage == stage);
+            var chosen = result is null ? null : System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(result.AnswersJson, ClassroomJson.Options);
+            return questions.Select(q => chosen is null ? string.Empty : chosen.GetValueOrDefault(q.Key) == q.CorrectOptionId ? "1" : "0").ToArray();
+        }
+
+        foreach (var student in diagnostics.Students)
+        {
+            Row(csv, new[]
+                {
+                    student.Name,
+                    student.Pre?.ToString(CultureInfo.InvariantCulture) ?? string.Empty,
+                    student.Post?.ToString(CultureInfo.InvariantCulture) ?? string.Empty,
+                    student.Pre is { } pre && student.Post is { } post ? (post - pre).ToString(CultureInfo.InvariantCulture) : string.Empty,
+                }
+                .Concat(Marks(student.UserId, Domain.DiagnosticStage.Pre))
+                .Concat(Marks(student.UserId, Domain.DiagnosticStage.Post)));
+        }
+
+        if (diagnostics.Paired is { } p)
+        {
+            Row(csv, []);
+            Row(csv, ["Juftlangan Styudent mezoni (ikkala testni topşirganlar)"]);
+            Row(csv, ["Talabalar soni", p.N.ToString(CultureInfo.InvariantCulture)]);
+            Row(csv, ["Boşlanğiç örtaça", Number(p.MeanPre)]);
+            Row(csv, ["Yakuniy örtaça", Number(p.MeanPost)]);
+            Row(csv, ["Örtaça ösiş", Number(p.MeanGain)]);
+            Row(csv, ["t", p.T is { } t ? Number(t) : string.Empty]);
+            Row(csv, ["Erkinlik darajasi", p.Df.ToString(CultureInfo.InvariantCulture)]);
+            Row(csv, ["p (ikki tomonlama)", p.P is { } pv ? pv.ToString("0.####", CultureInfo.InvariantCulture).Replace('.', ',') : string.Empty]);
+            Row(csv, ["Effekt kattaligi (Koen dz)", p.EffectSize is { } d ? Number(d) : string.Empty]);
+        }
+
+        return csv.ToString();
+    }
+
     private static string Number(double value) =>
         value.ToString("0.##", CultureInfo.InvariantCulture).Replace('.', ',');
 
@@ -89,7 +135,9 @@ public static class ClassroomCsv
     private static string Escape(string cell)
     {
         // Ism yoki izoh Excel’da formula bo‘lib ishlab ketmasin
-        if (cell.Length > 0 && cell[0] is '=' or '+' or '-' or '@' or '\t' or '\r')
+        // Manfiy son ("-3") formula emas: uni o‘zgartirmaymiz, aks holda Excel uni matn deb o‘qiydi
+        var isNumber = double.TryParse(cell.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out _);
+        if (cell.Length > 0 && !isNumber && cell[0] is '=' or '+' or '-' or '@' or '\t' or '\r')
         {
             cell = "'" + cell;
         }

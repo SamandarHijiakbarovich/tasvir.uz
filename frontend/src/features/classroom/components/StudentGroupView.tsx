@@ -64,6 +64,40 @@ export function StudentGroupView({ data, userId, materials }: Props) {
         )}
       </section>
 
+      <section className="tv-card tv-panel" aria-labelledby="diagnostika-t" id="diagnostika">
+        <div>
+          <h2 className="tv-h3" id="diagnostika-t">
+            Diagnostika testi
+          </h2>
+          <p className="tv-muted" style={{ margin: "var(--space-2) 0 0" }}>
+            Kurs boşida va oxirida bir xil test topşiriladi: şunda qança örganganingiz körinadi. Har bir test bir marta topşiriladi.
+          </p>
+        </div>
+        <ul className="tv-submission-list">
+          {data.diagnostics.map((d) => (
+            <li key={d.stage}>
+              <div>
+                <strong>{d.title}</strong>
+                <p className="tv-material-meta">
+                  {d.result ? `Topşirilgan: ${formatDate(d.result.submittedAt)}` : d.isOpen ? "Test oçiq" : "Öqituvçi hali oçmagan"}
+                </p>
+              </div>
+              {d.result ? (
+                <strong>
+                  {d.result.score} / {d.result.maxScore}
+                </strong>
+              ) : d.isOpen ? (
+                <Link className="tv-btn tv-btn-primary tv-btn-sm" href={`/guruhlar/${group.id}/diagnostika/${d.stage}`}>
+                  Testni boşlaş
+                </Link>
+              ) : (
+                <span className="tv-chip-soon">Yopiq</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section className="tv-card tv-panel" aria-labelledby="sorov-t">
         <div>
           <h2 className="tv-h3" id="sorov-t">

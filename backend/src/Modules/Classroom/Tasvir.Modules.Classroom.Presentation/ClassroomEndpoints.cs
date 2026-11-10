@@ -84,6 +84,22 @@ public static class ClassroomEndpoints
             ToResponse(await classroom.SaveSurveyAsync(UserId(principal), id, request, ct)))
             .WithSummary("Sörovnomaga javob");
 
+        api.MapGet("/groups/{id:guid}/diagnostics/{stage}", async (Guid id, string stage, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
+            ToResponse(await classroom.GetDiagnosticTestAsync(UserId(principal), id, stage, ct)))
+            .WithSummary("Diagnostika testi savollari (talaba; test oçiq va hali topşirilmagan bölsa)");
+
+        api.MapPost("/groups/{id:guid}/diagnostics/{stage}", async (Guid id, string stage, SubmitDiagnosticRequest request, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
+            ToResponse(await classroom.SubmitDiagnosticAsync(UserId(principal), id, stage, request, ct), StatusCodes.Status201Created))
+            .WithSummary("Diagnostika testini topşiriş (bir marta)");
+
+        api.MapPut("/groups/{id:guid}/diagnostics/{stage}/state", async (Guid id, string stage, SetDiagnosticStateRequest request, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
+            ToResponse(await classroom.SetDiagnosticStateAsync(UserId(principal), id, stage, request, ct)))
+            .WithSummary("Diagnostika testini oçiş yoki yopiş (öqituvçi)");
+
+        api.MapGet("/groups/{id:guid}/compare/{otherId:guid}", async (Guid id, Guid otherId, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
+            ToResponse(await classroom.CompareAsync(UserId(principal), id, otherId, ct)))
+            .WithSummary("Ikki guruh diagnostika natijalarini soliştiriş (öqituvçi)");
+
         api.MapGet("/submissions/{id:guid}", async (Guid id, ClaimsPrincipal principal, ClassroomService classroom, CancellationToken ct) =>
             ToResponse(await classroom.GetSubmissionAsync(UserId(principal), id, ct)))
             .WithSummary("Topşirilgan iş (öqituvçi yoki iş egasi)");

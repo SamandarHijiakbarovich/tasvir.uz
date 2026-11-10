@@ -22,14 +22,20 @@ public interface IClassroomRepository
     Task<SubmissionReview?> FindReviewAsync(Guid submissionId, int version, CancellationToken ct);
     Task<List<SurveyResponse>> ListSurveyResponsesAsync(Guid groupId, CancellationToken ct);
     Task<SurveyResponse?> FindSurveyResponseAsync(Guid groupId, Guid userId, CancellationToken ct);
+    Task<List<DiagnosticWindow>> ListDiagnosticWindowsAsync(Guid groupId, CancellationToken ct);
+    Task<DiagnosticWindow?> FindDiagnosticWindowAsync(Guid groupId, string stage, CancellationToken ct);
+    Task<List<DiagnosticResult>> ListDiagnosticResultsAsync(Guid groupId, CancellationToken ct);
+    Task<DiagnosticResult?> FindDiagnosticResultAsync(Guid groupId, Guid userId, string stage, CancellationToken ct);
     void Add(StudyGroup group);
     void Add(GroupMember member);
     void Add(Submission submission);
     void Add(SubmissionReview review);
     void Add(SurveyResponse response);
+    void Add(DiagnosticWindow window);
+    void Add(DiagnosticResult result);
     void Remove(GroupMember member);
     Task RemoveGroupAsync(StudyGroup group, CancellationToken ct);
-    /// <summary>Talabaning shu guruhdagi ishlari, baholari va so‘rovnoma javoblarini o‘chiradi.</summary>
+    /// <summary>Talabaning shu guruhdagi ishlari, baholari, so‘rovnoma javoblari va diagnostika natijalarini o‘chiradi.</summary>
     Task RemoveMemberDataAsync(Guid groupId, Guid userId, CancellationToken ct);
     Task SaveChangesAsync(CancellationToken ct);
     /// <summary>Saqlaydi. Noyob indeks ikkinchi nusxani ushlab qolsa (ikki marta bosish), false qaytaradi.</summary>

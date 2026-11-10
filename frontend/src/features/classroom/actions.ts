@@ -103,6 +103,35 @@ export async function saveReviewAction(submissionId: string, _: FormState, form:
   return { success: true, message: "Baho saqlandi. Talaba uni öz sahifasida köradi." };
 }
 
+/** Diagnostika testini ochish yoki yopish (o‘qituvchi). */
+export async function setDiagnosticStateAction(groupId: string, stage: string, isOpen: boolean): Promise<void> {
+  const tab = `${groupPath(groupId)}?b=diagnostika`;
+  const result = await authedRequest<void>(`${BASE}/groups/${encodeURIComponent(groupId)}/diagnostics/${encodeURIComponent(stage)}/state`, {
+    method: "PUT",
+    body: { isOpen },
+  });
+  if (!result.ok) {
+    if (result.status === 401) redirect(LOGIN);
+    redirect(`${tab}&xato=${encodeURIComponent(result.message)}`);
+  }
+
+  revalidatePath(groupPath(groupId));
+  redirect(tab);
+}
+
+export async function submitDiagnosticAction(groupId: string, stage: string, _: FormState, form: FormData): Promise<FormState> {
+  const answers: Record<string, string> = {};
+  for (const [name, value] of form.entries()) {
+    if (name.startsWith("q:") && typeof value === "string") answers[name.slice(2)] = value;
+  }
+
+  const result = await authedRequest(`${BASE}/groups/${encodeURIComponent(groupId)}/diagnostics/${encodeURIComponent(stage)}`, { body: { answers } });
+  if (!result.ok) return failed(result);
+
+  revalidatePath(groupPath(groupId));
+  redirect(`${groupPath(groupId)}#diagnostika`);
+}
+
 export async function saveSurveyAction(groupId: string, _: FormState, form: FormData): Promise<FormState> {
   const answers: Record<string, number> = {};
   for (const [name, value] of form.entries()) {

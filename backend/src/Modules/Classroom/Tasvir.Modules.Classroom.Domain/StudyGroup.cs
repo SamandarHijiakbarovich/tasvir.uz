@@ -139,3 +139,66 @@ public sealed class SurveyResponse : Entity
         SubmittedAt = now;
     }
 }
+
+/// <summary>Diagnostika bosqichlari: "pre" — tajribadan oldingi, "post" — keyingi test.</summary>
+public static class DiagnosticStage
+{
+    public const string Pre = "pre";
+    public const string Post = "post";
+
+    public static readonly IReadOnlyList<string> All = [Pre, Post];
+
+    public static bool IsKnown(string? stage) => stage is Pre or Post;
+}
+
+/// <summary>Bosqich ochiq yoki yopiqligi. O‘qituvchi tajriba boshida "pre" ni, oxirida "post" ni ochadi.</summary>
+public sealed class DiagnosticWindow : Entity
+{
+    public Guid GroupId { get; private set; }
+    public string Stage { get; private set; } = string.Empty;
+    public bool IsOpen { get; private set; }
+    public DateTime ChangedAt { get; private set; }
+
+    private DiagnosticWindow() { }
+
+    public DiagnosticWindow(Guid groupId, string stage, bool isOpen, DateTime now)
+    {
+        GroupId = groupId;
+        Stage = stage;
+        Set(isOpen, now);
+    }
+
+    public void Set(bool isOpen, DateTime now)
+    {
+        IsOpen = isOpen;
+        ChangedAt = now;
+    }
+}
+
+/// <summary>
+/// Talabaning diagnostika testi natijasi. Har bir bosqichda bitta urinish: aks holda boshlang‘ich va yakuniy
+/// natijalarni solishtirib bo‘lmaydi. Javoblar savol tahlili uchun saqlanadi.
+/// </summary>
+public sealed class DiagnosticResult : Entity
+{
+    public Guid GroupId { get; private set; }
+    public Guid UserId { get; private set; }
+    public string Stage { get; private set; } = string.Empty;
+    public string AnswersJson { get; private set; } = string.Empty;
+    public int Score { get; private set; }
+    public int MaxScore { get; private set; }
+    public DateTime SubmittedAt { get; private set; }
+
+    private DiagnosticResult() { }
+
+    public DiagnosticResult(Guid groupId, Guid userId, string stage, string answersJson, int score, int maxScore, DateTime now)
+    {
+        GroupId = groupId;
+        UserId = userId;
+        Stage = stage;
+        AnswersJson = Guard.NotEmpty(answersJson, nameof(answersJson));
+        Score = score;
+        MaxScore = maxScore;
+        SubmittedAt = now;
+    }
+}

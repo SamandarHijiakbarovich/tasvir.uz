@@ -3,6 +3,7 @@ import { getTemplate } from "@/features/studio/lib/templates";
 import { deleteGroupAction, removeMemberAction } from "../actions";
 import { fixed, formatDate, percent } from "../lib/format";
 import type { GroupDashboard, ItemAnalysis, StudentRow, SubmissionSummary, SurveySummary } from "../types";
+import { DiagnosticsPanel, type CompareState } from "./DiagnosticsPanel";
 import { ConfirmForm } from "./forms";
 
 const TABS = [
@@ -10,13 +11,14 @@ const TABS = [
   { key: "ishlar", label: "Işlar" },
   { key: "test", label: "Test tahlili" },
   { key: "sorovnoma", label: "Sörovnoma" },
+  { key: "diagnostika", label: "Diagnostika" },
 ] as const;
 
 export type TabKey = (typeof TABS)[number]["key"];
 
 export const toTab = (value?: string): TabKey => TABS.find((t) => t.key === value)?.key ?? "talabalar";
 
-export function TeacherDashboard({ data, tab }: { data: GroupDashboard; tab: TabKey }) {
+export function TeacherDashboard({ data, tab, compare }: { data: GroupDashboard; tab: TabKey; compare: CompareState }) {
   const { group } = data;
   const path = `/guruhlar/${group.id}`;
   const pending = data.submissions.filter((s) => s.review?.version !== s.version).length;
@@ -48,6 +50,7 @@ export function TeacherDashboard({ data, tab }: { data: GroupDashboard; tab: Tab
       {tab === "ishlar" && <Submissions submissions={data.submissions} />}
       {tab === "test" && <Items groupId={group.id} items={data.items} />}
       {tab === "sorovnoma" && <Survey groupId={group.id} survey={data.survey} />}
+      {tab === "diagnostika" && <DiagnosticsPanel groupId={group.id} data={data.diagnostics} compare={compare} />}
 
       <ConfirmForm
         action={deleteGroupAction.bind(null, group.id)}
