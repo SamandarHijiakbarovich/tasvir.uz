@@ -84,6 +84,69 @@ Sahifadagi aloqa ma’lumotlari va huquqiy matnni ishga tushirishdan oldin to‘
 
 Har sahifadagi "Savol bering" tugmasi. Oddiy savollarga `KnowledgeBase.cs` asosida javob beradi, tashqi xizmat kerak emas.
 
+## To‘lov (Payme va Click)
+
+`/tariflar` — tariflar, `/tolov?tarif=...` — to‘lov tizimini tanlash, `/tolov/natija` — natija, kabinetda — obuna holati.
+Buyurtmalar `tasvir-payments.db` da saqlanadi. Obuna alohida yozilmaydi: to‘langan buyurtmalardan hisoblanadi
+(yangi to‘lov muddatni amaldagi obuna oxiridan uzaytiradi, qaytarilgan to‘lov hisobdan chiqadi).
+
+Kod tayyor, ishga tushirish uchun faqat **narx** va **kalitlar** kerak. Kalitsiz tizim saytda "Hali ulanmagan" bo‘lib ko‘rinadi,
+narxi yo‘q tarif "Tez orada" bo‘lib turadi.
+
+### 1. Narxlar
+
+`backend/src/Hosts/Tasvir.Api/appsettings.json` → `Payments:Plans`: har tarifga `Price` (so‘mda) yozing.
+Tarif qo‘shish yoki olib tashlash ham shu yerda (`Key`, `Name`, `Months`, `Features`).
+
+### 2. Payme (merchant.paycom.uz)
+
+1. Kassa yarating, "Merchant API" turini tanlang.
+2. Kassa sozlamalarida **endpoint URL**: `https://<domen>/api/payments/payme`
+3. Kassadan oling: **Kassa ID** → `Payments:Payme:MerchantId`, **kalit** → `Payments:Payme:Key`.
+   Sinov paytida test kaliti va `CheckoutUrl = https://checkout.test.paycom.uz`, ishga tushganda asosiy kalit va
+   `https://checkout.paycom.uz`.
+4. Hisob maydoni (account) nomi: `order_id`.
+5. Payme sandbox (test.paycom.uz) dagi barcha ssenariylardan o‘ting — keyin kassa faollashtiriladi.
+
+### 3. Click (merchant.click.uz)
+
+1. Servis yarating (SHOP API).
+2. **Prepare URL**: `https://<domen>/api/payments/click/prepare`, **Complete URL**: `https://<domen>/api/payments/click/complete`
+3. Kabinetdan oling: **Service ID** → `Payments:Click:ServiceId`, **Merchant ID** → `Payments:Click:MerchantId`,
+   **Secret key** → `Payments:Click:SecretKey`.
+
+### Kalitlarni qo‘yish
+
+Kalitlar **repozitoriyga yozilmaydi**. Lokal kompyuterda:
+
+```bash
+cd backend/src/Hosts/Tasvir.Api
+dotnet user-secrets init
+dotnet user-secrets set "Payments:Payme:MerchantId" "<kassa-id>"
+dotnet user-secrets set "Payments:Payme:Key" "<kalit>"
+dotnet user-secrets set "Payments:Click:ServiceId" "<service-id>"
+dotnet user-secrets set "Payments:Click:MerchantId" "<merchant-id>"
+dotnet user-secrets set "Payments:Click:SecretKey" "<secret-key>"
+```
+
+Serverda muhit o‘zgaruvchilari orqali (`:` o‘rniga `__`):
+
+```
+Payments__Payme__MerchantId=...
+Payments__Payme__Key=...
+Payments__Payme__CheckoutUrl=https://checkout.paycom.uz
+Payments__Click__ServiceId=...
+Payments__Click__MerchantId=...
+Payments__Click__SecretKey=...
+Payments__FrontendUrl=https://<domen>
+```
+
+Qo‘shimcha himoya: Payme va Click o‘z serverlari IP manzillarini beradi — ularni `Payments:Payme:AllowedIps` va
+`Payments:Click:AllowedIps` ga yozsangiz, boshqa manzildan kelgan so‘rovlar rad etiladi (imzo/kalit baribir tekshiriladi).
+Server proksi orqasida bo‘lsa, `KnownProxies` ni sozlang, aks holda haqiqiy IP ko‘rinmaydi.
+
+Callback manzillari Gateway orqali ochiq bo‘lishi va HTTPS da ishlashi kerak. Kalit almashtirilgach API qayta ishga tushiriladi.
+
 ## Testlar
 
 ```bash
@@ -111,6 +174,8 @@ tasvir-uz/
         Academy/                               kurslar, darslar, test, topshiriq, progress
         Assistant/                             oddiy savollarga javob beruvchi yordamchi
         Studio/                                o‘qituvchi materiallari
+        Classroom/                             guruhlar, baholash, diagnostika
+        Payments/                              tariflar, buyurtmalar, Payme va Click
     tests/                                     integratsion testlar
   frontend/                                    Next.js ilova
   docs/                                        arxitektura va dizayn hujjatlari

@@ -40,6 +40,12 @@
     <Project Path="src/Modules/Classroom/Tasvir.Modules.Classroom.Infrastructure/Tasvir.Modules.Classroom.Infrastructure.csproj" />
     <Project Path="src/Modules/Classroom/Tasvir.Modules.Classroom.Presentation/Tasvir.Modules.Classroom.Presentation.csproj" />
   </Folder>
+  <Folder Name="/Modules/Payments/">
+    <Project Path="src/Modules/Payments/Tasvir.Modules.Payments.Domain/Tasvir.Modules.Payments.Domain.csproj" />
+    <Project Path="src/Modules/Payments/Tasvir.Modules.Payments.Application/Tasvir.Modules.Payments.Application.csproj" />
+    <Project Path="src/Modules/Payments/Tasvir.Modules.Payments.Infrastructure/Tasvir.Modules.Payments.Infrastructure.csproj" />
+    <Project Path="src/Modules/Payments/Tasvir.Modules.Payments.Presentation/Tasvir.Modules.Payments.Presentation.csproj" />
+  </Folder>
   <Folder Name="/Tests/">
     <Project Path="tests/Tasvir.Modules.Classroom.Tests/Tasvir.Modules.Classroom.Tests.csproj" />
     <Project Path="tests/Tasvir.Modules.Content.Tests/Tasvir.Modules.Content.Tests.csproj" />
@@ -47,5 +53,6 @@
     <Project Path="tests/Tasvir.Modules.Assistant.Tests/Tasvir.Modules.Assistant.Tests.csproj" />
     <Project Path="tests/Tasvir.Modules.Academy.Tests/Tasvir.Modules.Academy.Tests.csproj" />
     <Project Path="tests/Tasvir.Modules.Identity.Tests/Tasvir.Modules.Identity.Tests.csproj" />
+    <Project Path="tests/Tasvir.Modules.Payments.Tests/Tasvir.Modules.Payments.Tests.csproj" />
   </Folder>
 </Solution>

@@ -1,0 +1,48 @@
+/* Tariflar va to‘lov sahifalari */
+.tv-pay-in{max-width:1080px;margin:0 auto;padding:var(--space-8) var(--space-6) var(--space-16);display:grid;gap:var(--space-8)}
+.tv-pay-narrow{max-width:640px}
+.tv-pay-head{display:grid;gap:var(--space-2)}
+.tv-pay-head p{margin:0}
+.tv-pay-plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-6);align-items:stretch;margin-top:var(--space-4)}
+.tv-pay-plans .tv-price{height:100%}
+.tv-pay-period{font-weight:600;color:var(--ink-muted)}
+.tv-pay-summary{display:grid;gap:var(--space-3)}
+.tv-pay-summary dl{margin:0;display:grid;gap:var(--space-2)}
+.tv-pay-summary dl div{display:flex;justify-content:space-between;gap:var(--space-4);padding-bottom:var(--space-2);border-bottom:1px dashed var(--line)}
+.tv-pay-summary dl div:last-child{border-bottom:0;padding-bottom:0}
+.tv-pay-summary dt{color:var(--ink-muted)}
+.tv-pay-summary dd{margin:0;font-weight:700;text-align:right}
+.tv-pay-total dd{font:800 24px/1.2 var(--font-display)}
+.tv-pay-providers{border:0;margin:0;padding:0;display:grid;gap:var(--space-3);min-width:0}
+.tv-pay-providers legend{padding:0;margin-bottom:var(--space-3)}
+.tv-pay-provider{display:flex;align-items:center;gap:var(--space-4);padding:var(--space-4);border:2px solid var(--line);border-radius:var(--radius-lg);background:var(--card);cursor:pointer;min-height:64px}
+.tv-pay-provider:has(input:checked){border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-tint)}
+.tv-pay-provider:has(input:focus-visible){outline:3px solid var(--brand);outline-offset:2px}
+.tv-pay-provider input{width:20px;height:20px;margin:0;flex:none;accent-color:var(--brand)}
+.tv-pay-provider.is-off{cursor:not-allowed;opacity:.6}
+.tv-pay-provider-text{display:grid;gap:2px;min-width:0}
+.tv-pay-logo{flex:none;display:inline-grid;place-items:center;min-width:72px;height:36px;padding:0 var(--space-3);border-radius:var(--radius-md);font-weight:800;letter-spacing:.02em;color:#fff}
+.tv-pay-logo-payme{background:#33cccc;color:#0b2b3b}
+.tv-pay-logo-click{background:#0073ff}
+.tv-pay-note{margin:0;font-size:14px;line-height:20px}
+.tv-pay-result{display:grid;gap:var(--space-4);justify-items:start}
+.tv-pay-result p{margin:0}
+.tv-pay-badge{display:inline-grid;place-items:center;width:56px;height:56px;border-radius:50%;font:800 28px/1 var(--font-display);border:2px solid var(--line-strong)}
+.tv-pay-badge.is-paid{background:var(--mint-tint);color:var(--mint-ink)}
+.tv-pay-badge.is-pending{background:var(--sun-tint)}
+.tv-pay-badge.is-cancelled,.tv-pay-badge.is-refunded{background:var(--coral-tint);color:var(--coral-ink)}
+.tv-pay-wait{display:flex;align-items:center;gap:var(--space-2)}
+.tv-pay-spinner{width:16px;height:16px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--brand);animation:tv-pay-spin .8s linear infinite}
+@keyframes tv-pay-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.tv-pay-spinner{animation:none}}
+.tv-pay-actions{display:flex;flex-wrap:wrap;gap:var(--space-3)}
+.tv-pay-history{list-style:none;margin:var(--space-3) 0 0;padding:0;display:grid;gap:var(--space-2);font-size:15px}
+.tv-pay-history li{display:grid;grid-template-columns:1fr auto auto;gap:var(--space-3);align-items:center}
+.tv-pay-status{font-size:13px;line-height:20px;font-weight:600;padding:2px 10px;border-radius:var(--radius-pill);white-space:nowrap;background:var(--brand-tint);color:var(--brand)}
+.tv-pay-status.is-paid{background:var(--mint-tint);color:var(--mint-ink)}
+.tv-pay-status.is-cancelled,.tv-pay-status.is-refunded{background:var(--coral-tint);color:var(--coral-ink)}
+@media (max-width:640px){
+  .tv-pay-in{padding-inline:var(--space-4);gap:var(--space-6)}
+  .tv-pay-history li{grid-template-columns:1fr auto}
+  .tv-pay-history li>span:first-child{grid-column:1/-1}
+}

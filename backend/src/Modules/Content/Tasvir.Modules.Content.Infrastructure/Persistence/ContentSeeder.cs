@@ -11,6 +11,8 @@ internal static class ContentSeeder
 {
     private const string ScientificBasisQuestion = "Platformaning ilmiy asosi nimada?";
     private const string ScientificBasisAnswer = "Metodika pedagogika fanlari böyiça dissertatsiya tadqiqoti doirasida işlab çiqilgan. Tajriba-sinov natijalari yakunlangaç e’lon qilinadi.";
+    /// <summary>Pro tarifi tugmasi tölov sahifasiga olib boradi (Payments moduli).</summary>
+    private const string ProPlanHref = "/tariflar";
     private const string AcademyVsStudioQuestion = "Akademiya va Studiyaning farqi nimada?";
     private const string AcademyVsStudioAnswer = "Akademiya — örgatadi: kurslar va amaliy topşiriqlar. Studiya — yaratadi: tayyor şablon asosida mavzuingizni infografika yoki sxemaga aylantiradi.";
 
@@ -23,6 +25,8 @@ internal static class ContentSeeder
                 .ExecuteUpdateAsync(s => s.SetProperty(f => f.Answer, ScientificBasisAnswer), cancellationToken);
             await db.FaqItems.Where(f => f.Question == AcademyVsStudioQuestion)
                 .ExecuteUpdateAsync(s => s.SetProperty(f => f.Answer, AcademyVsStudioAnswer), cancellationToken);
+            await db.PricingPlans.Where(p => p.Name == "Pro" && p.CtaHref == "/royxatdan-otish")
+                .ExecuteUpdateAsync(s => s.SetProperty(p => p.CtaHref, ProPlanHref), cancellationToken);
             return;
         }
 
@@ -52,7 +56,7 @@ internal static class ContentSeeder
             new PricingPlan(
                 "Pro", "Öqituvçi uçun", null, "söm / oy",
                 ["Barça kurslar va amaliy topşiriqlar", "Barça şablonlar", "Sertifikat", "Progress kuzatuvi"],
-                isFeatured: true, "Pro ni tanlaş", "/royxatdan-otish", 2),
+                isFeatured: true, "Pro ni tanlaş", ProPlanHref, 2),
             new PricingPlan(
                 "Taşkilot", "Maktab, kollej va OTM uçun", null, "söm",
                 ["Pro dagi barça imkoniyatlar", "Öqituvçilar jamoasi uçun hisob", "Jamoa progressini kuzatiş"],
