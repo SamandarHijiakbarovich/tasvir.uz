@@ -1,5 +1,3 @@
-using System.Net;
-using Microsoft.AspNetCore.HttpOverrides;
 using Tasvir.Modules.Academy.Application;
 using Tasvir.Modules.Academy.Infrastructure;
 using Tasvir.Modules.Academy.Presentation;
@@ -24,21 +22,15 @@ using Tasvir.Modules.Studio.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Serverda bitta "Database:PostgresUrl" bilan barcha modul bazalari ulanadi
+HostingSetup.UsePostgresUrl(builder.Configuration);
+
 builder.Services.AddOpenApi();
 builder.Services.AddProblemDetails();
 builder.Services.AddHealthChecks();
 
-// Foydalanuvchi IP manzili: brauzer → Next.js → Gateway → API.
-// Faqat ishonchli proksilar (lokalda loopback) yuborgan sarlavhalar hisobga olinadi; serverda "KnownProxies" sozlanadi.
-builder.Services.Configure<ForwardedHeadersOptions>(options =>
-{
-    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-    options.ForwardLimit = 2;
-    foreach (var proxy in builder.Configuration.GetSection("KnownProxies").Get<string[]>() ?? [])
-    {
-        options.KnownProxies.Add(IPAddress.Parse(proxy));
-    }
-});
+// Foydalanuvchi IP manzili: faqat ishonchli proksilar yuborgan sarlavhalar hisobga olinadi
+builder.Services.Configure<ForwardedHeadersOptions>(options => HostingSetup.ConfigureForwardedHeaders(options, builder.Configuration));
 
 // Modullar
 builder.Services

@@ -1,3 +1,4 @@
+using System.Net.Http.Json;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Logging;
@@ -39,6 +40,45 @@ internal sealed class SmtpEmailSender(SmtpOptions smtp) : IEmailSender
 
         await client.SendAsync(mime, ct);
         await client.DisconnectAsync(quit: true, ct);
+    }
+}
+
+/// <summary>
+/// Brevo (sendinblue) tranzaksion xat API si: HTTPS orqali ishlaydi. SMTP portlari yopiq xostinglar
+/// (masalan, Render bepul tarifi) uchun. Jo‘natuvchi manzil (Identity:Smtp:FromAddress) Brevo da tasdiqlangan bo‘lishi kerak.
+/// </summary>
+public sealed class BrevoOptions
+{
+    public const string Section = "Identity:Brevo";
+
+    public string? ApiKey { get; set; }
+    public string Endpoint { get; set; } = "https://api.brevo.com/v3/smtp/email";
+}
+
+internal sealed class BrevoEmailSender(HttpClient http, BrevoOptions brevo, SmtpOptions sender) : IEmailSender
+{
+    public async Task SendAsync(EmailMessage message, CancellationToken ct)
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Post, brevo.Endpoint)
+        {
+            Content = JsonContent.Create(new
+            {
+                sender = new { name = sender.FromName, email = sender.FromAddress },
+                to = new[] { new { email = message.To } },
+                subject = message.Subject,
+                textContent = message.TextBody,
+            }),
+        };
+        request.Headers.Add("api-key", brevo.ApiKey);
+        request.Headers.Accept.ParseAdd("application/json");
+
+        using var response = await http.SendAsync(request, ct);
+        if (!response.IsSuccessStatusCode)
+        {
+            // Javob matnida kalit bo‘lmaydi; xato sababini logda ko‘rish uchun
+            var body = await response.Content.ReadAsStringAsync(ct);
+            throw new HttpRequestException($"Brevo xat yubormadi: {(int)response.StatusCode} {body}");
+        }
     }
 }
 

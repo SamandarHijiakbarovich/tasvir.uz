@@ -85,7 +85,7 @@ public static class DependencyInjection
             {
                 case "postgres":
                     options.UseNpgsql(connectionString,
-                        npgsql => npgsql.MigrationsHistoryTable("__ef_migrations", PaymentsDbContext.Schema));
+                        npgsql => npgsql.UseAdminDatabase(configuration["Database:AdminDatabase"] ?? "postgres").MigrationsHistoryTable("__ef_migrations", PaymentsDbContext.Schema));
                     break;
                 case "sqlite":
                     options.UseSqlite(connectionString);

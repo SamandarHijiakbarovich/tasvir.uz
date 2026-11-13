@@ -1,0 +1,33 @@
+# Render Blueprint: Tasvir.uz API (bepul tarif). Render → New → Blueprint → shu repozitoriy.
+# Sayt (Next.js) Vercel'da, baza Neon Postgres'da. Batafsil: docs/deploy.md
+services:
+  - type: web
+    name: tasvir-api
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      # Neon → Connection string (pooler'siz, postgresql://... ko'rinishida)
+      - key: Database__PostgresUrl
+        sync: false
+      # Vercel'dagi sayt manzili, masalan https://tasvir-uz.vercel.app
+      - key: Identity__FrontendUrl
+        sync: false
+      - key: Payments__FrontendUrl
+        sync: false
+      - key: Identity__Jwt__SigningKey
+        generateValue: true
+      # Xat yuborish: Brevo API kaliti va Brevo'da tasdiqlangan jo'natuvchi manzil
+      - key: Identity__Brevo__ApiKey
+        sync: false
+      - key: Identity__Smtp__FromAddress
+        sync: false
+      # Next.js serveri va Render balanslovchisi orqali kelgan foydalanuvchi IP manzili
+      - key: ForwardedHeaders__TrustAll
+        value: "true"
