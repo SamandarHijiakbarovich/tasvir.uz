@@ -19,7 +19,7 @@ public static class DependencyInjection
 
     /// <summary>
     /// Sozlamalar: "ConnectionStrings:Identity", "Database:Provider", "Identity:*".
-    /// Ishlab chiqarishda "Identity:Jwt:SigningKey" va "Identity:Smtp:Host" majburiy.
+    /// Ishlab chiqarishda "Identity:Jwt:SigningKey" va xat yuborish ("Identity:Brevo:ApiKey" yoki "Identity:Smtp:Host") majburiy.
     /// </summary>
     public static IServiceCollection AddIdentityInfrastructure(
         this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
@@ -35,7 +35,7 @@ public static class DependencyInjection
             {
                 case "postgres":
                     options.UseNpgsql(connectionString,
-                        npgsql => npgsql.MigrationsHistoryTable("__ef_migrations", IdentityModuleDbContext.Schema));
+                        npgsql => npgsql.UseAdminDatabase(configuration["Database:AdminDatabase"] ?? "postgres").MigrationsHistoryTable("__ef_migrations", IdentityModuleDbContext.Schema));
                     break;
                 case "sqlite":
                     options.UseSqlite(connectionString);
@@ -58,13 +58,19 @@ public static class DependencyInjection
         services.AddSingleton<ITokenService, TokenService>();
         services.AddScoped<IIdentityRepository, IdentityRepository>();
 
-        if (!string.IsNullOrWhiteSpace(smtp.Host))
+        var brevo = configuration.GetSection(BrevoOptions.Section).Get<BrevoOptions>() ?? new BrevoOptions();
+        if (!string.IsNullOrWhiteSpace(brevo.ApiKey))
+        {
+            services.AddSingleton(brevo);
+            services.AddHttpClient<IEmailSender, BrevoEmailSender>(client => client.Timeout = TimeSpan.FromSeconds(15));
+        }
+        else if (!string.IsNullOrWhiteSpace(smtp.Host))
         {
             services.AddSingleton<IEmailSender, SmtpEmailSender>();
         }
         else if (environment.IsProduction())
         {
-            throw new InvalidOperationException("Identity:Smtp:Host sozlanmagan: parolni tiklaş xatlari yuborilmaydi.");
+            throw new InvalidOperationException("Identity:Brevo:ApiKey ham, Identity:Smtp:Host ham sozlanmagan: parolni tiklaş xatlari yuborilmaydi.");
         }
         else
         {

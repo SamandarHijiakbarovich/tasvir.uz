@@ -147,6 +147,10 @@ Server proksi orqasida bo‘lsa, `KnownProxies` ni sozlang, aks holda haqiqiy IP
 
 Callback manzillari Gateway orqali ochiq bo‘lishi va HTTPS da ishlashi kerak. Kalit almashtirilgach API qayta ishga tushiriladi.
 
+## Serverga joylashtirish
+
+Bepul variant (Neon + Render + Vercel + Brevo) bosqichma-bosqich: [docs/deploy.md](docs/deploy.md).
+
 ## Testlar
 
 ```bash
