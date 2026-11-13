@@ -21,5 +21,8 @@
     <ProjectReference Include="..\..\Modules\Classroom\Tasvir.Modules.Classroom.Application\Tasvir.Modules.Classroom.Application.csproj" />
     <ProjectReference Include="..\..\Modules\Classroom\Tasvir.Modules.Classroom.Infrastructure\Tasvir.Modules.Classroom.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Modules\Classroom\Tasvir.Modules.Classroom.Presentation\Tasvir.Modules.Classroom.Presentation.csproj" />
+    <ProjectReference Include="..\..\Modules\Payments\Tasvir.Modules.Payments.Application\Tasvir.Modules.Payments.Application.csproj" />
+    <ProjectReference Include="..\..\Modules\Payments\Tasvir.Modules.Payments.Infrastructure\Tasvir.Modules.Payments.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Payments\Tasvir.Modules.Payments.Presentation\Tasvir.Modules.Payments.Presentation.csproj" />
   </ItemGroup>
 </Project>
