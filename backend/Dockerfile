@@ -7,6 +7,8 @@ COPY . .
 RUN dotnet publish src/Hosts/Tasvir.Api/Tasvir.Api.csproj -c Release -o /app --nologo
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
+# Npgsql (PostgreSQL) GSS/Kerberos kutubxonasini qidiradi; bo'lmasa jarayon yiqilishi mumkin
+RUN apt-get update     && apt-get install -y --no-install-recommends libgssapi-krb5-2     && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY --from=build /app .
 # Render PORT o'zgaruvchisini beradi (odatda 10000); boshqa xostinglarda ham shu port ishlatiladi

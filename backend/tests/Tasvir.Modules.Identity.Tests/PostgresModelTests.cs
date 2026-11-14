@@ -65,6 +65,10 @@ public sealed class PostgresModelTests
 
         Assert.True(db.Database.IsNpgsql());
         Assert.Contains($"Database={database}", db.Database.GetConnectionString());
+        // Npgsql kalit so‘zlarni tanishi kerak: noto‘g‘ri satr serverda ishga tushishda yiqitadi
+        var builder = new Npgsql.NpgsqlConnectionStringBuilder(db.Database.GetConnectionString());
+        Assert.Equal(Npgsql.GssEncryptionMode.Disable, builder.GssEncryptionMode);
+        Assert.Equal(Npgsql.SslMode.Require, builder.SslMode);
 
         var script = db.Database.GenerateCreateScript();
         Assert.Contains($"CREATE SCHEMA {schema};", script);

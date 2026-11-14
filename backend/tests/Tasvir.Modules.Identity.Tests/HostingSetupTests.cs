@@ -13,7 +13,7 @@ public sealed class HostingSetupTests
 
         Assert.Equal("neondb", database);
         Assert.Equal(
-            "Host=ep-cool-name-123.eu-central-1.aws.neon.tech;Port=5432;Username='neondb_owner';Password='p@ss''w0rd';SSL Mode=Require",
+            "Host=ep-cool-name-123.eu-central-1.aws.neon.tech;Port=5432;Username='neondb_owner';Password='p@ss''w0rd';SSL Mode=Require;GSS Encryption Mode=Disable",
             connection);
     }
 
