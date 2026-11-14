@@ -60,7 +60,9 @@ public static class HostingSetup
             _ => "Require",
         };
 
-        var connection = $"Host={uri.Host};Port={port};Username={Quote(user)};Password={Quote(password)};SSL Mode={sslMode}";
+        // GSS (Kerberos) shifrlash kerak emas: yoqilgan bo‘lsa, Npgsql libgssapi_krb5 ni yuklashga urinadi,
+        // u esa .NET ning yupqa Docker obrazlarida yo‘q va jarayon yiqiladi
+        var connection = $"Host={uri.Host};Port={port};Username={Quote(user)};Password={Quote(password)};SSL Mode={sslMode};GSS Encryption Mode=Disable";
         return (connection, string.IsNullOrEmpty(database) ? "postgres" : database);
     }
 
