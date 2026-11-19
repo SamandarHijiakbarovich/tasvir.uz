@@ -5,8 +5,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { describeMaterial, renderMaterial, svgDataUri } from "../lib/render";
 import type { Material } from "../lib/types";
 
-/** Darsda ko‘rsatish: elementlar birin-ketin ochiladi, o‘qituvchi tushuntirish sur’atini o‘zi boshqaradi. */
-export function PresentView({ material }: { material: Material }) {
+/**
+ * Darsda ko‘rsatish: elementlar birin-ketin ochiladi, o‘qituvchi tushuntirish sur’atini o‘zi boshqaradi.
+ * closeHref = null: ochiq havola orqali ko‘rilganda "Yopish" tugmasi bo‘lmaydi (muharrirga kirish yo‘q).
+ */
+export function PresentView({ material, closeHref = `/studiya/${material.id}` }: { material: Material; closeHref?: string | null }) {
   const total = material.content.items.length;
   const [visible, setVisible] = useState(0);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -47,9 +50,13 @@ export function PresentView({ material }: { material: Material }) {
         <img src={svgDataUri(svg)} alt={describeMaterial(material)} onClick={next} />
       </div>
       <div className="tv-present-bar">
-        <Link className="tv-present-btn" href={`/studiya/${material.id}`}>
-          Yopiş
-        </Link>
+        {closeHref ? (
+          <Link className="tv-present-btn" href={closeHref}>
+            Yopiş
+          </Link>
+        ) : (
+          <strong>{material.title}</strong>
+        )}
         <div className="tv-present-nav">
           <button className="tv-present-btn" type="button" onClick={previous} disabled={visible === 0}>
             ← Orqaga

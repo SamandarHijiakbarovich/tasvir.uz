@@ -8,7 +8,7 @@ const columns = [
       { href: "/studiya", label: "Studiya" },
       { href: "#", label: "Şablonlar" },
       { href: "/vositalar", label: "Vizuallaştiriş dasturlari" },
-      { href: "#narxlar", label: "Narxlar" },
+      // TOLOV-OCHIRILGAN: { href: "#narxlar", label: "Narxlar" },
     ],
   },
   {

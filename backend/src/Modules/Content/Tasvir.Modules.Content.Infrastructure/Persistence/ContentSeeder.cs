@@ -16,6 +16,11 @@ internal static class ContentSeeder
     private const string AcademyVsStudioQuestion = "Akademiya va Studiyaning farqi nimada?";
     private const string AcademyVsStudioAnswer = "Akademiya — örgatadi: kurslar va amaliy topşiriqlar. Studiya — yaratadi: tayyor şablon asosida mavzuingizni infografika yoki sxemaga aylantiradi.";
 
+    private const string OrganizationQuestion = "Maktab yoki OTM uçun alohida tarif bormi?";
+    // TOLOV-OCHIRILGAN: to‘lov qayta yoqilganda asl javobga qaytaring:
+    // "Ha, “Taşkilot” tarifi ta’lim muassasalari uçun möljallangan. Şartlar böyiça biz bilan boğlaning."
+    private const string OrganizationAnswer = "Hozirça Tasvir.uz barça foydalanuvçilar, jumladan maktab va OTMlar uçun töliq bepul. Muassasa uçun alohida taklif kerak bölsa, biz bilan boğlaning.";
+
     public static async Task SeedAsync(ContentDbContext db, CancellationToken cancellationToken)
     {
         if (await db.PricingPlans.AnyAsync(cancellationToken))
@@ -25,6 +30,8 @@ internal static class ContentSeeder
                 .ExecuteUpdateAsync(s => s.SetProperty(f => f.Answer, ScientificBasisAnswer), cancellationToken);
             await db.FaqItems.Where(f => f.Question == AcademyVsStudioQuestion)
                 .ExecuteUpdateAsync(s => s.SetProperty(f => f.Answer, AcademyVsStudioAnswer), cancellationToken);
+            await db.FaqItems.Where(f => f.Question == OrganizationQuestion)
+                .ExecuteUpdateAsync(s => s.SetProperty(f => f.Answer, OrganizationAnswer), cancellationToken);
             await db.PricingPlans.Where(p => p.Name == "Pro" && p.CtaHref == "/royxatdan-otish")
                 .ExecuteUpdateAsync(s => s.SetProperty(p => p.CtaHref, ProPlanHref), cancellationToken);
             return;
@@ -81,8 +88,8 @@ internal static class ContentSeeder
                 "Sertifikat hozirça işlab çiqilmoqda. Kursdagi natijalaringiz saqlanadi, sertifikat işga tuşgaç e’lon qilamiz.", 4),
             new FaqItem(ScientificBasisQuestion,
                 ScientificBasisAnswer, 5),
-            new FaqItem("Maktab yoki OTM uçun alohida tarif bormi?",
-                "Ha, “Taşkilot” tarifi ta’lim muassasalari uçun möljallangan. Şartlar böyiça biz bilan boğlaning.", 6));
+            new FaqItem(OrganizationQuestion,
+                OrganizationAnswer, 6));
 
         await db.SaveChangesAsync(cancellationToken);
     }

@@ -6,7 +6,7 @@ namespace Tasvir.Api;
 /// <summary>Serverga joylashtirishda kerak bo‘ladigan sozlamalar (Render, Neon va boshqalar).</summary>
 public static class HostingSetup
 {
-    private static readonly string[] Modules = ["Content", "Identity", "Academy", "Studio", "Classroom", "Payments"];
+    private static readonly string[] Modules = ["Content", "Identity", "Academy", "Studio", "StudioLibrary", "Classroom", "Payments"];
 
     /// <summary>
     /// "Database:PostgresUrl" berilsa (Neon kabi xizmatlar beradigan postgresql://... havola), har modul uchun shu serverda

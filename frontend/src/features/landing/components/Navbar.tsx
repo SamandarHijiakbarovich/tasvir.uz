@@ -10,7 +10,7 @@ const links = [
   { href: "#imkoniyatlar", label: "Imkoniyatlar" },
   { href: "#qanday", label: "Qanday işlaydi" },
   { href: "/vositalar", label: "Vositalar" },
-  { href: "#narxlar", label: "Narxlar" },
+  // TOLOV-OCHIRILGAN: { href: "#narxlar", label: "Narxlar" },
   { href: "#tadqiqot", label: "Tadqiqot" },
 ];
 

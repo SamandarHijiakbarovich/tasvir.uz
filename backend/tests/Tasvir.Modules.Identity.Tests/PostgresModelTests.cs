@@ -51,6 +51,7 @@ public sealed class PostgresModelTests
         { typeof(IdentityModuleDbContext), "identity", "tasvir_identity" },
         { typeof(AcademyDbContext), "academy", "tasvir_academy" },
         { typeof(StudioDbContext), "studio", "tasvir_studio" },
+        { typeof(StudioLibraryDbContext), "studio", "tasvir_studiolibrary" },
         { typeof(ClassroomDbContext), "classroom", "tasvir_classroom" },
         { typeof(PaymentsDbContext), "payments", "tasvir_payments" },
     };

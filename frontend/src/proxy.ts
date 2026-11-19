@@ -2,7 +2,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import { serverEnv } from "@/shared/config/env";
 import { ACCESS_COOKIE, REFRESH_COOKIE, applySession, clearSession, type AuthSession } from "@/features/auth/lib/session-cookies";
 
-const PROTECTED_PREFIXES = ["/kabinet", "/akademiya", "/studiya", "/guruhlar", "/tolov"];
+// TOLOV-OCHIRILGAN: "/tolov" ro‘yxatdan olindi (sahifa o‘chirilgan)
+const PROTECTED_PREFIXES = ["/kabinet", "/akademiya", "/studiya", "/guruhlar" /* , "/tolov" */];
 
 function isProtected(pathname: string) {
   return PROTECTED_PREFIXES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));

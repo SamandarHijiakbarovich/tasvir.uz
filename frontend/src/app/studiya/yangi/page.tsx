@@ -31,7 +31,7 @@ export default function NewMaterialPage() {
           {TEMPLATES.map((template) => {
             const sample = { templateKey: template.key, ...template.starter };
             return (
-              <li key={template.key} className="tv-card tv-material-card">
+              <li key={template.key} id={template.key} className="tv-card tv-material-card">
                 <span className="tv-material-thumb">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={svgDataUri(renderMaterial(sample).svg)} alt={`Namuna: ${describeMaterial(sample)}`} />

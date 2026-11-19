@@ -18,7 +18,7 @@ Hammasi GitHub repozitoriyidan quriladi. `main` ga yangi commit tushsa, Render v
    Bu havolada parol bor: uni hech kimga yubormang va repozitoriyga yozmang.
 
 API birinchi ishga tushganda shu serverda har modul uchun alohida baza yaratadi: `tasvir_content`, `tasvir_identity`,
-`tasvir_academy`, `tasvir_studio`, `tasvir_classroom`, `tasvir_payments`.
+`tasvir_academy`, `tasvir_studio`, `tasvir_studiolibrary` (kabinetga yuklangan fayllar), `tasvir_classroom`, `tasvir_payments`.
 
 ## 2. Brevo — xat yuborish
 

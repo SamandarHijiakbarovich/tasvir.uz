@@ -11,6 +11,8 @@ public interface IMaterialRepository
     Task<int> CountAsync(Guid userId, CancellationToken ct);
     /// <summary>Faqat egasining materiali qaytadi: boshqa foydalanuvchiniki "topilmadi" hisoblanadi.</summary>
     Task<Material?> FindAsync(Guid userId, Guid id, CancellationToken ct);
+    /// <summary>Egasidan qat’i nazar: faqat ochiq ulashish havolasi uchun.</summary>
+    Task<Material?> FindAnyAsync(Guid id, CancellationToken ct);
     void Add(Material material);
     void Remove(Material material);
     Task SaveChangesAsync(CancellationToken ct);
@@ -245,7 +247,7 @@ public sealed class StudioService(IMaterialRepository repository, TimeProvider c
 
     private static string Serialize(MaterialContent content) => JsonSerializer.Serialize(content, Json);
 
-    private static MaterialDto ToDto(Material material) => new(
+    internal static MaterialDto ToDto(Material material) => new(
         material.Id,
         material.TemplateKey,
         material.Title,
@@ -261,6 +263,7 @@ public static class DependencyInjection
     public static IServiceCollection AddStudioApplication(this IServiceCollection services)
     {
         services.AddScoped<StudioService>();
+        services.AddScoped<LibraryService>();
         return services;
     }
 }
