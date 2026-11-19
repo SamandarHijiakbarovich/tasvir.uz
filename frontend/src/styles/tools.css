@@ -52,3 +52,21 @@
   .tv-tools-in{padding-inline:var(--space-4);gap:var(--space-8)}
   .tv-tools-grid{grid-template-columns:minmax(0,1fr)}
 }
+
+/* Qidiruv, narx filtri va sevimlilar */
+.tv-tools-search{display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--space-3) var(--space-4)}
+.tv-tools-search .tv-field{flex:1 1 280px}
+.tv-tools-seg{display:flex;flex-wrap:wrap;gap:var(--space-1);margin:0;padding:0;border:0}
+.tv-tools-seg legend{float:left;width:100%;margin-bottom:6px;font-weight:600;font-size:15px;line-height:20px}
+.tv-tools-seg label{display:inline-flex;align-items:center;min-height:48px;padding:0 14px;border:2px solid var(--line);border-radius:var(--radius-pill);font-weight:600;font-size:14px;cursor:pointer;background:var(--card)}
+.tv-tools-seg label.on{border-color:var(--line-strong);background:var(--brand-tint);color:var(--brand)}
+.tv-tools-seg input{position:absolute;opacity:0;pointer-events:none}
+.tv-tools-seg label:has(input:focus-visible){outline:3px solid var(--brand);outline-offset:2px}
+.tv-tool-actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2) var(--space-4);margin-top:auto}
+.tv-tool-studio{font-weight:600;color:var(--mint-ink)}
+.tv-tool-fav{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border:2px solid var(--line);border-radius:var(--radius-pill);background:var(--card);color:var(--ink);font:600 14px/20px var(--font-sans);cursor:pointer}
+.tv-tool-actions .tv-tool-fav{margin-left:auto}
+.tv-tool-fav:hover{border-color:var(--ink-muted)}
+.tv-tool-fav.on{border-color:var(--line-strong);background:var(--sun-tint)}
+.tv-tool-fav:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.tv-tools-search>.tv-tool-fav{min-height:48px}

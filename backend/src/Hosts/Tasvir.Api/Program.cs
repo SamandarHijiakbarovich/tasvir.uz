@@ -13,9 +13,9 @@ using Tasvir.Modules.Content.Presentation;
 using Tasvir.Modules.Identity.Application;
 using Tasvir.Modules.Identity.Infrastructure;
 using Tasvir.Modules.Identity.Presentation;
-using Tasvir.Modules.Payments.Application;
-using Tasvir.Modules.Payments.Infrastructure;
-using Tasvir.Modules.Payments.Presentation;
+// TOLOV-OCHIRILGAN: using Tasvir.Modules.Payments.Application;
+// TOLOV-OCHIRILGAN: using Tasvir.Modules.Payments.Infrastructure;
+// TOLOV-OCHIRILGAN: using Tasvir.Modules.Payments.Presentation;
 using Tasvir.Modules.Studio.Application;
 using Tasvir.Modules.Studio.Infrastructure;
 using Tasvir.Modules.Studio.Presentation;
@@ -54,10 +54,12 @@ builder.Services
     .AddClassroomInfrastructure(builder.Configuration)
     .AddClassroomPresentation(builder.Configuration)
     .AddClassroomAdapters();
-builder.Services
-    .AddPaymentsApplication()
-    .AddPaymentsInfrastructure(builder.Configuration)
-    .AddPaymentsPresentation(builder.Configuration);
+// TOLOV-OCHIRILGAN: platforma hozircha to‘liq bepul, to‘lov moduli ulanmagan. Qayta yoqish uchun shu va quyidagi
+// "TOLOV-OCHIRILGAN" belgili satrlardagi kommentni oling (frontendda ham shu so‘z bilan qidiring).
+// builder.Services
+//     .AddPaymentsApplication()
+//     .AddPaymentsInfrastructure(builder.Configuration)
+//     .AddPaymentsPresentation(builder.Configuration);
 
 var app = builder.Build();
 
@@ -75,7 +77,7 @@ await app.Services.InitializeIdentityDatabaseAsync();
 await app.Services.InitializeAcademyDatabaseAsync();
 await app.Services.InitializeStudioDatabaseAsync();
 await app.Services.InitializeClassroomDatabaseAsync();
-await app.Services.InitializePaymentsDatabaseAsync();
+// TOLOV-OCHIRILGAN: await app.Services.InitializePaymentsDatabaseAsync();
 
 app.UseRateLimiter();
 app.UseAuthentication();
@@ -88,7 +90,7 @@ app.MapAcademyEndpoints();
 app.MapStudioEndpoints();
 app.MapAssistantEndpoints();
 app.MapClassroomEndpoints();
-app.MapPaymentsEndpoints();
+// TOLOV-OCHIRILGAN: app.MapPaymentsEndpoints();
 
 app.Run();
 

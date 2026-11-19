@@ -10,7 +10,7 @@ import { Footer } from "./components/Footer";
 import { Hero } from "./components/Hero";
 import { HowItWorks } from "./components/HowItWorks";
 import { Navbar } from "./components/Navbar";
-import { Pricing } from "./components/Pricing";
+// TOLOV-OCHIRILGAN: import { Pricing } from "./components/Pricing";
 import { Problem } from "./components/Problem";
 import { Research } from "./components/Research";
 import { Results } from "./components/Results";
@@ -41,7 +41,9 @@ export async function LandingPage() {
         <TemplateGallery />
         {content && content.results.criteria.length > 0 && <Results results={content.results} />}
         <Audience />
+        {/* TOLOV-OCHIRILGAN: platforma hozircha bepul, narxlar bo‘limi yashirilgan
         {content && content.pricingPlans.length > 0 && <Pricing plans={content.pricingPlans} />}
+        */}
         {content && content.testimonials.length > 0 && <Testimonials items={content.testimonials} />}
         <Research />
         {content && content.faq.length > 0 && <Faq items={content.faq} />}

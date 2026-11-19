@@ -6,13 +6,13 @@ import { CourseCard } from "@/features/academy/components/CourseCard";
 import { acceptPrivacyAction, logoutAction } from "@/features/auth/actions";
 import { ChangePasswordForm, ResendConfirmationForm } from "@/features/auth/components/forms";
 import { getCurrentUser } from "@/features/auth/lib/identity-api";
-import { getMyPayments } from "@/features/payments/api";
-import { SubscriptionCard } from "@/features/payments/components/SubscriptionCard";
+// TOLOV-OCHIRILGAN: import { getMyPayments } from "@/features/payments/api";
+// TOLOV-OCHIRILGAN: import { SubscriptionCard } from "@/features/payments/components/SubscriptionCard";
 import { Logo } from "@/shared/ui/Logo";
 import { ThemeToggle } from "@/shared/ui/ThemeToggle";
 import "@/styles/auth.css";
 import "@/styles/academy.css";
-import "@/styles/payments.css";
+// TOLOV-OCHIRILGAN: import "@/styles/payments.css";
 
 export const metadata: Metadata = { title: "Kabinet — Tasvir.uz", robots: { index: false, follow: false } };
 
@@ -22,7 +22,8 @@ export default async function CabinetPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/kirish?keyin=/kabinet");
 
-  const [courses, payments] = await Promise.all([getCourses(), getMyPayments()]);
+  // TOLOV-OCHIRILGAN: const [courses, payments] = await Promise.all([getCourses(), getMyPayments()]);
+  const courses = await getCourses();
 
   // Backend vaqtni UTC da yuboradi
   const createdAt = new Date(/Z$/.test(user.createdAt) ? user.createdAt : `${user.createdAt}Z`);
@@ -68,7 +69,24 @@ export default async function CabinetPage() {
           </div>
         )}
 
-        <SubscriptionCard payments={payments.ok ? payments.data : null} />
+        {/* TOLOV-OCHIRILGAN: <SubscriptionCard payments={payments.ok ? payments.data : null} /> */}
+
+        <section className="tv-card tv-card-outline tv-course-card" aria-labelledby="materiallar-t">
+          <div>
+            <h2 className="tv-h3" id="materiallar-t">
+              Mening materiallarim
+            </h2>
+            <p className="tv-muted">
+              Tayyor slayd va vizual materiallaringizni (PDF, PowerPoint, rasm yoki havola) fan va mavzu böyiça saqlang, istalgan joydan oçib darsda töliq
+              ekranda körsating va havola orqali ulaşing.
+            </p>
+          </div>
+          <div className="tv-lesson-actions">
+            <Link className="tv-btn tv-btn-primary" href="/kabinet/materiallar">
+              Materiallarimni oçiş
+            </Link>
+          </div>
+        </section>
 
         <section className="tv-card tv-card-outline tv-course-card" aria-labelledby="studiya-t">
           <div>
